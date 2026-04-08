@@ -1,0 +1,68 @@
+﻿using ProjetoGuh.Features.Infraestrutura;
+using System.Collections.Generic;
+using Dapper;
+
+namespace ProjetoGuh.Features.Cliente
+{
+    public class ClienteDao : IClienteDao
+    {
+        private readonly IFabricaDeConexao _fabricaDeConexao;
+
+        public ClienteDao(IFabricaDeConexao fabricaDeConexao)
+        {
+            _fabricaDeConexao = fabricaDeConexao;
+        }
+
+        public void Incluir(ClienteModel cliente)
+        {
+            using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
+            {
+                conexao.Open();
+                conexao.Execute(@"INSERT INTO CLIENTE (ID, NOME, CPF_CNPJ, TELEFONE, EMAIL, DATA_CADASTRO)
+                              VALUES (GEN_ID(GEN_CLIENTE, 1), @Nome, @CpfCnpj, @Telefone, @Email, @DataCadastro)", cliente);
+            }
+        }
+
+        // Implementar os demais métodos seguindo o mesmo padrão
+        public void Alterar(ClienteModel cliente)
+        {
+            using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
+            {
+                conexao.Open();
+                conexao.Execute(@"UPDATE CLIENTE SET
+                                    NOME = @Nome,
+                                    CPF_CNPJ = @CpfCnpj,
+                                    TELEFONE = @Telefone,
+                                    EMAIL = @Email
+                                  WHERE ID = @Id", cliente);
+            }
+        }
+
+        public void Excluir(int id)
+        {
+            using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
+            {
+                conexao.Open();
+                conexao.Execute("DELETE FROM CLIENTE WHERE ID = @Id", new { Id = id });
+            }
+        }
+
+        public ClienteModel RetornarPorId(int id)
+        {
+            using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
+            {
+                conexao.Open();
+                return conexao.QueryFirstOrDefault<ClienteModel>(
+                    "SELECT * FROM CLIENTE WHERE ID = @Id", new { Id = id });
+            }
+        }
+        public List<ClienteModel> Listar()
+        {
+            using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
+            {
+                conexao.Open();
+                return conexao.Query<ClienteModel>("SELECT * FROM CLIENTE ORDER BY NOME").AsList();
+            }
+        }
+    }
+}
