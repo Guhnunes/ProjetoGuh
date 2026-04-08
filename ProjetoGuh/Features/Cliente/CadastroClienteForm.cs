@@ -16,6 +16,10 @@ namespace ProjetoGuh.Features.Cliente
         public CadastroClienteForm(ICadastroClientePresenter presenter)
         {
             InitializeComponent();
+            txtCpfCnpj.Mask = "";
+            txtCpfCnpj.MaxLength = 14;
+            txtCpfCnpj.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+            txtCpfCnpj.TextChanged += txtCpfCnpj_TextChanged;
             _presenter = presenter;
             _presenter.SetView(this);
         }
@@ -66,18 +70,32 @@ namespace ProjetoGuh.Features.Cliente
         {
             BotaoCancelarFoiClicado?.Invoke(sender, e);
         }
-        private void txtCpfCnpj_Leave(object sender, EventArgs e)
+        private void txtCpfCnpj_TextChanged(object sender, EventArgs e)
         {
-            // Remove caracteres não numéricos para contar o tamanho real
-            string valor = new string(txtCpfCnpj.Text.Where(char.IsDigit).ToArray());
+            // 1. Pegamos apenas os números
+            string numeros = new string(txtCpfCnpj.Text.Where(char.IsDigit).ToArray());
 
-            if (valor.Length <= 11)
+            // 2. IMPORTANTE: Se o usuário estiver quase estourando o limite do CPF (11 dígitos),
+            // nós removemos a máscara temporariamente para permitir que ele digite o 12º.
+            if (numeros.Length == 11)
             {
-                txtCpfCnpj.Mask = "000.000.000-00";
+                // Se a máscara atual for a de CPF, e ele tentar digitar mais, 
+                // precisamos expandir para CNPJ
+                if (txtCpfCnpj.Mask == "000.000.000-00")
+                {
+                    txtCpfCnpj.Mask = "00.000.000/0000-00";
+                    // Ajusta o cursor para o final, senão ele volta para o início
+                    txtCpfCnpj.SelectionStart = txtCpfCnpj.Text.Length;
+                }
             }
-            else
+            else if (numeros.Length < 11)
             {
-                txtCpfCnpj.Mask = "00.000.000/0000-00";
+                // Se cair para 10 ou menos (apagando), volta para a máscara de CPF
+                if (txtCpfCnpj.Mask != "000.000.000-00")
+                {
+                    txtCpfCnpj.Mask = "000.000.000-00";
+                    txtCpfCnpj.SelectionStart = txtCpfCnpj.Text.Length;
+                }
             }
         }
     }

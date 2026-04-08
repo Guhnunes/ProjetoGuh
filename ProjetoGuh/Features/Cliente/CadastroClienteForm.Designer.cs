@@ -22,6 +22,7 @@ namespace ProjetoGuh.Features.Cliente
             this.lblNome = new System.Windows.Forms.Label();
             this.txtNome = new System.Windows.Forms.TextBox();
             this.lblCpfCnpj = new System.Windows.Forms.Label();
+            this.txtCpfCnpj = new System.Windows.Forms.MaskedTextBox();
             this.lblTelefone = new System.Windows.Forms.Label();
             this.txtTelefone = new System.Windows.Forms.TextBox();
             this.lblEmail = new System.Windows.Forms.Label();
@@ -31,7 +32,6 @@ namespace ProjetoGuh.Features.Cliente
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.txtCpfCnpj = new System.Windows.Forms.MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,6 +58,14 @@ namespace ProjetoGuh.Features.Cliente
             this.lblCpfCnpj.Size = new System.Drawing.Size(80, 20);
             this.lblCpfCnpj.TabIndex = 2;
             this.lblCpfCnpj.Text = "CPF/CNPJ:";
+            // 
+            // txtCpfCnpj
+            // 
+            this.txtCpfCnpj.Location = new System.Drawing.Point(100, 48);
+            this.txtCpfCnpj.Mask = "000.000.000-00";
+            this.txtCpfCnpj.Name = "txtCpfCnpj";
+            this.txtCpfCnpj.Size = new System.Drawing.Size(200, 22);
+            this.txtCpfCnpj.TabIndex = 3;
             // 
             // lblTelefone
             // 
@@ -129,8 +137,8 @@ namespace ProjetoGuh.Features.Cliente
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeight = 29;
@@ -141,13 +149,6 @@ namespace ProjetoGuh.Features.Cliente
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(760, 300);
             this.dataGridView1.TabIndex = 12;
-            // 
-            // txtCpfCnpj
-            // 
-            this.txtCpfCnpj.Location = new System.Drawing.Point(100, 48);
-            this.txtCpfCnpj.Name = "txtCpfCnpj";
-            this.txtCpfCnpj.Size = new System.Drawing.Size(200, 22);
-            this.txtCpfCnpj.TabIndex = 13;
             // 
             // CadastroClienteForm
             // 
@@ -171,12 +172,11 @@ namespace ProjetoGuh.Features.Cliente
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         private System.Windows.Forms.Label lblNome;
         private System.Windows.Forms.TextBox txtNome;
-        private System.Windows.Forms.Label lblCpfCnpj;
+        private System.Windows.Forms.Label lblCpfCnpj; // Corrigido aqui
         private System.Windows.Forms.Label lblTelefone;
         private System.Windows.Forms.TextBox txtTelefone;
         private System.Windows.Forms.Label lblEmail;

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 namespace ProjetoGuh.Features.Cliente
 {
     public class ClienteModelValidator
@@ -13,12 +14,12 @@ namespace ProjetoGuh.Features.Cliente
             else if (model.Nome.Length > 100)
                 erros.Add("Nome deve ter no máximo 100 caracteres.");
 
-            if (string.IsNullOrWhiteSpace(model.CpfCnpj))
+            string valorLimpo = new string(model.CpfCnpj.Where(char.IsDigit).ToArray());
+
+            if (string.IsNullOrWhiteSpace(valorLimpo))
                 erros.Add("CPF/CNPJ é obrigatório.");
-            else if (model.CpfCnpj.Length != 11 && model.CpfCnpj.Length != 14)
-            {
-                erros.Add("CPF/CNPJ inválido (deve conter 11 ou 14 dígitos).");
-            }
+            else if (valorLimpo.Length != 11 && valorLimpo.Length != 14)
+                erros.Add("O campo deve ter 11 dígitos (CPF) ou 14 dígitos (CNPJ).");
 
             if (string.IsNullOrWhiteSpace(model.Email) && !model.Email.Contains("@"))
                 erros.Add("Email inválido.");
