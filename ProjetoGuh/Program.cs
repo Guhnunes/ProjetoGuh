@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using FluentMigrator.Runner;
+using Microsoft.Extensions.DependencyInjection;
 using ProjetoGuh.Features.Cliente;
 using ProjetoGuh.Features.Infraestrutura;
 using System;

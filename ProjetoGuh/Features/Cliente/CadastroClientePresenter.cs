@@ -1,6 +1,5 @@
 ﻿using ProjetoGuh.Features.Infraestrutura;
 using System;
-using System.Collections.Generic;
 
 namespace ProjetoGuh.Features.Cliente
 {
@@ -40,31 +39,43 @@ namespace ProjetoGuh.Features.Cliente
         {
             try
             {
+                // 1. Coleta os dados que estão na View (Form)
                 var cliente = _view.ObterDadosDoFormulario();
+
+                // 2. Validar com a sua classe ClienteModelValidator
+                // (Como você não está usando FluentValidation, o método chama-se 'Validar')
                 var erros = _validator.Validar(cliente);
+
                 if (erros.Count > 0)
                 {
-                    ControleDeMensagens.Avisar(string.Join("\n", erros));
-                    return;
+                    // Se houver erros, junta tudo em uma string e avisa o usuário
+                    string mensagemErro = string.Join("\n", erros);
+                    ControleDeMensagens.Avisar(mensagemErro);
+                    return; // Para a execução aqui
                 }
 
+                // 3. Chamar Incluir ou Alterar no Repository
                 if (cliente.Id == 0)
                 {
                     _repository.Incluir(cliente);
-                    ControleDeMensagens.Informar("Cliente incluído com sucesso!");
+                    // 4. Mostrar feedback de sucesso
+                    ControleDeMensagens.Informar("Cliente cadastrado com sucesso!");
                 }
                 else
                 {
                     _repository.Alterar(cliente);
-                    ControleDeMensagens.Informar("Cliente alterado com sucesso!");
+                    // 4. Mostrar feedback de sucesso
+                    ControleDeMensagens.Informar("Cliente atualizado com sucesso!");
                 }
 
+                // Limpa a tela e atualiza a lista após salvar
                 _view.LimparFormulario();
                 Inicializar();
             }
             catch (Exception ex)
             {
-                ControleDeMensagens.Avisar($"Erro ao salvar cliente: {ex.Message}");
+                // Caso ocorra algum erro de banco de dados, por exemplo
+                ControleDeMensagens.Avisar($"Erro ao salvar: {ex.Message}");
             }
         }
 
