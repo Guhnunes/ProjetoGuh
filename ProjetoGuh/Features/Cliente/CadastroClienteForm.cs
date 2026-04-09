@@ -17,10 +17,11 @@ namespace ProjetoGuh.Features.Cliente
         public CadastroClienteForm(ICadastroClientePresenter presenter)
         {
             InitializeComponent();
-            txtCpfCnpj.Mask = "";
             txtCpfCnpj.MaxLength = 18;
             txtCpfCnpj.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
             txtCpfCnpj.TextChanged += txtCpfCnpj_TextChanged;
+            txtTelefone.MaxLength = 15;
+            txtTelefone.TextChanged += txtTelefone_TextChanged;
 
             _presenter = presenter;
             _presenter.SetView(this);
@@ -34,8 +35,8 @@ namespace ProjetoGuh.Features.Cliente
             return new ClienteModel
             {
                 Nome = txtNome.Text,
-                CpfCnpj = txtCpfCnpj.Text.Replace(".", "").Replace("-", "").Replace("/", "").Trim(),
-                Telefone = txtTelefone.Text,
+                CpfCnpj = new string(txtCpfCnpj.Text.Where(char.IsDigit).ToArray()).Trim(),
+                Telefone = new string(txtTelefone.Text.Where(char.IsDigit).ToArray()),
                 Email = txtEmail.Text,
                 DataCadastro = dtpDataCadastro.Value
             };
@@ -63,6 +64,12 @@ namespace ProjetoGuh.Features.Cliente
         {
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = clientes;
+            dataGridView1.Columns["Id"].Visible = false;
+            dataGridView1.Columns["Nome"].HeaderText = "NOME";
+            dataGridView1.Columns["CpfCnpj"].HeaderText = "CPF/CNPJ";
+            dataGridView1.Columns["Telefone"].HeaderText = "CONTATO";
+            dataGridView1.Columns["Email"].HeaderText = "E-MAIL";
+            dataGridView1.Columns["DataCadastro"].HeaderText = "DATA DE CADASTRO";
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
@@ -84,49 +91,79 @@ namespace ProjetoGuh.Features.Cliente
 
         private void txtCpfCnpj_TextChanged(object sender, EventArgs e)
         {
-            // Remove tudo que não for número
+            // 1. Remove o evento para evitar recursão
+            txtCpfCnpj.TextChanged -= txtCpfCnpj_TextChanged;
+
+            // 2. Pega apenas os números
             string numeros = new string(txtCpfCnpj.Text.Where(char.IsDigit).ToArray());
 
-            // Guarda a posição do cursor
-            int posicaoCursor = txtCpfCnpj.SelectionStart;
-            int totalCaracteresAntes = txtCpfCnpj.Text.Length;
+            // Limita a 14 dígitos (tamanho máximo de um CNPJ)
+            if (numeros.Length > 14) numeros = numeros.Substring(0, 14);
 
-            if (numeros.Length <= 11)
+            // 3. Aplica a formatação visual manualmente
+            string textoFormatado = numeros;
+
+            if (numeros.Length <= 11) // Formato CPF
             {
-                if (txtCpfCnpj.Mask != "000.000.000-00")
-                {
-                    txtCpfCnpj.Mask = "000.000.000-00";
-                    txtCpfCnpj.Text = numeros; // Reatribui para encaixar na máscara
-                }
+                if (numeros.Length >= 4) textoFormatado = textoFormatado.Insert(3, ".");
+                if (numeros.Length >= 7) textoFormatado = textoFormatado.Insert(7, ".");
+                if (numeros.Length >= 10) textoFormatado = textoFormatado.Insert(11, "-");
             }
-            else
+            else // Formato CNPJ
             {
-                if (txtCpfCnpj.Mask != "00.000.000/0000-00")
-                {
-                    txtCpfCnpj.Mask = "00.000.000/0000-00";
-                    txtCpfCnpj.Text = numeros; // Reatribui para encaixar na máscara
-                }
+                if (numeros.Length >= 3) textoFormatado = textoFormatado.Insert(2, ".");
+                if (numeros.Length >= 6) textoFormatado = textoFormatado.Insert(6, ".");
+                if (numeros.Length >= 9) textoFormatado = textoFormatado.Insert(10, "/");
+                if (numeros.Length >= 13) textoFormatado = textoFormatado.Insert(15, "-");
             }
 
-            // Ajusta o cursor para ele não pular para o início do campo
-            int totalCaracteresDepois = txtCpfCnpj.Text.Length;
-            posicaoCursor += (totalCaracteresDepois - totalCaracteresAntes);
+            // 4. Atualiza o campo e mantém o cursor no final
+            txtCpfCnpj.Text = textoFormatado;
+            txtCpfCnpj.SelectionStart = txtCpfCnpj.Text.Length;
 
-            if (posicaoCursor >= 0)
-                txtCpfCnpj.SelectionStart = posicaoCursor;
+            // 5. Reatribui o evento
+            txtCpfCnpj.TextChanged += txtCpfCnpj_TextChanged;
         }
-        private void txtCpfCnpj_KeyDown(object sender, KeyEventArgs e)
+        private void txtTelefone_TextChanged(object sender, EventArgs e)
         {
-            string numeros = new string(txtCpfCnpj.Text.Where(char.IsDigit).ToArray());
+            // 1. Remove o evento para evitar que o código entre em loop ao alterar o texto
+            txtTelefone.TextChanged -= txtTelefone_TextChanged;
 
-            // Se já tem 11 dígitos e o usuário digitar outro número, removemos a máscara 
-            // temporariamente para o TextChanged poder capturar o 12º dígito.
-            if (numeros.Length == 11 && char.IsDigit((char)e.KeyCode))
+            // 2. Pega apenas os números
+            string numeros = new string(txtTelefone.Text.Where(char.IsDigit).ToArray());
+
+            // Limita a 11 dígitos (máximo para celular com DDD)
+            if (numeros.Length > 11) numeros = numeros.Substring(0, 11);
+
+            string textoFormatado = numeros;
+
+            // 3. Aplica a formatação dinâmica
+            if (numeros.Length > 0)
             {
-                txtCpfCnpj.Mask = "";
-                txtCpfCnpj.Text = numeros;
-                txtCpfCnpj.SelectionStart = txtCpfCnpj.Text.Length;
+                // Adiciona os parênteses do DDD: (11
+                textoFormatado = textoFormatado.Insert(0, "(");
+
+                if (numeros.Length >= 3)
+                    textoFormatado = textoFormatado.Insert(3, ") "); // (11) 
+
+                if (numeros.Length <= 10) // Telefone Fixo: (11) 4444-4444
+                {
+                    if (numeros.Length >= 7)
+                        textoFormatado = textoFormatado.Insert(9, "-");
+                }
+                else // Celular: (11) 99999-9999
+                {
+                    if (numeros.Length >= 8)
+                        textoFormatado = textoFormatado.Insert(10, "-");
+                }
             }
+
+            // 4. Atualiza o campo e joga o cursor para o final
+            txtTelefone.Text = textoFormatado;
+            txtTelefone.SelectionStart = txtTelefone.Text.Length;
+
+            // 5. Reatribui o evento
+            txtTelefone.TextChanged += txtTelefone_TextChanged;
         }
         public ClienteModel ObterClienteSelecionado()
         {

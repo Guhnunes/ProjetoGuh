@@ -65,7 +65,8 @@ namespace ProjetoGuh.Features.Cliente
             // txtCpfCnpj
             // 
             this.txtCpfCnpj.Location = new System.Drawing.Point(100, 48);
-            this.txtCpfCnpj.Mask = "000.000.000-00";
+            this.txtCpfCnpj.HidePromptOnLeave = true;
+            this.txtCpfCnpj.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             this.txtCpfCnpj.Name = "txtCpfCnpj";
             this.txtCpfCnpj.Size = new System.Drawing.Size(200, 22);
             this.txtCpfCnpj.TabIndex = 3;
