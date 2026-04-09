@@ -13,6 +13,7 @@ namespace ProjetoGuh.Features.Cliente
         public event EventHandler BotaoExcluirFoiClicado;
 
         private readonly ICadastroClientePresenter _presenter;
+        private int _clienteIdAtual = 0; //Tive que fazer isso pra pegar o Id no evento de click pro Alterar()
 
         public CadastroClienteForm(ICadastroClientePresenter presenter)
         {
@@ -28,12 +29,28 @@ namespace ProjetoGuh.Features.Cliente
 
             dataGridView1.CellFormatting += DataGridView1_CellFormatting;
             this.Load += (s, e) => _presenter.Inicializar(); //Chama o método da CadastroClientePresenter Inicializar() e dentro tem o Listar() do repository.
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
         }
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Verifica se o clique foi em uma linha (e não no cabeçalho/header)
+            if (e.RowIndex >= 0)
+            {
+                // Usa o método que você já tem para pegar o cliente da linha selecionada
+                var clienteSelecionado = ObterClienteSelecionado();
 
+                if (clienteSelecionado != null)
+                {
+                    // Usa o método que você já tem para jogar os dados nos campos
+                    PreencherFormulario(clienteSelecionado);
+                }
+            }
+        }
         public ClienteModel ObterDadosDoFormulario()
         {
             return new ClienteModel
             {
+                Id = _clienteIdAtual,
                 Nome = txtNome.Text,
                 CpfCnpj = new string(txtCpfCnpj.Text.Where(char.IsDigit).ToArray()).Trim(),
                 Telefone = new string(txtTelefone.Text.Where(char.IsDigit).ToArray()),
@@ -41,9 +58,9 @@ namespace ProjetoGuh.Features.Cliente
                 DataCadastro = dtpDataCadastro.Value
             };
         }
-
         public void PreencherFormulario(ClienteModel cliente)
         {
+            _clienteIdAtual = cliente.Id;
             txtNome.Text = cliente.Nome;
             txtCpfCnpj.Text = cliente.CpfCnpj;
             txtTelefone.Text = cliente.Telefone;
@@ -53,6 +70,7 @@ namespace ProjetoGuh.Features.Cliente
 
         public void LimparFormulario()
         {
+            _clienteIdAtual = 0;
             txtNome.Clear();
             txtCpfCnpj.Clear();
             txtTelefone.Clear();
@@ -64,7 +82,7 @@ namespace ProjetoGuh.Features.Cliente
         {
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = clientes;
-            dataGridView1.Columns["Id"].Visible = false;
+            dataGridView1.Columns["Id"].HeaderText = "CÓDIGO";
             dataGridView1.Columns["Nome"].HeaderText = "NOME";
             dataGridView1.Columns["CpfCnpj"].HeaderText = "CPF/CNPJ";
             dataGridView1.Columns["Telefone"].HeaderText = "CONTATO";
