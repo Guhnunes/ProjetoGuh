@@ -139,10 +139,10 @@ C:\Users\gusta\OneDrive\Desktop\ProjetoGuh\ProjetoGuh\bin\Release\ru\Microsoft.D
 C:\Users\gusta\OneDrive\Desktop\ProjetoGuh\ProjetoGuh\bin\Release\zh-Hans\Microsoft.Data.SqlClient.resources.dll
 C:\Users\gusta\OneDrive\Desktop\ProjetoGuh\ProjetoGuh\bin\Release\zh-Hant\Microsoft.Data.SqlClient.resources.dll
 C:\Users\gusta\OneDrive\Desktop\ProjetoGuh\ProjetoGuh\obj\Release\ProjetoGuh.csproj.AssemblyReference.cache
+C:\Users\gusta\OneDrive\Desktop\ProjetoGuh\ProjetoGuh\obj\Release\ProjetoGuh.Features.Cliente.CadastroClienteForm.resources
 C:\Users\gusta\OneDrive\Desktop\ProjetoGuh\ProjetoGuh\obj\Release\ProjetoGuh.Properties.Resources.resources
 C:\Users\gusta\OneDrive\Desktop\ProjetoGuh\ProjetoGuh\obj\Release\ProjetoGuh.csproj.GenerateResource.cache
 C:\Users\gusta\OneDrive\Desktop\ProjetoGuh\ProjetoGuh\obj\Release\ProjetoGuh.csproj.CoreCompileInputs.cache
 C:\Users\gusta\OneDrive\Desktop\ProjetoGuh\ProjetoGuh\obj\Release\ProjetoGuh.csproj.Up2Date
 C:\Users\gusta\OneDrive\Desktop\ProjetoGuh\ProjetoGuh\obj\Release\ProjetoGuh.exe
 C:\Users\gusta\OneDrive\Desktop\ProjetoGuh\ProjetoGuh\obj\Release\ProjetoGuh.pdb
-C:\Users\gusta\OneDrive\Desktop\ProjetoGuh\ProjetoGuh\obj\Release\ProjetoGuh.Features.Cliente.CadastroClienteForm.resources
