@@ -31,6 +31,8 @@ namespace ProjetoGuh.Features.Cliente
             this.dtpDataCadastro = new System.Windows.Forms.DateTimePicker();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            // 1. Instanciar o botão
+            this.btnExcluir = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -134,6 +136,16 @@ namespace ProjetoGuh.Features.Cliente
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // btnExcluir
+            // 
+            // 2. Configurar Propriedades do Botão Excluir
+            this.btnExcluir.Location = new System.Drawing.Point(300, 195);
+            this.btnExcluir.Name = "btnExcluir";
+            this.btnExcluir.Size = new System.Drawing.Size(90, 30);
+            this.btnExcluir.TabIndex = 13;
+            this.btnExcluir.Text = "Excluir";
+            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
+            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
@@ -165,6 +177,8 @@ namespace ProjetoGuh.Features.Cliente
             this.Controls.Add(this.dtpDataCadastro);
             this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.btnCancelar);
+            // 3. Adicionar o controle ao formulário
+            this.Controls.Add(this.btnExcluir);
             this.Controls.Add(this.dataGridView1);
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "CadastroClienteForm";
@@ -176,7 +190,7 @@ namespace ProjetoGuh.Features.Cliente
 
         private System.Windows.Forms.Label lblNome;
         private System.Windows.Forms.TextBox txtNome;
-        private System.Windows.Forms.Label lblCpfCnpj; // Corrigido aqui
+        private System.Windows.Forms.Label lblCpfCnpj;
         private System.Windows.Forms.Label lblTelefone;
         private System.Windows.Forms.TextBox txtTelefone;
         private System.Windows.Forms.Label lblEmail;
@@ -185,6 +199,8 @@ namespace ProjetoGuh.Features.Cliente
         private System.Windows.Forms.DateTimePicker dtpDataCadastro;
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Button btnCancelar;
+        // 4. Declarar o botão
+        private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.MaskedTextBox txtCpfCnpj;
     }
