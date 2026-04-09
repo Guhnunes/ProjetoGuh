@@ -10,7 +10,6 @@ namespace ProjetoGuh.Features.Cliente
     {
         public event EventHandler BotaoSalvarFoiClicado;
         public event EventHandler BotaoCancelarFoiClicado;
-        // 1. Novo evento para exclusão
         public event EventHandler BotaoExcluirFoiClicado;
 
         private readonly ICadastroClientePresenter _presenter;
@@ -25,13 +24,14 @@ namespace ProjetoGuh.Features.Cliente
 
             _presenter = presenter;
             _presenter.SetView(this);
+
+            this.Load += (s, e) => _presenter.Inicializar(); //Chama o método da CadastroClientePresenter Inicializar() e dentro tem o Listar() do repository.
         }
 
         public ClienteModel ObterDadosDoFormulario()
         {
             return new ClienteModel
             {
-                // Certifique-se de que seu Model tenha o ID para que o Presenter saiba quem excluir
                 Nome = txtNome.Text,
                 CpfCnpj = txtCpfCnpj.Text.Replace(".", "").Replace("-", "").Replace("/", "").Trim(),
                 Telefone = txtTelefone.Text,
@@ -77,19 +77,15 @@ namespace ProjetoGuh.Features.Cliente
         // 2. Método disparado pelo clique do botão físico btnExcluir
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            var resultado = MessageBox.Show("Tem certeza que deseja excluir este cliente?", "Confirmar Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (resultado == DialogResult.Yes)
-            {
-                BotaoExcluirFoiClicado?.Invoke(sender, e);
-            }
+            var resultado = ControleDeMensagens.Perguntar("Tem certeza que deseja excluir este cliente?");
+            BotaoExcluirFoiClicado?.Invoke(sender, e);
         }
 
         private void txtCpfCnpj_TextChanged(object sender, EventArgs e)
         {
             string numeros = new string(txtCpfCnpj.Text.Where(char.IsDigit).ToArray());
 
-            if (numeros.Length == 11)
+            if (numeros.Length == 12)
             {
                 if (txtCpfCnpj.Mask == "000.000.000-00")
                 {
@@ -97,7 +93,7 @@ namespace ProjetoGuh.Features.Cliente
                     txtCpfCnpj.SelectionStart = txtCpfCnpj.Text.Length;
                 }
             }
-            else if (numeros.Length < 11)
+            else if (numeros.Length < 12)
             {
                 if (txtCpfCnpj.Mask != "000.000.000-00")
                 {
