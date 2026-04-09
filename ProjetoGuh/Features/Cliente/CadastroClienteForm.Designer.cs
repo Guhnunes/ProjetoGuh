@@ -34,95 +34,123 @@ namespace ProjetoGuh.Features.Cliente
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-
-            // Colunas da Grid
-            var colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            var colNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            var colCpfCnpj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            var colTelefone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            var colEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            var colData = new System.Windows.Forms.DataGridViewTextBoxColumn();
-
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
-
-            // --- Componentes de Entrada ---
-
+            // 
+            // lblNome
+            // 
             this.lblNome.Location = new System.Drawing.Point(12, 15);
             this.lblNome.Name = "lblNome";
             this.lblNome.Size = new System.Drawing.Size(80, 20);
+            this.lblNome.TabIndex = 0;
             this.lblNome.Text = "Nome:";
-
+            // 
+            // txtNome
+            // 
+            this.txtNome.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtNome.Location = new System.Drawing.Point(100, 12);
             this.txtNome.MaxLength = 100;
             this.txtNome.Name = "txtNome";
             this.txtNome.Size = new System.Drawing.Size(300, 22);
-
+            this.txtNome.TabIndex = 1;
+            // 
+            // lblCpfCnpj
+            // 
             this.lblCpfCnpj.Location = new System.Drawing.Point(12, 50);
             this.lblCpfCnpj.Name = "lblCpfCnpj";
             this.lblCpfCnpj.Size = new System.Drawing.Size(80, 20);
+            this.lblCpfCnpj.TabIndex = 2;
             this.lblCpfCnpj.Text = "CPF/CNPJ:";
-
+            // 
+            // txtCpfCnpj
+            // 
             this.txtCpfCnpj.Location = new System.Drawing.Point(100, 48);
             this.txtCpfCnpj.Mask = "000.000.000-00";
             this.txtCpfCnpj.Name = "txtCpfCnpj";
             this.txtCpfCnpj.Size = new System.Drawing.Size(200, 22);
-
+            this.txtCpfCnpj.TabIndex = 3;
+            // 
+            // lblTelefone
+            // 
             this.lblTelefone.Location = new System.Drawing.Point(12, 85);
             this.lblTelefone.Name = "lblTelefone";
             this.lblTelefone.Size = new System.Drawing.Size(80, 20);
+            this.lblTelefone.TabIndex = 4;
             this.lblTelefone.Text = "Telefone:";
-
+            // 
+            // txtTelefone
+            // 
             this.txtTelefone.Location = new System.Drawing.Point(100, 82);
             this.txtTelefone.MaxLength = 20;
             this.txtTelefone.Name = "txtTelefone";
             this.txtTelefone.Size = new System.Drawing.Size(200, 22);
-
+            this.txtTelefone.TabIndex = 3;
+            // 
+            // lblEmail
+            // 
             this.lblEmail.Location = new System.Drawing.Point(12, 120);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Size = new System.Drawing.Size(80, 20);
+            this.lblEmail.TabIndex = 6;
             this.lblEmail.Text = "Email:";
-
+            // 
+            // txtEmail
+            // 
             this.txtEmail.Location = new System.Drawing.Point(100, 117);
             this.txtEmail.MaxLength = 150;
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(300, 22);
-
+            this.txtEmail.TabIndex = 4;
+            // 
+            // lblDataCadastro
+            // 
             this.lblDataCadastro.Location = new System.Drawing.Point(12, 155);
             this.lblDataCadastro.Name = "lblDataCadastro";
             this.lblDataCadastro.Size = new System.Drawing.Size(90, 20);
+            this.lblDataCadastro.TabIndex = 8;
             this.lblDataCadastro.Text = "Data Cadastro:";
-
+            // 
+            // dtpDataCadastro
+            // 
             this.dtpDataCadastro.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpDataCadastro.Location = new System.Drawing.Point(100, 152);
             this.dtpDataCadastro.Name = "dtpDataCadastro";
             this.dtpDataCadastro.Size = new System.Drawing.Size(200, 22);
-
-            // --- Botões ---
-
+            this.dtpDataCadastro.TabIndex = 5;
+            // 
+            // btnSalvar
+            // 
             this.btnSalvar.Location = new System.Drawing.Point(100, 195);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(90, 30);
+            this.btnSalvar.TabIndex = 6;
             this.btnSalvar.Text = "Salvar";
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
-
+            // 
+            // btnCancelar
+            // 
             this.btnCancelar.Location = new System.Drawing.Point(200, 195);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(90, 30);
+            this.btnCancelar.TabIndex = 7;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-
+            // 
+            // btnExcluir
+            // 
             this.btnExcluir.Location = new System.Drawing.Point(300, 195);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(90, 30);
+            this.btnExcluir.TabIndex = 8;
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
-
-            // --- DataGridView ---
-
+            // 
+            // dataGridView1
+            // 
             this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AutoGenerateColumns = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeight = 29;
             this.dataGridView1.Location = new System.Drawing.Point(12, 240);
@@ -131,43 +159,11 @@ namespace ProjetoGuh.Features.Cliente
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(760, 300);
-
-            // Configuração manual das colunas para bater com ClienteModel
-            colId.DataPropertyName = "Id";
-            colId.HeaderText = "ID";
-            colId.Name = "Id";
-            colId.Visible = false;
-
-            colNome.DataPropertyName = "Nome";
-            colNome.HeaderText = "Nome";
-            colNome.Name = "Nome";
-
-            colCpfCnpj.DataPropertyName = "CpfCnpj";
-            colCpfCnpj.HeaderText = "CPF/CNPJ";
-            colCpfCnpj.Name = "CpfCnpj";
-
-            colTelefone.DataPropertyName = "Telefone";
-            colTelefone.HeaderText = "Telefone";
-            colTelefone.Name = "Telefone";
-
-            colEmail.DataPropertyName = "Email";
-            colEmail.HeaderText = "Email";
-            colEmail.Name = "Email";
-
-            colData.DataPropertyName = "DataCadastro";
-            colData.HeaderText = "Data Cadastro";
-            colData.Name = "DataCadastro";
-            colData.DefaultCellStyle.Format = "dd/MM/yyyy";
-
-            this.dataGridView1.Columns.Clear();
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-                colId, colNome, colCpfCnpj, colTelefone, colEmail, colData
-            });
-
-            // --- CadastroClienteForm Config ---
-
+            this.dataGridView1.TabIndex = 9;
+            // 
+            // CadastroClienteForm
+            // 
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.lblNome);
             this.Controls.Add(this.txtNome);
             this.Controls.Add(this.lblCpfCnpj);
@@ -182,11 +178,13 @@ namespace ProjetoGuh.Features.Cliente
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnExcluir);
             this.Controls.Add(this.dataGridView1);
+            this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "CadastroClienteForm";
             this.Text = "Cadastro de Clientes";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.Label lblNome;

@@ -60,8 +60,16 @@ namespace ProjetoGuh.Features.Cliente
         {
             using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
             {
+                var sql = @"SELECT 
+                        id, 
+                        nome, 
+                        cpf_cnpj AS CpfCnpj, 
+                        telefone, 
+                        email, 
+                        data_cadastro AS DataCadastro 
+                    FROM Cliente"; //Tive que colocar um Alias por conta do underline. O dapper não consegue mapear
                 conexao.Open();
-                return conexao.Query<ClienteModel>("SELECT * FROM CLIENTE ORDER BY NOME").AsList();
+                return conexao.Query<ClienteModel>(sql).AsList();
             }
         }
     }

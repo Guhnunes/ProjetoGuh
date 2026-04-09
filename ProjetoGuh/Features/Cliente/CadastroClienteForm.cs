@@ -18,13 +18,14 @@ namespace ProjetoGuh.Features.Cliente
         {
             InitializeComponent();
             txtCpfCnpj.Mask = "";
-            txtCpfCnpj.MaxLength = 14;
+            txtCpfCnpj.MaxLength = 18;
             txtCpfCnpj.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
             txtCpfCnpj.TextChanged += txtCpfCnpj_TextChanged;
 
             _presenter = presenter;
             _presenter.SetView(this);
 
+            dataGridView1.CellFormatting += DataGridView1_CellFormatting;
             this.Load += (s, e) => _presenter.Inicializar(); //Chama o método da CadastroClientePresenter Inicializar() e dentro tem o Listar() do repository.
         }
 
@@ -83,23 +84,48 @@ namespace ProjetoGuh.Features.Cliente
 
         private void txtCpfCnpj_TextChanged(object sender, EventArgs e)
         {
+            // Remove tudo que não for número
             string numeros = new string(txtCpfCnpj.Text.Where(char.IsDigit).ToArray());
 
-            if (numeros.Length == 12)
-            {
-                if (txtCpfCnpj.Mask == "000.000.000-00")
-                {
-                    txtCpfCnpj.Mask = "00.000.000/0000-00";
-                    txtCpfCnpj.SelectionStart = txtCpfCnpj.Text.Length;
-                }
-            }
-            else if (numeros.Length < 12)
+            // Guarda a posição do cursor
+            int posicaoCursor = txtCpfCnpj.SelectionStart;
+            int totalCaracteresAntes = txtCpfCnpj.Text.Length;
+
+            if (numeros.Length <= 11)
             {
                 if (txtCpfCnpj.Mask != "000.000.000-00")
                 {
                     txtCpfCnpj.Mask = "000.000.000-00";
-                    txtCpfCnpj.SelectionStart = txtCpfCnpj.Text.Length;
+                    txtCpfCnpj.Text = numeros; // Reatribui para encaixar na máscara
                 }
+            }
+            else
+            {
+                if (txtCpfCnpj.Mask != "00.000.000/0000-00")
+                {
+                    txtCpfCnpj.Mask = "00.000.000/0000-00";
+                    txtCpfCnpj.Text = numeros; // Reatribui para encaixar na máscara
+                }
+            }
+
+            // Ajusta o cursor para ele não pular para o início do campo
+            int totalCaracteresDepois = txtCpfCnpj.Text.Length;
+            posicaoCursor += (totalCaracteresDepois - totalCaracteresAntes);
+
+            if (posicaoCursor >= 0)
+                txtCpfCnpj.SelectionStart = posicaoCursor;
+        }
+        private void txtCpfCnpj_KeyDown(object sender, KeyEventArgs e)
+        {
+            string numeros = new string(txtCpfCnpj.Text.Where(char.IsDigit).ToArray());
+
+            // Se já tem 11 dígitos e o usuário digitar outro número, removemos a máscara 
+            // temporariamente para o TextChanged poder capturar o 12º dígito.
+            if (numeros.Length == 11 && char.IsDigit((char)e.KeyCode))
+            {
+                txtCpfCnpj.Mask = "";
+                txtCpfCnpj.Text = numeros;
+                txtCpfCnpj.SelectionStart = txtCpfCnpj.Text.Length;
             }
         }
         public ClienteModel ObterClienteSelecionado()
@@ -111,6 +137,29 @@ namespace ProjetoGuh.Features.Cliente
             }
 
             return null;
+        }
+        private void DataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // 1. Verifica se estamos na coluna de CPF/CNPJ pelo DataPropertyName
+            if (dataGridView1.Columns[e.ColumnIndex].DataPropertyName == "CpfCnpj" && e.Value != null)
+            {
+                // 2. Limpa o valor para garantir que temos apenas números
+                string valor = new string(e.Value.ToString().Where(char.IsDigit).ToArray());
+
+                if (string.IsNullOrEmpty(valor)) return;
+
+                // 3. Aplica a máscara baseada na quantidade de números
+                if (valor.Length == 11) // CPF
+                {
+                    e.Value = double.Parse(valor).ToString(@"000\.000\.000-00");
+                    e.FormattingApplied = true;
+                }
+                else if (valor.Length == 14) // CNPJ
+                {
+                    e.Value = double.Parse(valor).ToString(@"00\.000\.000\/0000-00");
+                    e.FormattingApplied = true;
+                }
+            }
         }
     }
 }
