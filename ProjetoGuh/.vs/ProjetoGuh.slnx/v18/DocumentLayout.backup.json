@@ -3,8 +3,7 @@
   "WorkspaceRootPath": "C:\\Users\\gusta\\OneDrive\\Desktop\\ProjetoGuh\\ProjetoGuh\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|c:\\users\\gusta\\onedrive\\desktop\\projetoguh\\projetoguh\\features\\cliente\\cadastroclienteform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|solutionrelative:features\\cliente\\cadastroclienteform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4036C2F9-9617-4D8F-AD98-78DE3CEE2ECB}|..\\ProjetoGuh.Testes\\ProjetoGuh.Testes.csproj|c:\\users\\gusta\\onedrive\\desktop\\projetoguh\\projetoguh.testes\\features\\cliente\\cadastroclientepresentertestes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|c:\\users\\gusta\\onedrive\\desktop\\projetoguh\\projetoguh\\features\\cliente\\cadastroclientepresenter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -28,22 +27,22 @@
               "RelativeDocumentMoniker": "Features\\Cliente\\CadastroClientePresenter.cs",
               "ToolTip": "C:\\Users\\gusta\\OneDrive\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Cliente\\CadastroClientePresenter.cs",
               "RelativeToolTip": "Features\\Cliente\\CadastroClientePresenter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFAAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAkwFoAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-09T15:50:07.46Z",
+              "WhenOpened": "2026-04-09T16:18:57.259Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "CadastroClienteForm.cs",
-              "DocumentMoniker": "C:\\Users\\gusta\\OneDrive\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Cliente\\CadastroClienteForm.cs",
-              "RelativeDocumentMoniker": "Features\\Cliente\\CadastroClienteForm.cs",
-              "ToolTip": "C:\\Users\\gusta\\OneDrive\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Cliente\\CadastroClienteForm.cs",
-              "RelativeToolTip": "Features\\Cliente\\CadastroClienteForm.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAYwBEAAABEAAAAAAAAAA==",
+              "Title": "CadastroClientePresenterTestes.cs",
+              "DocumentMoniker": "C:\\Users\\gusta\\OneDrive\\Desktop\\ProjetoGuh\\ProjetoGuh.Testes\\Features\\Cliente\\CadastroClientePresenterTestes.cs",
+              "RelativeDocumentMoniker": "..\\ProjetoGuh.Testes\\Features\\Cliente\\CadastroClientePresenterTestes.cs",
+              "ToolTip": "C:\\Users\\gusta\\OneDrive\\Desktop\\ProjetoGuh\\ProjetoGuh.Testes\\Features\\Cliente\\CadastroClientePresenterTestes.cs",
+              "RelativeToolTip": "..\\ProjetoGuh.Testes\\Features\\Cliente\\CadastroClientePresenterTestes.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAlwDcAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-09T14:09:55.222Z",
+              "WhenOpened": "2026-04-09T16:15:15.547Z",
               "EditorCaption": ""
             }
           ]
