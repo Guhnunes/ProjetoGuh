@@ -1,6 +1,7 @@
 ﻿using Moq;
 using NUnit.Framework;
 using ProjetoGuh.Features.Cliente;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,17 +22,12 @@ namespace ProjetoGuh.Testes.Features.Cliente
             _presenter = new CadastroClientePresenter(_repositoryMock.Object);
             _presenter.SetView(_viewMock.Object);
         }
-        [Test]
-        public void TesteDeSanidade()
-        {
-            Assert.Pass("O motor de testes está funcionando!");
-        }
-        /*
+        
         [Test]
         public void Salvar_ClienteNovoValido_DeveChamarIncluirNoRepositorio()
         {
             // Arrange: Simulamos um cliente com ID 0 (Novo)
-            var cliente = new ClienteModel { Id = 0, Nome = "GUH NUNES", CpfCnpj = "12345678901" };
+            var cliente = new ClienteModel { Id = 0, Nome = "GUH NUNES", CpfCnpj = "12345678901" , Email = "guh@example.com", Telefone = "123456789", DataCadastro = DateTime.Now };
             _viewMock.Setup(v => v.ObterDadosDoFormulario()).Returns(cliente);
 
             // Act: Disparamos o método que você quer testar
@@ -40,13 +36,13 @@ namespace ProjetoGuh.Testes.Features.Cliente
             // Assert: Verificamos se o repositório foi avisado para INCLUIR
             _repositoryMock.Verify(r => r.Incluir(It.IsAny<ClienteModel>()), Times.Once);
             _viewMock.Verify(v => v.LimparFormulario(), Times.Once);
-        }*/
-        /*
+        }
+        
         [Test]
         public void Salvar_ClienteExistente_DeveChamarAlterarNoRepositorio()
         {
             // Arrange: Simulamos um cliente com ID > 0 (Existente/Edição)
-            var clienteExistente = new ClienteModel { Id = 15, Nome = "GUH EDITADO" };
+            var clienteExistente = new ClienteModel { Id = 7, Nome = "GUH EDITADO", CpfCnpj = "12345678901", Email = "guh@example.com", Telefone = "123456789", DataCadastro = DateTime.Now };
             _viewMock.Setup(v => v.ObterDadosDoFormulario()).Returns(clienteExistente);
 
             // Act
@@ -55,23 +51,19 @@ namespace ProjetoGuh.Testes.Features.Cliente
             // Assert: Verificamos se o repositório foi avisado para ALTERAR
             _repositoryMock.Verify(r => r.Alterar(It.IsAny<ClienteModel>()), Times.Once);
             _repositoryMock.Verify(r => r.Incluir(It.IsAny<ClienteModel>()), Times.Never);
-        }*/
-        /*
+        }
+        
         [Test]
         public void Excluir_QuandoClienteSelecionado_DeveChamarExcluirNoRepositorio()
         {
             // Arrange: Criamos o cliente que "estaria" selecionado na Grid
-            var cliente = new ClienteModel { Id = 5, Nome = "TESTE EXCLUSAO" };
-
-            // Configuramos o Mock para dizer: "Quando o Presenter perguntar quem está selecionado, responda este cliente"
-            _viewMock.Setup(v => v.ObterClienteSelecionado()).Returns(cliente);
+            var cliente = new ClienteModel { Id = 7};
 
             // Act: Chamamos o método (agora sem erro de argumento!)
             _presenter.Excluir(cliente.Id);
 
-            // Assert: Verificamos se o repositório recebeu o ID 5 corretamente
-            _repositoryMock.Verify(r => r.Excluir(5), Times.Once);
-            _viewMock.Verify(v => v.LimparFormulario(), Times.Once);
-        }*/
+            // Assert: Verificamos se o repositório recebeu o ID 7 corretamente
+            _repositoryMock.Verify(r => r.Excluir(cliente.Id), Times.Once);
+        }
     }
 }
