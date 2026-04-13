@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ProjetoGuh.Features.Cliente;
 using ProjetoGuh.Features.Infraestrutura;
 using ProjetoGuh.Features.Migrations;
+using ProjetoGuh.Features.Menu; // Importante: adicione o namespace da sua nova pasta de Menu
 using System;
 using System.Configuration;
 using System.Windows.Forms;
@@ -18,10 +19,8 @@ namespace ProjetoGuh
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // 1. Pega a conexão do App.config
             var connectionString = ConfigurationManager.ConnectionStrings["ProjetoGuh"].ConnectionString;
 
-            // 2. Executa a atualização do banco de dados antes de tudo
             try
             {
                 AtualizarBancoDeDados(connectionString);
@@ -31,27 +30,31 @@ namespace ProjetoGuh
                 MessageBox.Show($"Erro ao atualizar o banco de dados:\n{ex.Message}", "Erro Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
             var container = ConfigurarInjecao(connectionString);
+
             using (var scope = container.BeginLifetimeScope())
             {
-                var form = scope.Resolve<CadastroClienteForm>();
-                Application.Run(form);
+                // MUDANÇA AQUI: Agora resolvemos o MenuPrincipalPresenter
+                // E iniciamos a aplicação pelo MenuPrincipalForm
+                var presenter = scope.Resolve<MenuPrincipalPresenter>();
+                var formPrincipal = (Form)scope.Resolve<IMenuPrincipalView>();
+
+                Application.Run(formPrincipal);
             }
         }
 
         private static void AtualizarBancoDeDados(string connectionString)
         {
-            // Configura os serviços do FluentMigrator
             var serviceProvider = new ServiceCollection()
                 .AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
-                    .AddFirebird()
+                    .AddFirebird() // Mantendo o seu Firebird
                     .WithGlobalConnectionString(connectionString)
                     .ScanIn(typeof(M001_CriarTabelaCliente).Assembly).For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
                 .BuildServiceProvider(false);
 
-            // Executa as migrações
             using (var scope = serviceProvider.CreateScope())
             {
                 var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
@@ -66,13 +69,20 @@ namespace ProjetoGuh
             // Infraestrutura
             builder.RegisterInstance(new FabricaDeConexao(connectionString)).As<IFabricaDeConexao>();
 
-            // Cliente
+            // --- MENU PRINCIPAL ---
+            // Registramos o Presenter e a View do Menu
+            builder.RegisterType<MenuPrincipalPresenter>().AsSelf().SingleInstance();
+            builder.RegisterType<MenuPrincipalForm>().As<IMenuPrincipalView>().AsSelf().SingleInstance();
+
+            // --- CLIENTE ---
             builder.RegisterType<ClienteDao>().As<IClienteDao>();
             builder.RegisterType<ClienteRepository>().As<IClienteRepository>();
             builder.RegisterType<CadastroClientePresenter>().As<ICadastroClientePresenter>();
-
-            // Registramos o Form como Self para o Autofac conseguir criá-lo com o Presenter injetado
             builder.RegisterType<CadastroClienteForm>().AsSelf();
+
+            // --- PRODUTO / VENDA (Já deixe registrado para quando criar) ---
+            // builder.RegisterType<ProdutoRepository>().As<IProdutoRepository>();
+            // builder.RegisterType<CadastroProdutoForm>().AsSelf();
 
             return builder.Build();
         }
