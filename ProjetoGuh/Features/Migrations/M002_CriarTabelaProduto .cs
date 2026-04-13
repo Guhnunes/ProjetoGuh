@@ -8,13 +8,13 @@ namespace ProjetoGuh.Features.Migrations
         public override void Up()
         {
             Create.Table("PRODUTO")
-                .WithColumn("ID").AsInt32().PrimaryKey().NotNullable()
+                .WithColumn("ID").AsInt32().PrimaryKey().NotNullable().Identity()
                 .WithColumn("DESCRICAO").AsString(100).NotNullable()
                 .WithColumn("PRECO").AsDecimal(10, 2).NotNullable()
                 .WithColumn("ESTOQUE").AsInt32().Nullable()
                 .WithColumn("ATIVO").AsFixedLengthString(1).WithDefaultValue("S").Nullable();
 
-            Execute.Sql("CREATE GENERATOR GEN_PRODUTO");
+            //Execute.Sql("CREATE GENERATOR GEN_PRODUTO_ID");
         }
 
         public override void Down() => Delete.Table("PRODUTO");

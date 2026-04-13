@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProjetoGuh.Features.Produto
+﻿namespace ProjetoGuh.Features.Produto
 {
     partial class CadastroProdutoForm
     {
@@ -27,89 +21,96 @@ namespace ProjetoGuh.Features.Produto
             this.txtEstoque = new System.Windows.Forms.TextBox();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
-            this.dataGridViewProdutos = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdutos)).BeginInit();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.dataGridProdutoView1 = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridProdutoView1)).BeginInit();
             this.SuspendLayout();
             // 
             // lblDescricao
             // 
+            this.lblDescricao.AutoSize = true;
             this.lblDescricao.Location = new System.Drawing.Point(12, 15);
             this.lblDescricao.Name = "lblDescricao";
-            this.lblDescricao.Size = new System.Drawing.Size(80, 20);
+            this.lblDescricao.Size = new System.Drawing.Size(72, 16);
             this.lblDescricao.TabIndex = 0;
             this.lblDescricao.Text = "Descrição:";
             // 
             // txtDescricao
             // 
-            this.txtDescricao.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtDescricao.Location = new System.Drawing.Point(100, 12);
+            this.txtDescricao.Location = new System.Drawing.Point(80, 12);
             this.txtDescricao.Name = "txtDescricao";
             this.txtDescricao.Size = new System.Drawing.Size(300, 22);
             this.txtDescricao.TabIndex = 1;
             // 
             // lblPreco
             // 
-            this.lblPreco.Location = new System.Drawing.Point(12, 50);
+            this.lblPreco.AutoSize = true;
+            this.lblPreco.Location = new System.Drawing.Point(12, 45);
             this.lblPreco.Name = "lblPreco";
-            this.lblPreco.Size = new System.Drawing.Size(80, 20);
+            this.lblPreco.Size = new System.Drawing.Size(46, 16);
             this.lblPreco.TabIndex = 2;
             this.lblPreco.Text = "Preço:";
             // 
             // txtPreco
             // 
-            this.txtPreco.Location = new System.Drawing.Point(100, 48);
+            this.txtPreco.Location = new System.Drawing.Point(80, 42);
             this.txtPreco.Name = "txtPreco";
             this.txtPreco.Size = new System.Drawing.Size(100, 22);
             this.txtPreco.TabIndex = 3;
-            this.txtPreco.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lblEstoque
             // 
-            this.lblEstoque.Location = new System.Drawing.Point(210, 50);
+            this.lblEstoque.AutoSize = true;
+            this.lblEstoque.Location = new System.Drawing.Point(190, 45);
             this.lblEstoque.Name = "lblEstoque";
-            this.lblEstoque.Size = new System.Drawing.Size(60, 20);
+            this.lblEstoque.Size = new System.Drawing.Size(60, 16);
             this.lblEstoque.TabIndex = 4;
             this.lblEstoque.Text = "Estoque:";
             // 
             // txtEstoque
             // 
-            this.txtEstoque.Location = new System.Drawing.Point(270, 48);
+            this.txtEstoque.Location = new System.Drawing.Point(250, 42);
             this.txtEstoque.Name = "txtEstoque";
             this.txtEstoque.Size = new System.Drawing.Size(80, 22);
             this.txtEstoque.TabIndex = 5;
-            this.txtEstoque.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(100, 90);
+            this.btnSalvar.Location = new System.Drawing.Point(15, 80);
             this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(90, 30);
+            this.btnSalvar.Size = new System.Drawing.Size(75, 23);
             this.btnSalvar.TabIndex = 6;
             this.btnSalvar.Text = "Salvar";
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(200, 90);
+            this.btnExcluir.Location = new System.Drawing.Point(96, 80);
             this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(90, 30);
+            this.btnExcluir.Size = new System.Drawing.Size(75, 23);
             this.btnExcluir.TabIndex = 7;
             this.btnExcluir.Text = "Excluir";
             // 
-            // dataGridViewProdutos
+            // btnCancelar
             // 
-            this.dataGridViewProdutos.AllowUserToAddRows = false;
-            this.dataGridViewProdutos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btnCancelar.Location = new System.Drawing.Point(177, 80);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.TabIndex = 8;
+            this.btnCancelar.Text = "Cancelar";
+            // 
+            // dataGridProdutoView1
+            // 
+            this.dataGridProdutoView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewProdutos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewProdutos.ColumnHeadersHeight = 29;
-            this.dataGridViewProdutos.Location = new System.Drawing.Point(12, 185);
-            this.dataGridViewProdutos.Name = "dataGridViewProdutos";
-            this.dataGridViewProdutos.ReadOnly = true;
-            this.dataGridViewProdutos.RowHeadersWidth = 51;
-            this.dataGridViewProdutos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewProdutos.Size = new System.Drawing.Size(760, 362);
-            this.dataGridViewProdutos.TabIndex = 8;
+            this.dataGridProdutoView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridProdutoView1.ColumnHeadersHeight = 29;
+            this.dataGridProdutoView1.Location = new System.Drawing.Point(12, 120);
+            this.dataGridProdutoView1.Name = "dataGridProdutoView1";
+            this.dataGridProdutoView1.RowHeadersWidth = 51;
+            this.dataGridProdutoView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridProdutoView1.Size = new System.Drawing.Size(760, 430);
+            this.dataGridProdutoView1.TabIndex = 9;
             // 
             // CadastroProdutoForm
             // 
@@ -122,10 +123,11 @@ namespace ProjetoGuh.Features.Produto
             this.Controls.Add(this.txtEstoque);
             this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.btnExcluir);
-            this.Controls.Add(this.dataGridViewProdutos);
+            this.Controls.Add(this.btnCancelar);
+            this.Controls.Add(this.dataGridProdutoView1);
             this.Name = "CadastroProdutoForm";
             this.Text = "Cadastro de Produtos";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdutos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridProdutoView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -139,6 +141,7 @@ namespace ProjetoGuh.Features.Produto
         private System.Windows.Forms.TextBox txtEstoque;
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Button btnExcluir;
-        private System.Windows.Forms.DataGridView dataGridViewProdutos;
+        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.DataGridView dataGridProdutoView1;
     }
 }

@@ -18,8 +18,9 @@ namespace ProjetoGuh.Features.Produto
         {
             using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
             {
-                const string sql = @"INSERT INTO PRODUTO (DESCRICAO, PRECO, ESTOQUE) 
-                                     VALUES (@Descricao, @Preco, @Estoque)";
+                const string sql = @"INSERT INTO PRODUTO (DESCRICAO, PRECO, ESTOQUE, ATIVO) 
+                                     VALUES (@Descricao, @Preco, @Estoque, @Ativo)";
+                if (produto.Ativo == '\0') produto.Ativo = 'S';
                 conexao.Execute(sql, produto);
             }
         }

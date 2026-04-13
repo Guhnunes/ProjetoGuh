@@ -83,7 +83,7 @@ namespace ProjetoGuh
             builder.RegisterType<ProdutoDao>().As<IProdutoDao>();
             builder.RegisterType<ProdutoRepository>().As<IProdutoRepository>();
             builder.RegisterType<CadastroProdutoPresenter>().AsSelf();
-            builder.RegisterType<CadastroProdutoForm>().As<IProdutoView>().AsSelf();
+            builder.RegisterType<CadastroProdutoForm>().As<ICadastroProdutoView>().AsSelf();
 
             return builder.Build();
         }

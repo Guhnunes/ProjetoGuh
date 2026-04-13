@@ -1,51 +1,85 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace ProjetoGuh.Features.Produto
 {
-    // A classe deve ser partial para se unir ao Designer e implementar a View
-    public partial class CadastroProdutoForm : Form, IProdutoView
+    public partial class CadastroProdutoForm : Form, ICadastroProdutoView
     {
-        public event EventHandler SalvarClick;
 
-        public CadastroProdutoForm()
+        public event EventHandler BotaoSalvarFoiClicado;
+        public event EventHandler BotaoCancelarFoiClicado;
+        public event EventHandler BotaoExcluirFoiClicado;
+
+        private readonly CadastroProdutoPresenter _presenter;
+        private int _produtoIdAtual = 0;
+
+        public CadastroProdutoForm(CadastroProdutoPresenter presenter)
         {
             InitializeComponent();
+            _presenter = presenter;
+            _presenter.SetView(this);
 
-            // Vincula o clique do botão ao evento que o Presenter escuta
-            btnSalvar.Click += (s, e) => SalvarClick?.Invoke(this, EventArgs.Empty);
+            btnSalvar.Click += (s, e) => BotaoSalvarFoiClicado?.Invoke(this, EventArgs.Empty);
+            btnCancelar.Click += (s, e) => BotaoCancelarFoiClicado?.Invoke(this, EventArgs.Empty);
+            btnExcluir.Click += (s, e) => BotaoExcluirFoiClicado?.Invoke(this, EventArgs.Empty);
+
+            dataGridProdutoView1.CellClick += DataGridProdutoView1_CellClick;
         }
 
-        // Mapeamento dos campos da tela para a Interface
-        public string Descricao
+        public ProdutoModel ObterDadosDoFormulario()
         {
-            get => txtDescricao.Text;
-            set => txtDescricao.Text = value;
+            return new ProdutoModel
+            {
+                Id = _produtoIdAtual,
+                Descricao = txtDescricao.Text,
+                Preco = decimal.TryParse(txtPreco.Text, out var p) ? p : 0,
+                Estoque = int.TryParse(txtEstoque.Text, out var e) ? e : 0
+            };
         }
 
-        public decimal Preco
+        public void PreencherFormulario(ProdutoModel produto)
         {
-            get => decimal.TryParse(txtPreco.Text, out var p) ? p : 0;
-            set => txtPreco.Text = value.ToString("N2");
+            if (produto == null) return;
+
+            _produtoIdAtual = produto.Id;
+            txtDescricao.Text = produto.Descricao;
+            txtPreco.Text = produto.Preco.ToString("N2");
+            txtEstoque.Text = produto.Estoque.ToString();
         }
 
-        public int Estoque
+        public void LimparFormulario()
         {
-            get => int.TryParse(txtEstoque.Text, out var e) ? e : 0;
-            set => txtEstoque.Text = value.ToString();
-        }
-
-        public void MostrarMensagem(string msg)
-        {
-            MessageBox.Show(msg, "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        public void LimparCampos()
-        {
+            _produtoIdAtual = 0;
             txtDescricao.Clear();
             txtPreco.Clear();
             txtEstoque.Clear();
             txtDescricao.Focus();
+        }
+
+        public void PreencherGrid(List<ProdutoModel> produtos)
+        {
+            dataGridProdutoView1.DataSource = null;
+            dataGridProdutoView1.DataSource = produtos;
+
+            if (dataGridProdutoView1.Columns["Id"] != null)
+                dataGridProdutoView1.Columns["Id"].Visible = false;
+        }
+
+        public ProdutoModel ObterProdutoSelecionado()
+        {
+            return dataGridProdutoView1.SelectedRows.Count > 0
+                ? dataGridProdutoView1.SelectedRows[0].DataBoundItem as ProdutoModel
+                : null;
+        }
+
+        private void DataGridProdutoView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var produto = ObterProdutoSelecionado();
+            if (produto != null)
+            {
+                PreencherFormulario(produto);
+            }
         }
     }
 }

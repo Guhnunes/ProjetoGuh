@@ -227,7 +227,6 @@
     <Compile Include="Features\Produto\ICadastroProdutoView.cs" />
     <Compile Include="Features\Produto\IProdutoDao.cs" />
     <Compile Include="Features\Produto\IProdutoRepository.cs" />
-    <Compile Include="Features\Produto\IProdutoView.cs" />
     <Compile Include="Features\Produto\ProdutoDao.cs" />
     <Compile Include="Features\Produto\ProdutoModel.cs" />
     <Compile Include="Features\Produto\ProdutoModelValidator.cs" />
