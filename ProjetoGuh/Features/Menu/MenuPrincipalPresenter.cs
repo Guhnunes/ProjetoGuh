@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using ProjetoGuh.Features.Cliente;
+using ProjetoGuh.Features.Produto;
 using System;
 using System.Windows.Forms;
 
@@ -17,6 +18,7 @@ namespace ProjetoGuh.Features.Menu
 
             // Assina os eventos da View
             _view.AbrirClienteClick += AbrirCliente;
+            _view.AbrirProdutoClick += AbrirProduto;
         }
 
         private void AbrirCliente(object sender, EventArgs e)
@@ -29,6 +31,11 @@ namespace ProjetoGuh.Features.Menu
 
             // Em vez de ShowDialog, mandamos a View encaixar o form na aba
             _view.AdicionarAba("Cadastro de Clientes", frm);
+        }
+        private void AbrirProduto(object sender, EventArgs e)
+        {
+            var frm = _scope.Resolve<CadastroProdutoForm>();
+            _view.AdicionarAba("Cadastro de Produtos", frm);
         }
     }
 }

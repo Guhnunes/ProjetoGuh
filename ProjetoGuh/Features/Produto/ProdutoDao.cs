@@ -1,0 +1,67 @@
+﻿using Dapper;
+using ProjetoGuh.Features.Infraestrutura;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ProjetoGuh.Features.Produto
+{
+    public class ProdutoDao : IProdutoDao
+    {
+        private readonly IFabricaDeConexao _fabricaDeConexao;
+
+        public ProdutoDao(IFabricaDeConexao fabricaDeConexao)
+        {
+            _fabricaDeConexao = fabricaDeConexao;
+        }
+
+        public void Incluir(ProdutoModel produto)
+        {
+            using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
+            {
+                const string sql = @"INSERT INTO PRODUTO (DESCRICAO, PRECO, ESTOQUE) 
+                                     VALUES (@Descricao, @Preco, @Estoque)";
+                conexao.Execute(sql, produto);
+            }
+        }
+
+        public void Alterar(ProdutoModel produto)
+        {
+            using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
+            {
+                const string sql = @"UPDATE PRODUTO SET 
+                                     DESCRICAO = @Descricao, 
+                                     PRECO = @Preco, 
+                                     ESTOQUE = @Estoque 
+                                     WHERE ID = @Id";
+                conexao.Execute(sql, produto);
+            }
+        }
+
+        public void Excluir(int id)
+        {
+            using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
+            {
+                const string sql = "DELETE FROM PRODUTO WHERE ID = @id";
+                conexao.Execute(sql, new { id });
+            }
+        }
+
+        public ProdutoModel RetornarPorId(int id)
+        {
+            using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
+            {
+                const string sql = "SELECT * FROM PRODUTO WHERE ID = @id";
+                return conexao.QueryFirstOrDefault<ProdutoModel>(sql, new { id });
+            }
+        }
+
+        public List<ProdutoModel> Listar()
+        {
+            using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
+            {
+                const string sql = "SELECT * FROM PRODUTO ORDER BY DESCRICAO";
+                return conexao.Query<ProdutoModel>(sql).ToList();
+            }
+        }
+    }
+}

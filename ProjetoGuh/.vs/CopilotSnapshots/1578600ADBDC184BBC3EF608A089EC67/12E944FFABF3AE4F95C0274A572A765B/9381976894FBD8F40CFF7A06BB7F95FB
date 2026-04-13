@@ -1,0 +1,20 @@
+﻿using ProjetoGuh.Features.Produto;
+using ProjetoGuh.Features.Infraestrutura;
+
+namespace ProjetoGuh.Features.Produto
+{
+    public interface ProdutoRepository : BaseRepository, IProdutoRepository
+    {
+        private readonly IProdutoDao _produtoDao;
+
+        public ProdutoRepository(IProdutoDao produtoDao)
+        {
+            _produtoDao = produtoDao;
+        }
+        void Incluir(ProdutoModel produto);
+        /*void Alterar(ClienteModel cliente);
+        void Excluir(int id);
+        ProdutoModel RetornarPorId(int id);
+        List<ProdutoModel> Listar();*/
+    }
+}

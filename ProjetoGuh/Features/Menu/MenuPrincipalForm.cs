@@ -10,7 +10,7 @@ namespace ProjetoGuh.Features.Menu
         // Implementação dos eventos da Interface
         public event EventHandler AbrirClienteClick;
         public event EventHandler AbrirProdutoClick;
-        public event EventHandler AbrirVendaClick;
+        //public event EventHandler AbrirVendaClick;
 
         public MenuPrincipalForm()
         {

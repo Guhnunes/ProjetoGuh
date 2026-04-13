@@ -146,3 +146,4 @@ C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh\obj\Debug\ProjetoGuh.csproj.CoreCom
 C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh\obj\Debug\ProjetoGuh.csproj.Up2Date
 C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh\obj\Debug\ProjetoGuh.exe
 C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh\obj\Debug\ProjetoGuh.pdb
+C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh\obj\Debug\ProjetoGuh.Features.Produto.CadastroProdutoForm.resources

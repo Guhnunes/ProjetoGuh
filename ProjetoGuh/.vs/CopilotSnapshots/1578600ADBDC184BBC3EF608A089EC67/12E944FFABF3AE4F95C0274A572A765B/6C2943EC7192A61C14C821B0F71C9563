@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using ProjetoGuh.Features.Infraestrutura;
+
+namespace ProjetoGuh.Features.Produto
+{
+    public class ProdutoRepository : BaseRepository, IProdutoRepository
+    {
+        private readonly IProdutoDao _produtoDao;
+
+        public ProdutoRepository(IProdutoDao produtoDao)
+        {
+            _produtoDao = produtoDao;
+        }
+
+        public void Incluir(ProdutoModel produto)
+        {
+            _produtoDao.Inserir(produto);
+        }
+
+        public void Alterar(ProdutoModel produto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Excluir(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ProdutoModel RetornarPorId(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ProdutoModel> Listar()
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

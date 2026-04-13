@@ -3,8 +3,9 @@ using FluentMigrator.Runner;
 using Microsoft.Extensions.DependencyInjection;
 using ProjetoGuh.Features.Cliente;
 using ProjetoGuh.Features.Infraestrutura;
+using ProjetoGuh.Features.Menu;
 using ProjetoGuh.Features.Migrations;
-using ProjetoGuh.Features.Menu; // Importante: adicione o namespace da sua nova pasta de Menu
+using ProjetoGuh.Features.Produto;
 using System;
 using System.Configuration;
 using System.Windows.Forms;
@@ -35,12 +36,10 @@ namespace ProjetoGuh
 
             using (var scope = container.BeginLifetimeScope())
             {
-                // MUDANÇA AQUI: Agora resolvemos o MenuPrincipalPresenter
-                // E iniciamos a aplicação pelo MenuPrincipalForm
                 var presenter = scope.Resolve<MenuPrincipalPresenter>();
                 var formPrincipal = (Form)scope.Resolve<IMenuPrincipalView>();
 
-                Application.Run(formPrincipal);
+                Application.Run(formPrincipal); //Estamos chamando a tela principal aq
             }
         }
 
@@ -80,9 +79,11 @@ namespace ProjetoGuh
             builder.RegisterType<CadastroClientePresenter>().As<ICadastroClientePresenter>();
             builder.RegisterType<CadastroClienteForm>().AsSelf();
 
-            // --- PRODUTO / VENDA (Já deixe registrado para quando criar) ---
-            // builder.RegisterType<ProdutoRepository>().As<IProdutoRepository>();
-            // builder.RegisterType<CadastroProdutoForm>().AsSelf();
+            // --- PRODUTO  ---
+            builder.RegisterType<ProdutoDao>().As<IProdutoDao>();
+            builder.RegisterType<ProdutoRepository>().As<IProdutoRepository>();
+            builder.RegisterType<CadastroProdutoPresenter>().AsSelf();
+            builder.RegisterType<CadastroProdutoForm>().As<IProdutoView>().AsSelf();
 
             return builder.Build();
         }

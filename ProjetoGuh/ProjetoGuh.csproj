@@ -214,7 +214,24 @@
       <DependentUpon>MenuPrincipalForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Features\Menu\MenuPrincipalPresenter.cs" />
+    <Compile Include="Features\Migrations\M002_CriarTabelaProduto .cs" />
     <Compile Include="Features\Migrations\M001_CriarTabelaCliente.cs" />
+    <Compile Include="Features\Produto\CadastroProdutoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Features\Produto\CadastroProdutoForm.Designer.cs">
+      <DependentUpon>CadastroProdutoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Produto\CadastroProdutoPresenter.cs" />
+    <Compile Include="Features\Produto\ICadastroProdutoPresenter.cs" />
+    <Compile Include="Features\Produto\ICadastroProdutoView.cs" />
+    <Compile Include="Features\Produto\IProdutoDao.cs" />
+    <Compile Include="Features\Produto\IProdutoRepository.cs" />
+    <Compile Include="Features\Produto\IProdutoView.cs" />
+    <Compile Include="Features\Produto\ProdutoDao.cs" />
+    <Compile Include="Features\Produto\ProdutoModel.cs" />
+    <Compile Include="Features\Produto\ProdutoModelValidator.cs" />
+    <Compile Include="Features\Produto\ProdutoRepository.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -225,6 +242,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Features\Cliente\CadastroClienteForm.resx">
       <DependentUpon>CadastroClienteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Features\Produto\CadastroProdutoForm.resx">
+      <DependentUpon>CadastroProdutoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -251,7 +271,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Features\Produto\" />
     <Folder Include="Features\Venda\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
