@@ -189,17 +189,17 @@
     <Compile Include="Features\Cliente\CadastroClienteForm.Designer.cs">
       <DependentUpon>CadastroClienteForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Features\Cliente\CadastroClientePresenter.cs" />
-    <Compile Include="Features\Cliente\ClienteDao.cs" />
-    <Compile Include="Features\Cliente\ClienteModel.cs" />
-    <Compile Include="Features\Cliente\ClienteModelMap.cs" />
-    <Compile Include="Features\Cliente\ClienteModelValidator.cs" />
-    <Compile Include="Features\Cliente\ClienteRepository.cs" />
-    <Compile Include="Features\Cliente\ICadastroClientePresenter.cs" />
-    <Compile Include="Features\Cliente\ICadastroClienteView.cs" />
-    <Compile Include="Features\Cliente\IClienteDao.cs" />
-    <Compile Include="Features\Cliente\IClienteRepository.cs" />
-    <Compile Include="Features\Cliente\IListagemClienteView.cs" />
+    <Compile Include="Features\Cliente\Presenter\CadastroClientePresenter.cs" />
+    <Compile Include="Features\Cliente\Dao\ClienteDao.cs" />
+    <Compile Include="Features\Cliente\Model\ClienteModel.cs" />
+    <Compile Include="Features\Cliente\Model\ClienteModelMap.cs" />
+    <Compile Include="Features\Cliente\Model\ClienteModelValidator.cs" />
+    <Compile Include="Features\Cliente\Repository\ClienteRepository.cs" />
+    <Compile Include="Features\Cliente\Presenter\ICadastroClientePresenter.cs" />
+    <Compile Include="Features\Cliente\View\ICadastroClienteView.cs" />
+    <Compile Include="Features\Cliente\Dao\IClienteDao.cs" />
+    <Compile Include="Features\Cliente\Repository\IClienteRepository.cs" />
+    <Compile Include="Features\Cliente\View\IListagemClienteView.cs" />
     <Compile Include="Features\Infraestrutura\BasePresenter.cs" />
     <Compile Include="Features\Infraestrutura\BaseRepository.cs" />
     <Compile Include="Features\Infraestrutura\ConfiguraMapeamento.cs" />
@@ -222,15 +222,15 @@
     <Compile Include="Features\Produto\CadastroProdutoForm.Designer.cs">
       <DependentUpon>CadastroProdutoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Features\Produto\CadastroProdutoPresenter.cs" />
-    <Compile Include="Features\Produto\ICadastroProdutoPresenter.cs" />
-    <Compile Include="Features\Produto\ICadastroProdutoView.cs" />
-    <Compile Include="Features\Produto\IProdutoDao.cs" />
-    <Compile Include="Features\Produto\IProdutoRepository.cs" />
-    <Compile Include="Features\Produto\ProdutoDao.cs" />
-    <Compile Include="Features\Produto\ProdutoModel.cs" />
-    <Compile Include="Features\Produto\ProdutoModelValidator.cs" />
-    <Compile Include="Features\Produto\ProdutoRepository.cs" />
+    <Compile Include="Features\Produto\Presenter\CadastroProdutoPresenter.cs" />
+    <Compile Include="Features\Produto\Presenter\ICadastroProdutoPresenter.cs" />
+    <Compile Include="Features\Produto\View\ICadastroProdutoView.cs" />
+    <Compile Include="Features\Produto\Dao\IProdutoDao.cs" />
+    <Compile Include="Features\Produto\Repository\IProdutoRepository.cs" />
+    <Compile Include="Features\Produto\Dao\ProdutoDao.cs" />
+    <Compile Include="Features\Produto\Model\ProdutoModel.cs" />
+    <Compile Include="Features\Produto\Model\ProdutoModelValidator.cs" />
+    <Compile Include="Features\Produto\Repository\ProdutoRepository.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -14,12 +14,6 @@
         private void InitializeComponent()
         {
             this.chkAtivo = new System.Windows.Forms.CheckBox();
-            this.chkAtivo.Text = "Produto Ativo";
-            this.chkAtivo.Location = new System.Drawing.Point(350, 42);
-            this.chkAtivo.Checked = true;
-            this.chkAtivo.Enabled = false;
-            this.Controls.Add(this.chkAtivo);
-
             this.lblDescricao = new System.Windows.Forms.Label();
             this.txtDescricao = new System.Windows.Forms.TextBox();
             this.lblPreco = new System.Windows.Forms.Label();
@@ -30,8 +24,20 @@
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.dataGridProdutoView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridProdutoView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridProdutoView1_CellFormatting);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProdutoView1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // chkAtivo
+            // 
+            this.chkAtivo.Checked = true;
+            this.chkAtivo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAtivo.Enabled = false;
+            this.chkAtivo.Location = new System.Drawing.Point(350, 42);
+            this.chkAtivo.Name = "chkAtivo";
+            this.chkAtivo.Size = new System.Drawing.Size(104, 24);
+            this.chkAtivo.TabIndex = 0;
+            this.chkAtivo.Text = "Produto Ativo";
             // 
             // lblDescricao
             // 
@@ -64,6 +70,8 @@
             this.txtPreco.Name = "txtPreco";
             this.txtPreco.Size = new System.Drawing.Size(100, 22);
             this.txtPreco.TabIndex = 3;
+            this.txtPreco.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtPreco.TextChanged += new System.EventHandler(this.txtPreco_TextChanged);
             // 
             // lblEstoque
             // 
@@ -122,6 +130,7 @@
             // CadastroProdutoForm
             // 
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.chkAtivo);
             this.Controls.Add(this.lblDescricao);
             this.Controls.Add(this.txtDescricao);
             this.Controls.Add(this.lblPreco);

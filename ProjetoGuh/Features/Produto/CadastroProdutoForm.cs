@@ -34,6 +34,11 @@ namespace ProjetoGuh.Features.Produto
 
         public ProdutoModel ObterDadosDoFormulario()
         {
+            // Limpa a string da máscara para converter para decimal puro
+            string precoLimpo = txtPreco.Text
+                .Replace("R$", "")
+                .Replace(".", "")
+                .Trim();
             return new ProdutoModel
             {
                 Id = _produtoIdAtual,
@@ -74,6 +79,12 @@ namespace ProjetoGuh.Features.Produto
 
             if (dataGridProdutoView1.Columns["Id"] != null)
                 dataGridProdutoView1.Columns["Id"].Visible = false;
+            if (dataGridProdutoView1.Columns["Preco"] != null)
+                dataGridProdutoView1.Columns["Preco"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            if (dataGridProdutoView1.Columns["Estoque"] != null)
+                dataGridProdutoView1.Columns["Estoque"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            if (dataGridProdutoView1.Columns["Ativo"] != null)
+                dataGridProdutoView1.Columns["Ativo"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
 
         public ProdutoModel ObterProdutoSelecionado()
@@ -89,6 +100,59 @@ namespace ProjetoGuh.Features.Produto
             if (produto != null)
             {
                 PreencherFormulario(produto);
+            }
+        }
+        private void txtPreco_TextChanged(object sender, EventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (textBox == null || string.IsNullOrEmpty(textBox.Text)) return;
+
+            textBox.TextChanged -= txtPreco_TextChanged;
+
+            try
+            {
+                // O segredo é usar o "textBox" (que é o sender) em vez de "txtPreco" diretamente
+                string value = textBox.Text.Replace(",", "").Replace(".", "").Replace("R$", "").Trim();
+
+                if (decimal.TryParse(value, out decimal result))
+                {
+                    textBox.Text = string.Format("{0:C2}", result / 100);
+                    textBox.SelectionStart = textBox.Text.Length;
+                }
+            }
+            catch
+            {
+                // Silencioso para não travar a digitação
+            }
+
+            textBox.TextChanged += txtPreco_TextChanged;
+        }
+        private void dataGridProdutoView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // 1. Verifica se a linha é válida
+            if (e.RowIndex < 0) return;
+
+            // 2. Formata a coluna "Preco"
+            if (dataGridProdutoView1.Columns[e.ColumnIndex].Name == "Preco" ||
+                dataGridProdutoView1.Columns[e.ColumnIndex].DataPropertyName == "Preco")
+            {
+                if (e.Value != null && decimal.TryParse(e.Value.ToString(), out decimal preco))
+                {
+                    e.Value = preco.ToString("C2"); // Formata como Moeda (R$ 0,00)
+                    e.FormattingApplied = true;
+                }
+            }
+
+            // 3. Formata a coluna "Ativo"
+            if (dataGridProdutoView1.Columns[e.ColumnIndex].Name == "Ativo" ||
+                dataGridProdutoView1.Columns[e.ColumnIndex].DataPropertyName == "Ativo")
+            {
+                if (e.Value != null)
+                {
+                    char status = (char)e.Value;
+                    e.Value = (status == 'S') ? "Sim" : "Não";
+                    e.FormattingApplied = true;
+                }
             }
         }
     }
