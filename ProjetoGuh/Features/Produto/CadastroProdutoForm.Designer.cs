@@ -13,6 +13,13 @@
 
         private void InitializeComponent()
         {
+            this.chkAtivo = new System.Windows.Forms.CheckBox();
+            this.chkAtivo.Text = "Produto Ativo";
+            this.chkAtivo.Location = new System.Drawing.Point(350, 42);
+            this.chkAtivo.Checked = true;
+            this.chkAtivo.Enabled = false;
+            this.Controls.Add(this.chkAtivo);
+
             this.lblDescricao = new System.Windows.Forms.Label();
             this.txtDescricao = new System.Windows.Forms.TextBox();
             this.lblPreco = new System.Windows.Forms.Label();
@@ -143,5 +150,6 @@
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.DataGridView dataGridProdutoView1;
+        private System.Windows.Forms.CheckBox chkAtivo;
     }
 }

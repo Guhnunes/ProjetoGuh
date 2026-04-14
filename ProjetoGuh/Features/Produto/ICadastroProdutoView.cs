@@ -13,5 +13,6 @@ namespace ProjetoGuh.Features.Produto
         void PreencherFormulario(ProdutoModel produto);
         void LimparFormulario();
         void PreencherGrid(List<ProdutoModel> produtos);
+        bool Ativo { get; set; }
     }
 }

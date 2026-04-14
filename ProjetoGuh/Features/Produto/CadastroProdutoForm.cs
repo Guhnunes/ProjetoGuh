@@ -23,8 +23,13 @@ namespace ProjetoGuh.Features.Produto
             btnSalvar.Click += (s, e) => BotaoSalvarFoiClicado?.Invoke(this, EventArgs.Empty);
             btnCancelar.Click += (s, e) => BotaoCancelarFoiClicado?.Invoke(this, EventArgs.Empty);
             btnExcluir.Click += (s, e) => BotaoExcluirFoiClicado?.Invoke(this, EventArgs.Empty);
-
+            this.Load += (s, e) => _presenter.Inicializar();
             dataGridProdutoView1.CellClick += DataGridProdutoView1_CellClick;
+        }
+        public bool Ativo
+        {
+            get => chkAtivo.Checked;
+            set => chkAtivo.Checked = value;
         }
 
         public ProdutoModel ObterDadosDoFormulario()
@@ -34,7 +39,8 @@ namespace ProjetoGuh.Features.Produto
                 Id = _produtoIdAtual,
                 Descricao = txtDescricao.Text,
                 Preco = decimal.TryParse(txtPreco.Text, out var p) ? p : 0,
-                Estoque = int.TryParse(txtEstoque.Text, out var e) ? e : 0
+                Estoque = int.TryParse(txtEstoque.Text, out var e) ? e : 0,
+                Ativo = Ativo ? 'S' : 'N'
             };
         }
 
@@ -46,6 +52,8 @@ namespace ProjetoGuh.Features.Produto
             txtDescricao.Text = produto.Descricao;
             txtPreco.Text = produto.Preco.ToString("N2");
             txtEstoque.Text = produto.Estoque.ToString();
+            Ativo = produto.Ativo == 'S';
+            chkAtivo.Enabled = true;
         }
 
         public void LimparFormulario()
@@ -54,6 +62,8 @@ namespace ProjetoGuh.Features.Produto
             txtDescricao.Clear();
             txtPreco.Clear();
             txtEstoque.Clear();
+            chkAtivo.Checked = true;
+            chkAtivo.Enabled = false;
             txtDescricao.Focus();
         }
 

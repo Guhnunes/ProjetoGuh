@@ -3,16 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|c:\\users\\gusta\\desktop\\projetoguh\\projetoguh\\features\\migrations\\m001_criartabelacliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|solutionrelative:features\\migrations\\m001_criartabelacliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|c:\\users\\gusta\\desktop\\projetoguh\\projetoguh\\features\\produto\\cadastroprodutoform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|solutionrelative:features\\produto\\cadastroprodutoform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|c:\\users\\gusta\\desktop\\projetoguh\\projetoguh\\features\\migrations\\m002_criartabelaproduto .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|solutionrelative:features\\migrations\\m002_criartabelaproduto .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|c:\\users\\gusta\\desktop\\projetoguh\\projetoguh\\features\\produto\\cadastroprodutopresenter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|solutionrelative:features\\produto\\cadastroprodutopresenter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|c:\\users\\gusta\\desktop\\projetoguh\\projetoguh\\features\\cliente\\cadastroclienteform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|solutionrelative:features\\cliente\\cadastroclienteform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|c:\\users\\gusta\\desktop\\projetoguh\\projetoguh\\features\\produto\\cadastroprodutoform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|solutionrelative:features\\produto\\cadastroprodutoform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|c:\\users\\gusta\\desktop\\projetoguh\\projetoguh\\features\\produto\\produtodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|solutionrelative:features\\produto\\produtodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|c:\\users\\gusta\\desktop\\projetoguh\\projetoguh\\features\\produto\\produtomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|solutionrelative:features\\produto\\produtomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,45 +34,84 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "M002_CriarTabelaProduto .cs",
-              "DocumentMoniker": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Migrations\\M002_CriarTabelaProduto .cs",
-              "RelativeDocumentMoniker": "Features\\Migrations\\M002_CriarTabelaProduto .cs",
-              "ToolTip": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Migrations\\M002_CriarTabelaProduto .cs",
-              "RelativeToolTip": "Features\\Migrations\\M002_CriarTabelaProduto .cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAcwBAAAAAOAAAAAAAAAA==",
+              "Title": "CadastroProdutoPresenter.cs",
+              "DocumentMoniker": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Produto\\CadastroProdutoPresenter.cs",
+              "RelativeDocumentMoniker": "Features\\Produto\\CadastroProdutoPresenter.cs",
+              "ToolTip": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Produto\\CadastroProdutoPresenter.cs",
+              "RelativeToolTip": "Features\\Produto\\CadastroProdutoPresenter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-13T20:55:23.401Z",
+              "WhenOpened": "2026-04-14T13:10:44.275Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "M001_CriarTabelaCliente.cs",
-              "DocumentMoniker": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Migrations\\M001_CriarTabelaCliente.cs",
-              "RelativeDocumentMoniker": "Features\\Migrations\\M001_CriarTabelaCliente.cs",
-              "ToolTip": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Migrations\\M001_CriarTabelaCliente.cs",
-              "RelativeToolTip": "Features\\Migrations\\M001_CriarTabelaCliente.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAABzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-13T20:55:09.549Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "ProdutoDao.cs",
               "DocumentMoniker": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Produto\\ProdutoDao.cs",
               "RelativeDocumentMoniker": "Features\\Produto\\ProdutoDao.cs",
               "ToolTip": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Produto\\ProdutoDao.cs",
               "RelativeToolTip": "Features\\Produto\\ProdutoDao.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwCMAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-13T20:52:29.519Z",
+              "WhenOpened": "2026-04-14T13:01:24.941Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CadastroProdutoForm.cs",
+              "DocumentMoniker": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Produto\\CadastroProdutoForm.cs",
+              "RelativeDocumentMoniker": "Features\\Produto\\CadastroProdutoForm.cs",
+              "ToolTip": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Produto\\CadastroProdutoForm.cs",
+              "RelativeToolTip": "Features\\Produto\\CadastroProdutoForm.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAgwDcAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-14T13:00:02.288Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CadastroProdutoForm.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Produto\\CadastroProdutoForm.Designer.cs",
+              "RelativeDocumentMoniker": "Features\\Produto\\CadastroProdutoForm.Designer.cs",
+              "ToolTip": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Produto\\CadastroProdutoForm.Designer.cs",
+              "RelativeToolTip": "Features\\Produto\\CadastroProdutoForm.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-14T12:59:00.067Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CadastroClienteForm.cs",
+              "DocumentMoniker": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Cliente\\CadastroClienteForm.cs",
+              "RelativeDocumentMoniker": "Features\\Cliente\\CadastroClienteForm.cs",
+              "ToolTip": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Cliente\\CadastroClienteForm.cs",
+              "RelativeToolTip": "Features\\Cliente\\CadastroClienteForm.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAgAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-14T13:13:47.75Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ProdutoModel.cs",
+              "DocumentMoniker": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Produto\\ProdutoModel.cs",
+              "RelativeDocumentMoniker": "Features\\Produto\\ProdutoModel.cs",
+              "ToolTip": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Produto\\ProdutoModel.cs",
+              "RelativeToolTip": "Features\\Produto\\ProdutoModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-14T12:56:59.132Z",
               "EditorCaption": ""
             }
           ]

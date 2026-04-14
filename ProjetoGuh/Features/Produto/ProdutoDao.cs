@@ -32,7 +32,8 @@ namespace ProjetoGuh.Features.Produto
                 const string sql = @"UPDATE PRODUTO SET 
                                      DESCRICAO = @Descricao, 
                                      PRECO = @Preco, 
-                                     ESTOQUE = @Estoque 
+                                     ESTOQUE = @Estoque,
+                                     ATIVO = @Ativo
                                      WHERE ID = @Id";
                 conexao.Execute(sql, produto);
             }
