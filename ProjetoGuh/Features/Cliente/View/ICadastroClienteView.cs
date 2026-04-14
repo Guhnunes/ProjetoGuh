@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using ProjetoGuh.Features.Cliente.Model;
 
-namespace ProjetoGuh.Features.Cliente
+namespace ProjetoGuh.Features.Cliente.View
 {
     public interface ICadastroClienteView
     {

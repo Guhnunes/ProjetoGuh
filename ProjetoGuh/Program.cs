@@ -9,6 +9,13 @@ using ProjetoGuh.Features.Produto;
 using System;
 using System.Configuration;
 using System.Windows.Forms;
+using ProjetoGuh.Features.Cliente.Presenter;
+using ProjetoGuh.Features.Cliente.Dao;
+using ProjetoGuh.Features.Cliente.Repository;
+using ProjetoGuh.Features.Produto.Presenter;
+using ProjetoGuh.Features.Produto.View;
+using ProjetoGuh.Features.Produto.Dao;
+using ProjetoGuh.Features.Produto.Repository;
 
 namespace ProjetoGuh
 {

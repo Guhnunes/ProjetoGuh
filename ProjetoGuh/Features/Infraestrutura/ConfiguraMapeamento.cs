@@ -1,10 +1,5 @@
 ﻿using Dapper.FluentMap;
-using ProjetoGuh.Features.Cliente;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProjetoGuh.Features.Cliente.Model;
 
 namespace ProjetoGuh.Features.Infraestrutura
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProjetoGuh.Features.Cliente
+namespace ProjetoGuh.Features.Cliente.Model
 {
     public class ClienteModel
     {

@@ -1,6 +1,6 @@
 ﻿using Dapper.FluentMap.Mapping;
 
-namespace ProjetoGuh.Features.Cliente
+namespace ProjetoGuh.Features.Cliente.Model
 {
     public class ClienteModelMap : EntityMap<ClienteModel>
     {

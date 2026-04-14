@@ -2,8 +2,9 @@
 using ProjetoGuh.Features.Infraestrutura;
 using System.Collections.Generic;
 using System.Linq;
+using ProjetoGuh.Features.Produto.Model;
 
-namespace ProjetoGuh.Features.Produto
+namespace ProjetoGuh.Features.Produto.Dao
 {
     public class ProdutoDao : IProdutoDao
     {
@@ -43,7 +44,7 @@ namespace ProjetoGuh.Features.Produto
         {
             using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
             {
-                const string sql = "DELETE FROM PRODUTO WHERE ID = @id";
+                const string sql = "UPDATE PRODUTO SET ATIVO = 'N' WHERE ID = @id";
                 conexao.Execute(sql, new { id });
             }
         }

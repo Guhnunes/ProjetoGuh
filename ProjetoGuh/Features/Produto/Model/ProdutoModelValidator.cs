@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-namespace ProjetoGuh.Features.Produto
+
+namespace ProjetoGuh.Features.Produto.Model
 {
     public class ProdutoModelValidator
     {

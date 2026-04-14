@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using ProjetoGuh.Features.Cliente.Model;
 
-namespace ProjetoGuh.Features.Cliente
+namespace ProjetoGuh.Features.Cliente.Dao
 {
     public interface IClienteDao
     {

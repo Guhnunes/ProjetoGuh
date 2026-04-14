@@ -1,9 +1,10 @@
 ﻿using Moq;
 using NUnit.Framework;
-using ProjetoGuh.Features.Cliente;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using ProjetoGuh.Features.Cliente.Model;
+using ProjetoGuh.Features.Cliente.Presenter;
+using ProjetoGuh.Features.Cliente.View;
+using ProjetoGuh.Features.Cliente.Repository;
 
 namespace ProjetoGuh.Testes.Features.Cliente
 {

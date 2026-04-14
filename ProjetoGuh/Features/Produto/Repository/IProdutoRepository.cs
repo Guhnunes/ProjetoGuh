@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using ProjetoGuh.Features.Produto.Model;
 
-namespace ProjetoGuh.Features.Produto
+namespace ProjetoGuh.Features.Produto.Repository
 {
     public interface IProdutoRepository
     {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ProjetoGuh.Features.Produto
+﻿namespace ProjetoGuh.Features.Produto.Model
 {
     public class ProdutoModel
     {

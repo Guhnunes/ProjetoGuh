@@ -1,4 +1,7 @@
-﻿namespace ProjetoGuh.Features.Cliente
+﻿using ProjetoGuh.Features.Cliente.View;
+
+namespace ProjetoGuh.Features.Cliente.Presenter
+
 {
     public interface ICadastroClientePresenter
     {

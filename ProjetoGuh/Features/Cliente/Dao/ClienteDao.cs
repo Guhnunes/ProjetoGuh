@@ -1,8 +1,9 @@
 ﻿using ProjetoGuh.Features.Infraestrutura;
 using System.Collections.Generic;
 using Dapper;
+using ProjetoGuh.Features.Cliente.Model;
 
-namespace ProjetoGuh.Features.Cliente
+namespace ProjetoGuh.Features.Cliente.Dao
 {
     public class ClienteDao : IClienteDao
     {

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using ProjetoGuh.Features.Produto.Model;
+using ProjetoGuh.Features.Produto.Presenter;
+using ProjetoGuh.Features.Produto.View;
 
 namespace ProjetoGuh.Features.Produto
 {
@@ -43,7 +46,7 @@ namespace ProjetoGuh.Features.Produto
             {
                 Id = _produtoIdAtual,
                 Descricao = txtDescricao.Text,
-                Preco = decimal.TryParse(txtPreco.Text, out var p) ? p : 0,
+                Preco = decimal.TryParse(precoLimpo, out var p) ? p : 0,
                 Estoque = int.TryParse(txtEstoque.Text, out var e) ? e : 0,
                 Ativo = Ativo ? 'S' : 'N'
             };

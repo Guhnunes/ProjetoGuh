@@ -1,7 +1,10 @@
 ﻿using ProjetoGuh.Features.Infraestrutura;
 using System;
+using ProjetoGuh.Features.Produto.Model;
+using ProjetoGuh.Features.Produto.View;
+using ProjetoGuh.Features.Produto.Repository;
 
-namespace ProjetoGuh.Features.Produto
+namespace ProjetoGuh.Features.Produto.Presenter
 {
     public class CadastroProdutoPresenter : ICadastroProdutoPresenter
     {
@@ -24,11 +27,16 @@ namespace ProjetoGuh.Features.Produto
                 var produtoSelecionado = _view.ObterProdutoSelecionado();
                 if (produtoSelecionado != null)
                 {
-                    Excluir(produtoSelecionado.Id);
+                    if (ControleDeMensagens.Perguntar("Gostaria de desativar o produto selecionado?"))
+                    {
+                        Excluir(produtoSelecionado.Id);
+                        _view.LimparFormulario();
+                        Inicializar();
+                    }
                 }
                 else
                 {
-                    ControleDeMensagens.Avisar("Por favor, selecione um produto na lista para excluir.");
+                    ControleDeMensagens.Avisar("Por favor, selecione um produto na lista para desativar.");
                 }
             };
         }

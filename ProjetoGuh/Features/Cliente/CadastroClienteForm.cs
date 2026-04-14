@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using ProjetoGuh.Features.Cliente.View;
+using ProjetoGuh.Features.Cliente.Model;
+using ProjetoGuh.Features.Cliente.Presenter;
 
 namespace ProjetoGuh.Features.Cliente
 {

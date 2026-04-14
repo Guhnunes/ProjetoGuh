@@ -1,7 +1,10 @@
 ﻿using ProjetoGuh.Features.Infraestrutura;
 using System;
+using ProjetoGuh.Features.Cliente.View;
+using ProjetoGuh.Features.Cliente.Model;
+using ProjetoGuh.Features.Cliente.Repository;
 
-namespace ProjetoGuh.Features.Cliente
+namespace ProjetoGuh.Features.Cliente.Presenter
 {
     public class CadastroClientePresenter : ICadastroClientePresenter
     {

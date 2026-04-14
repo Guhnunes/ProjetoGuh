@@ -1,7 +1,9 @@
 ﻿using ProjetoGuh.Features.Infraestrutura;
 using System.Collections.Generic;
+using ProjetoGuh.Features.Cliente.Model;
+using ProjetoGuh.Features.Cliente.Dao;
 
-namespace ProjetoGuh.Features.Cliente
+namespace ProjetoGuh.Features.Cliente.Repository
 {
     public class ClienteRepository : BaseRepository, IClienteRepository
     {
