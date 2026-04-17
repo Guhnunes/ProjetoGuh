@@ -1,63 +1,60 @@
-﻿using ProjetoGuh.Features.Infraestrutura;
+﻿using Dapper;
+using ProjetoGuh.Features.Infraestrutura;
+using ProjetoGuh.Features.Venda.Model;
 using System.Collections.Generic;
-using Dapper;
-using ProjetoGuh.Features.Cliente.Model;
+using System.Data;
 
-namespace ProjetoGuh.Features.Cliente.Dao
+namespace ProjetoGuh.Features.Venda.Dao
 {
-    public class ClienteDao : IClienteDao
+    public class VendaDao : IVendaDao
     {
         private readonly IFabricaDeConexao _fabricaDeConexao;
 
-        public ClienteDao(IFabricaDeConexao fabricaDeConexao)
+        public VendaDao(IFabricaDeConexao fabricaDeConexao)
         {
             _fabricaDeConexao = fabricaDeConexao;
         }
 
-        public void Incluir(ClienteModel cliente)
+        public void Incluir(IDbTransaction transacao, VendaModel venda)
         {
             using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
             {
                 conexao.Open();
-                conexao.Execute(@"INSERT INTO CLIENTE (NOME, CPF_CNPJ, TELEFONE, EMAIL, DATA_CADASTRO)
-                              VALUES @Nome, @CpfCnpj, @Telefone, @Email, @DataCadastro)", cliente);
+                conexao.Execute(@"INSERT INTO VENDA (DATA_VENDA, VALOR_TOTAL, OBSERVACAO, ID_CLIENTE, ID_FORMA_PAGAMENTO)
+                              VALUES (@DataVenda, @ValorTotal, @Observacao, @IdCliente, @IdFormaPagamento)", venda);
             }
         }
-
-        // Implementar os demais métodos seguindo o mesmo padrão
-        public void Alterar(ClienteModel cliente)
+        public void IncluirItem(IDbTransaction transacao, ItemVendaModel item)
         {
             using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
             {
                 conexao.Open();
-                conexao.Execute(@"UPDATE CLIENTE SET
-                                    NOME = @Nome,
-                                    CPF_CNPJ = @CpfCnpj,
-                                    TELEFONE = @Telefone,
-                                    EMAIL = @Email
-                                  WHERE ID = @Id", cliente);
+                conexao.Execute(@"INSERT INTO ITEM_VENDA (ID_VENDA, ID_PRODUTO, QUANTIDADE, VALOR_UNITARIO, VALOR_TOTAL)
+                              VALUES (@ProdutoId, @Quantidade, @ValorUnitario, @ValorTotal)", item);
             }
         }
-
-        public void Excluir(int id)
+        public List<FormaPagamentoModel> ListarFormasDePagamento()
         {
             using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
             {
+                var sql = @"SELECT 
+                        id, 
+                        descricao
+                    FROM Forma_Pagamento";
                 conexao.Open();
-                conexao.Execute("DELETE FROM CLIENTE WHERE ID = @Id", new { Id = id });
+                return conexao.Query<FormaPagamentoModel>(sql).AsList();
             }
         }
-
-        public ClienteModel RetornarPorId(int id)
+        public VendaModel RetornarPorId(int id)
         {
             using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
             {
                 conexao.Open();
-                return conexao.QueryFirstOrDefault<ClienteModel>(
+                return conexao.QueryFirstOrDefault<VendaModel>(
                     "SELECT * FROM CLIENTE WHERE ID = @Id", new { Id = id });
             }
         }
-        public List<ClienteModel> Listar()
+        public List<VendaModel> Listar()
         {
             using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
             {
@@ -70,7 +67,7 @@ namespace ProjetoGuh.Features.Cliente.Dao
                         data_cadastro AS DataCadastro 
                     FROM Cliente"; //Tive que colocar um Alias por conta do underline. O dapper não consegue mapear
                 conexao.Open();
-                return conexao.Query<ClienteModel>(sql).AsList();
+                return conexao.Query<VendaModel>(sql).AsList();
             }
         }
     }

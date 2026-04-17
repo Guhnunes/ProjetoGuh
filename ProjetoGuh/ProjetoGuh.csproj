@@ -216,6 +216,8 @@
     <Compile Include="Features\Menu\MenuPrincipalPresenter.cs" />
     <Compile Include="Features\Migrations\M002_CriarTabelaProduto .cs" />
     <Compile Include="Features\Migrations\M001_CriarTabelaCliente.cs" />
+    <Compile Include="Features\Migrations\M003_CriarTabelasDeVenda.cs" />
+    <Compile Include="Features\Migrations\M004_SeedFormasPagamento.cs" />
     <Compile Include="Features\Produto\CadastroProdutoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -231,6 +233,19 @@
     <Compile Include="Features\Produto\Model\ProdutoModel.cs" />
     <Compile Include="Features\Produto\Model\ProdutoModelValidator.cs" />
     <Compile Include="Features\Produto\Repository\ProdutoRepository.cs" />
+    <Compile Include="Features\Venda\Dao\FormaPagamentoDao.cs" />
+    <Compile Include="Features\Venda\Dao\IFormaPagamentoDao.cs" />
+    <Compile Include="Features\Venda\Dao\IVendaDao.cs" />
+    <Compile Include="Features\Venda\Dao\VendaDao.cs" />
+    <Compile Include="Features\Venda\Model\FormaPagamentoModel.cs" />
+    <Compile Include="Features\Venda\Model\ItemVendaModel.cs" />
+    <Compile Include="Features\Venda\Model\VendaModel.cs" />
+    <Compile Include="Features\Venda\Model\VendaModelValidator.cs" />
+    <Compile Include="Features\Venda\Presenter\CadastroVendaPresenter.cs" />
+    <Compile Include="Features\Venda\Presenter\ICadastroVendaPresenter.cs" />
+    <Compile Include="Features\Venda\Repository\IVendaRepository.cs" />
+    <Compile Include="Features\Venda\Repository\VendaRepository.cs" />
+    <Compile Include="Features\Venda\View\IPdvView.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -269,9 +284,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Features\Venda\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Microsoft.Data.SqlClient.SNI.2.1.1\build\net46\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('packages\Microsoft.Data.SqlClient.SNI.2.1.1\build\net46\Microsoft.Data.SqlClient.SNI.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
