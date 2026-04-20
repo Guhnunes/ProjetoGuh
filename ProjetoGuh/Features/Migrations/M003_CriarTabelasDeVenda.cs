@@ -23,7 +23,7 @@ namespace ProjetoGuh.Features.Migrations
                 //FKS
                 .WithColumn("ID_VENDA").AsInt32().NotNullable().ForeignKey("FK_ITEM_VENDA", "VENDA", "ID")
                 .WithColumn("ID_PRODUTO").AsInt32().NotNullable().ForeignKey("FK_ITEM_PRODUTO", "PRODUTO", "ID")
-                .WithColumn("QUANTIDADE").AsInt32().NotNullable()
+                .WithColumn("QUANTIDADE").AsDecimal(10, 2).NotNullable()
                 .WithColumn("VALOR_UNITARIO").AsDecimal(10, 2).NotNullable()
                 .WithColumn("VALOR_TOTAL").AsDecimal(10, 2).NotNullable();
         }

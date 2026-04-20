@@ -20,7 +20,7 @@ namespace ProjetoGuh.Features.Cliente.Dao
             {
                 conexao.Open();
                 conexao.Execute(@"INSERT INTO CLIENTE (NOME, CPF_CNPJ, TELEFONE, EMAIL, DATA_CADASTRO)
-                              VALUES @Nome, @CpfCnpj, @Telefone, @Email, @DataCadastro)", cliente);
+                              VALUES (@Nome, @CpfCnpj, @Telefone, @Email, @DataCadastro)", cliente);
             }
         }
 
@@ -30,12 +30,7 @@ namespace ProjetoGuh.Features.Cliente.Dao
             using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
             {
                 conexao.Open();
-                conexao.Execute(@"UPDATE CLIENTE SET
-                                    NOME = @Nome,
-                                    CPF_CNPJ = @CpfCnpj,
-                                    TELEFONE = @Telefone,
-                                    EMAIL = @Email
-                                  WHERE ID = @Id", cliente);
+                conexao.Execute(@"UPDATE CLIENTE SET NOME = @Nome,CPF_CNPJ = @CpfCnpj,TELEFONE = @Telefone, EMAIL = @Email WHERE ID = @Id", cliente);
             }
         }
 

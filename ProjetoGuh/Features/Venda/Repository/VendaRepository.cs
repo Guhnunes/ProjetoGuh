@@ -9,7 +9,6 @@ namespace ProjetoGuh.Features.Venda.Repository
     public class VendaRepository : BaseRepository, IVendaRepository
     {
         private readonly IVendaDao _vendaDao;
-
         public VendaRepository(IVendaDao vendaDao)
         {
             _vendaDao = vendaDao;
@@ -25,5 +24,13 @@ namespace ProjetoGuh.Features.Venda.Repository
         public VendaModel RetornarPorId(int id) => _vendaDao.RetornarPorId(id);
         public List<VendaModel> Listar() => _vendaDao.Listar();
         public List<FormaPagamentoModel> ListarFormasDePagamento() => _vendaDao.ListarFormasDePagamento();
+        public void Excluir(int id)
+        {
+            _vendaDao.Excluir(id);
+        }
+        public void GravarVendaCompleta(VendaModel venda)
+        {
+            _vendaDao.GravarVendaCompleta(venda);
+        }
     }
 }

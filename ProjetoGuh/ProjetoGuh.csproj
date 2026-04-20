@@ -241,6 +241,12 @@
     <Compile Include="Features\Venda\Model\ItemVendaModel.cs" />
     <Compile Include="Features\Venda\Model\VendaModel.cs" />
     <Compile Include="Features\Venda\Model\VendaModelValidator.cs" />
+    <Compile Include="Features\Venda\PdvForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Features\Venda\PdvForm.Designer.cs">
+      <DependentUpon>PdvForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Features\Venda\Presenter\CadastroVendaPresenter.cs" />
     <Compile Include="Features\Venda\Presenter\ICadastroVendaPresenter.cs" />
     <Compile Include="Features\Venda\Repository\IVendaRepository.cs" />
@@ -259,6 +265,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Features\Produto\CadastroProdutoForm.resx">
       <DependentUpon>CadastroProdutoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Features\Venda\PdvForm.resx">
+      <DependentUpon>PdvForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

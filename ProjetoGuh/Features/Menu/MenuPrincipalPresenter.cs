@@ -1,8 +1,9 @@
 ﻿using Autofac;
 using ProjetoGuh.Features.Cliente;
 using ProjetoGuh.Features.Produto;
+using ProjetoGuh.Features.Venda;
 using System;
-using System.Windows.Forms;
+
 
 namespace ProjetoGuh.Features.Menu
 {
@@ -19,6 +20,13 @@ namespace ProjetoGuh.Features.Menu
             // Assina os eventos da View
             _view.AbrirClienteClick += AbrirCliente;
             _view.AbrirProdutoClick += AbrirProduto;
+            _view.AbrirVendaClick += AbrirVenda;
+        }
+        private void AbrirVenda(object sender, EventArgs e)
+        {
+            var frm = _scope.Resolve<PdvForm>();
+
+            _view.AdicionarAba("Venda (PDV)", frm);
         }
 
         private void AbrirCliente(object sender, EventArgs e)

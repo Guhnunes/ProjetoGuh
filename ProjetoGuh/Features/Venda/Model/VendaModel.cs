@@ -1,16 +1,20 @@
-﻿using System;
+﻿using ProjetoGuh.Features.Venda.Model;
+using System;
 using System.Collections.Generic;
 
-namespace ProjetoGuh.Features.Venda.Model
+public class VendaModel
 {
-    public class VendaModel
+    public VendaModel()
     {
-        public int Id { get; set; }
-        public DateTime DataVenda { get; set; }
-        public decimal ValorTotal { get; set; }
-        public int IdFormaPagamento { get; set; }
-        public string DescricaoFormaPagamento { get; set; }
-        public string Observacao { get; set; }
-        public List<ItemVendaModel> Itens { get; set; } = new List<ItemVendaModel>();
+        Itens = new List<ItemVendaModel>();
+        DataVenda = DateTime.Now;
     }
+
+    public int Id { get; set; }
+    public DateTime DataVenda { get; set; }
+    public int IdCliente { get; set; }
+    public int IdFormaPagamento { get; set; }
+    public decimal ValorTotal { get; set; }
+    public string Observacao { get; set; }
+    public List<ItemVendaModel> Itens { get; set; } // Agora inicializada
 }

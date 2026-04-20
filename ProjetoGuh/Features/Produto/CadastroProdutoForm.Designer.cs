@@ -24,7 +24,6 @@
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.dataGridProdutoView1 = new System.Windows.Forms.DataGridView();
-            this.dataGridProdutoView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridProdutoView1_CellFormatting);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProdutoView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,6 +49,7 @@
             // 
             // txtDescricao
             // 
+            this.txtDescricao.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtDescricao.Location = new System.Drawing.Point(80, 12);
             this.txtDescricao.Name = "txtDescricao";
             this.txtDescricao.Size = new System.Drawing.Size(300, 22);
@@ -122,10 +122,12 @@
             this.dataGridProdutoView1.ColumnHeadersHeight = 29;
             this.dataGridProdutoView1.Location = new System.Drawing.Point(12, 120);
             this.dataGridProdutoView1.Name = "dataGridProdutoView1";
+            this.dataGridProdutoView1.ReadOnly = true;
             this.dataGridProdutoView1.RowHeadersWidth = 51;
             this.dataGridProdutoView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridProdutoView1.Size = new System.Drawing.Size(760, 430);
             this.dataGridProdutoView1.TabIndex = 9;
+            this.dataGridProdutoView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridProdutoView1_CellFormatting);
             // 
             // CadastroProdutoForm
             // 

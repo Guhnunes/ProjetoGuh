@@ -11,5 +11,7 @@ namespace ProjetoGuh.Features.Venda.Repository
         List<VendaModel> Listar();
         VendaModel RetornarPorId(int id);
         List<FormaPagamentoModel> ListarFormasDePagamento();
+        void Excluir(int id);
+        void GravarVendaCompleta(VendaModel venda);
     }
 }

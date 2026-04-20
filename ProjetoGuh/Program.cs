@@ -2,20 +2,24 @@
 using FluentMigrator.Runner;
 using Microsoft.Extensions.DependencyInjection;
 using ProjetoGuh.Features.Cliente;
+using ProjetoGuh.Features.Cliente.Dao;
+using ProjetoGuh.Features.Cliente.Presenter;
+using ProjetoGuh.Features.Cliente.Repository;
 using ProjetoGuh.Features.Infraestrutura;
 using ProjetoGuh.Features.Menu;
 using ProjetoGuh.Features.Migrations;
 using ProjetoGuh.Features.Produto;
+using ProjetoGuh.Features.Produto.Dao;
+using ProjetoGuh.Features.Produto.Presenter;
+using ProjetoGuh.Features.Produto.Repository;
+using ProjetoGuh.Features.Produto.View;
+using ProjetoGuh.Features.Venda;
+using ProjetoGuh.Features.Venda.Dao;
+using ProjetoGuh.Features.Venda.Presenter;
+using ProjetoGuh.Features.Venda.Repository;
 using System;
 using System.Configuration;
 using System.Windows.Forms;
-using ProjetoGuh.Features.Cliente.Presenter;
-using ProjetoGuh.Features.Cliente.Dao;
-using ProjetoGuh.Features.Cliente.Repository;
-using ProjetoGuh.Features.Produto.Presenter;
-using ProjetoGuh.Features.Produto.View;
-using ProjetoGuh.Features.Produto.Dao;
-using ProjetoGuh.Features.Produto.Repository;
 
 namespace ProjetoGuh
 {
@@ -91,6 +95,13 @@ namespace ProjetoGuh
             builder.RegisterType<ProdutoRepository>().As<IProdutoRepository>();
             builder.RegisterType<CadastroProdutoPresenter>().AsSelf();
             builder.RegisterType<CadastroProdutoForm>().As<ICadastroProdutoView>().AsSelf();
+
+            // --- VENDA ---
+            builder.RegisterType<VendaDao>().As<IVendaDao>();
+            builder.RegisterType<VendaRepository>().As<IVendaRepository>();
+            builder.RegisterType<FormaPagamentoDao>().As<IFormaPagamentoDao>();
+            builder.RegisterType<CadastroVendaPresenter>().AsSelf();
+            builder.RegisterType<PdvForm>().AsSelf();
 
             return builder.Build();
         }

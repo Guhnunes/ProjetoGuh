@@ -18,63 +18,51 @@
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.cadastrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuPrincipal = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemCliente = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemProduto = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemVenda = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlPrincipal = new System.Windows.Forms.TabControl();
+
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cadastrosToolStripMenuItem});
+
+            // MenuStrip
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.menuPrincipal });
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(900, 24);
             this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // cadastrosToolStripMenuItem
-            // 
-            this.cadastrosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuItemCliente,
-            this.menuItemProduto});
-            this.cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
-            this.cadastrosToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
-            this.cadastrosToolStripMenuItem.Text = "Cadastros";
-            // 
-            // menuItemCliente
-            // 
-            this.menuItemCliente.Name = "menuItemCliente";
-            this.menuItemCliente.Size = new System.Drawing.Size(180, 22);
-            this.menuItemCliente.Text = "Cliente";
-            // 
-            // menuItemProduto
-            // 
-            this.menuItemProduto.Name = "menuItemProduto";
-            this.menuItemProduto.Size = new System.Drawing.Size(180, 22);
-            this.menuItemProduto.Text = "Produto";
-            // 
-            // tabControlPrincipal
-            // 
+
+            this.menuPrincipal.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                this.menuItemCliente,
+                this.menuItemProduto,
+                this.menuItemVenda
+            });
+            this.menuPrincipal.Text = "Menu";
+
+            this.menuItemCliente.Text = "Clientes";
+            this.menuItemProduto.Text = "Produtos";
+            this.menuItemVenda.Text = "Vendas (PDV)";
+
+            // TabControl (Ocupando tudo agora)
             this.tabControlPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlPrincipal.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.tabControlPrincipal.Padding = new System.Drawing.Point(22, 4);
             this.tabControlPrincipal.Location = new System.Drawing.Point(0, 24);
             this.tabControlPrincipal.Name = "tabControlPrincipal";
-            this.tabControlPrincipal.SelectedIndex = 0;
-            this.tabControlPrincipal.Size = new System.Drawing.Size(800, 426);
-            this.tabControlPrincipal.TabIndex = 1;
-            // 
-            // MenuPrincipalForm
-            // 
+
+            // Form
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(900, 650);
             this.Controls.Add(this.tabControlPrincipal);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MenuPrincipalForm";
             this.Text = "Projeto Guh - Sistema de Gestão";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -84,9 +72,10 @@
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem cadastrosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuPrincipal;
         private System.Windows.Forms.ToolStripMenuItem menuItemCliente;
         private System.Windows.Forms.ToolStripMenuItem menuItemProduto;
+        private System.Windows.Forms.ToolStripMenuItem menuItemVenda;
         private System.Windows.Forms.TabControl tabControlPrincipal;
     }
 }
