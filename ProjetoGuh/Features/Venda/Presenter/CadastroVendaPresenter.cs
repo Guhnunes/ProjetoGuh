@@ -1,11 +1,9 @@
-﻿using ProjetoGuh.Features.Cliente.Dao; // Adicione os DAOs necessários para carregar os combos
+﻿using ProjetoGuh.Features.Cliente.Repository;
 using ProjetoGuh.Features.Infraestrutura;
-using ProjetoGuh.Features.Produto.Dao;
-using ProjetoGuh.Features.Produto.Model;
-using ProjetoGuh.Features.Venda.Dao;
 using ProjetoGuh.Features.Venda.Model;
 using ProjetoGuh.Features.Venda.Repository;
 using ProjetoGuh.Features.Venda.View;
+using ProjetoGuh.Features.Produto.Repository;
 using System;
 using System.Linq;
 
@@ -15,24 +13,24 @@ namespace ProjetoGuh.Features.Venda.Presenter
     {
         private IPdvView _view;
         private readonly IVendaRepository _repository;
-        private readonly IClienteDao _clienteDao;
-        private readonly IProdutoDao _produtoDao;
-        private readonly IFormaPagamentoDao _formaPagamentoDao;
+        private readonly IClienteRepository _clienteRepository;
+        private readonly IProdutoRepository _produtoRepository;
+        private readonly IFormaPagamentoRepository _formaPagamentoRepository;
         private readonly VendaModelValidator _validator;
 
         // Esta é a venda que está sendo montada na memória
         private VendaModel _vendaAtiva;
 
         public CadastroVendaPresenter(
-            IVendaRepository repository,
-            IClienteDao clienteDao,
-            IProdutoDao produtoDao,
-            IFormaPagamentoDao formaPagamentoDao)
-        {
-            _repository = repository;
-            _clienteDao = clienteDao;
-            _produtoDao = produtoDao;
-            _formaPagamentoDao = formaPagamentoDao;
+            IVendaRepository vendaRepository,
+            IClienteRepository clienteRepository,
+            IProdutoRepository produtoRepository,
+            IFormaPagamentoRepository formaPagamentoRepository)
+        {  
+            _repository = vendaRepository;
+            _clienteRepository = clienteRepository;
+            _produtoRepository = produtoRepository;
+            _formaPagamentoRepository = formaPagamentoRepository;
             _vendaAtiva = new VendaModel();
             _validator = new VendaModelValidator();
         }
@@ -40,7 +38,6 @@ namespace ProjetoGuh.Features.Venda.Presenter
         public void SetView(IPdvView view)
         {
             _view = view;
-
             // Assinando os eventos da IPdvView
             _view.BotaoAdicionarItemClicado += (s, e) => AdicionarItem();
             _view.BotaoRemoverItemClicado += (s, e) => RemoverItem();
@@ -54,9 +51,9 @@ namespace ProjetoGuh.Features.Venda.Presenter
             _vendaAtiva = new VendaModel();
 
             // Carrega os dados iniciais dos ComboBoxes
-            _view.PreencherComboClientes(_clienteDao.Listar());
-            _view.PreencherComboProdutos(_produtoDao.Listar());
-            _view.PreencherComboFormasPagamento(_formaPagamentoDao.Listar());
+            _view.PreencherComboClientes(_clienteRepository.Listar());
+            _view.PreencherComboProdutos(_produtoRepository.Listar());
+            _view.PreencherComboFormasPagamento(_formaPagamentoRepository.Listar());
 
             _view.AtualizarValorTotalVenda(0);
         }
@@ -71,7 +68,6 @@ namespace ProjetoGuh.Features.Venda.Presenter
         }
         public int ObterQuantidade()
         {
-            // Se você usa um NumericUpDown, o .Value é decimal, por isso o (int)
             return (int)_view.ObterQuantidade();
         }
         public void AdicionarItem()
@@ -81,7 +77,10 @@ namespace ProjetoGuh.Features.Venda.Presenter
 
             if (produto == null)
             {
-                ControleDeMensagens.Avisar("Selecione um produto.");
+                _view.ExibirMensagem("Selecione um produto.");
+                return;
+            }else if(quantidade <=  0){
+                _view.ExibirMensagem("A quantidade deve ser maior que zero.");
                 return;
             }
 
@@ -123,7 +122,7 @@ namespace ProjetoGuh.Features.Venda.Presenter
             }
             else
             {
-                ControleDeMensagens.Avisar("Selecione um item na lista para remover.");
+                _view.ExibirMensagem("Selecione um item na lista para remover.");
             }
         }
 
@@ -132,33 +131,32 @@ namespace ProjetoGuh.Features.Venda.Presenter
         {
             try
             {
-                var erros = _validator.Validar(_vendaAtiva);
-                if (erros.Count > 0)
-                {
-                    ControleDeMensagens.Avisar(string.Join("\n", erros));
-                    return;
-                }
-
-                // Preenche os dados
                 _vendaAtiva.IdCliente = _view.ObterClienteSelecionadoId();
                 _vendaAtiva.IdFormaPagamento = _view.ObterFormaPagamentoId();
                 _vendaAtiva.Observacao = _view.ObterObservacao();
                 _vendaAtiva.DataVenda = DateTime.Now;
 
+                var erros = _validator.Validar(_vendaAtiva);
+                if (erros.Count > 0)
+                {
+                    _view.ExibirMensagem(string.Join("\n", erros));
+                    return;
+                }
+
                 // Manda o Repository resolver
                 _repository.GravarVendaCompleta(_vendaAtiva);
 
-                ControleDeMensagens.Informar("Venda realizada com sucesso!");
+                _view.ExibirMensagem("Venda realizada com sucesso!");
                 _view.ReiniciarFormulario();
             }
             catch (Exception ex)
             {
-                ControleDeMensagens.Avisar($"Erro ao gravar: {ex.Message}");
+                _view.ExibirMensagem($"Erro ao gravar: {ex.Message}");
             }
         }
         public void CancelarVenda()
         {
-            if (ControleDeMensagens.Perguntar("Deseja realmente cancelar esta venda? Todos os itens lançados serão perdidos."))
+            if (_view.ExibirMensagemPerguntar("Deseja realmente cancelar esta venda? Todos os itens lançados serão perdidos."))
             {
                 _view.ReiniciarFormulario();
                 Inicializar();
@@ -169,10 +167,10 @@ namespace ProjetoGuh.Features.Venda.Presenter
             try
             {
                 // Sempre pedir confirmação para exclusões de registros no banco
-                if (ControleDeMensagens.Perguntar($"Tem certeza que deseja excluir a venda nº {id}?"))
+                if (_view.ExibirMensagemPerguntar($"Tem certeza que deseja excluir a venda nº {id}?"))
                 {
                     _repository.Excluir(id);
-                    ControleDeMensagens.Informar("Venda excluída com sucesso!");
+                    _view.ExibirMensagem("Venda excluída com sucesso!");
 
                     // Atualiza a tela/lista se necessário
                     Inicializar();
@@ -180,7 +178,7 @@ namespace ProjetoGuh.Features.Venda.Presenter
             }
             catch (Exception ex)
             {
-                ControleDeMensagens.Avisar($"Erro ao excluir venda: {ex.Message}");
+                _view.ExibirMensagemErro($"Erro ao excluir venda: {ex.Message}");
             }
         }
     }

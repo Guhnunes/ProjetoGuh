@@ -7,7 +7,7 @@ namespace ProjetoGuh.Features.Venda.Dao
     {
         void Incluir(FormaPagamentoModel item);
         void Alterar(FormaPagamentoModel item);
-        List<FormaPagamentoModel> Listar();
+        List<FormaPagamentoModel> ListarFormasDePagamento();
         FormaPagamentoModel RetornarPorId(int id);
         void Excluir(int id);
     }

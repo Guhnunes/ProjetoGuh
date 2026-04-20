@@ -16,6 +16,6 @@ namespace ProjetoGuh.Features.Venda.Presenter
         // Persistência e Controle
         void FinalizarVenda(); // Substitui o antigo 'Salvar'
         void CancelarVenda();
-        void Excluir(int id); // Para cancelamento de vendas já salvas (opcional)
+        void Excluir(int id);
     }
 }

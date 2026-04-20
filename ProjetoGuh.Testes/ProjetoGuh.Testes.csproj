@@ -109,6 +109,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Features\Cliente\CadastroClientePresenterTestes.cs" />
+    <Compile Include="Features\Produto\CadastroProdutoPresenterTestes.cs" />
+    <Compile Include="Features\Venda\CadastroVendaPresenterTestes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -122,6 +124,7 @@
     <None Include="packages.config" />
     <None Include="projeto.runsettings" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\ProjetoGuh\packages\NUnit3TestAdapter.4.2.1\build\net462\NUnit3TestAdapter.targets" Condition="Exists('..\ProjetoGuh\packages\NUnit3TestAdapter.4.2.1\build\net462\NUnit3TestAdapter.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

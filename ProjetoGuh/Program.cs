@@ -7,8 +7,8 @@ using ProjetoGuh.Features.Cliente.Presenter;
 using ProjetoGuh.Features.Cliente.Repository;
 using ProjetoGuh.Features.Infraestrutura;
 using ProjetoGuh.Features.Menu;
-using ProjetoGuh.Features.Menu.View;
 using ProjetoGuh.Features.Menu.Presenter;
+using ProjetoGuh.Features.Menu.View;
 using ProjetoGuh.Features.Migrations;
 using ProjetoGuh.Features.Produto;
 using ProjetoGuh.Features.Produto.Dao;
@@ -19,6 +19,7 @@ using ProjetoGuh.Features.Venda;
 using ProjetoGuh.Features.Venda.Dao;
 using ProjetoGuh.Features.Venda.Presenter;
 using ProjetoGuh.Features.Venda.Repository;
+using ProjetoGuh.Features.Venda.View;
 using System;
 using System.Configuration;
 using System.Windows.Forms;
@@ -102,7 +103,9 @@ namespace ProjetoGuh
             builder.RegisterType<VendaDao>().As<IVendaDao>();
             builder.RegisterType<VendaRepository>().As<IVendaRepository>();
             builder.RegisterType<FormaPagamentoDao>().As<IFormaPagamentoDao>();
+            builder.RegisterType<FormaPagamentoRepository>().As<IFormaPagamentoRepository>();
             builder.RegisterType<CadastroVendaPresenter>().AsSelf();
+            builder.RegisterType<PdvForm>().As<IPdvView>().AsSelf();
             builder.RegisterType<PdvForm>().AsSelf();
 
             // --- CONSULTA DE VENDA ---

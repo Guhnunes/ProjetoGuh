@@ -36,5 +36,8 @@ namespace ProjetoGuh.Features.Venda.View
         void AtualizarPrecoUnitario(decimal preco);
         void LimparCamposItem();
         void FecharTela();
+        void ExibirMensagem(string mensagem);
+        void ExibirMensagemErro(string mensagemErro);
+        bool ExibirMensagemPerguntar(string mensagemPerguntar);
     }
 }

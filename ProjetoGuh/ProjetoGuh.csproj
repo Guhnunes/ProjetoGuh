@@ -251,6 +251,8 @@
     <Compile Include="Features\Venda\Presenter\ICadastroVendaPresenter.cs" />
     <Compile Include="Features\Venda\Presenter\IVendaConsultaPresenter.cs" />
     <Compile Include="Features\Venda\Presenter\VendaConsultaPresenter.cs" />
+    <Compile Include="Features\Venda\Repository\FormaPagamentoRepository.cs" />
+    <Compile Include="Features\Venda\Repository\IFormaPagamentoRepository.cs" />
     <Compile Include="Features\Venda\Repository\IVendaRepository.cs" />
     <Compile Include="Features\Venda\Repository\VendaRepository.cs" />
     <Compile Include="Features\Venda\VendaConsultaForm.cs">

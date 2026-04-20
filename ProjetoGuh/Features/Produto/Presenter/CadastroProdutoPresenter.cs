@@ -1,8 +1,9 @@
 ﻿using ProjetoGuh.Features.Infraestrutura;
-using System;
 using ProjetoGuh.Features.Produto.Model;
-using ProjetoGuh.Features.Produto.View;
 using ProjetoGuh.Features.Produto.Repository;
+using ProjetoGuh.Features.Produto.View;
+using System;
+using System.Windows.Forms;
 
 namespace ProjetoGuh.Features.Produto.Presenter
 {
@@ -36,7 +37,7 @@ namespace ProjetoGuh.Features.Produto.Presenter
                 }
                 else
                 {
-                    ControleDeMensagens.Avisar("Por favor, selecione um produto na lista para desativar.");
+                    _view.ExibirMensagem("Por favor, selecione um produto na lista para desativar.");
                 }
             };
         }
@@ -56,19 +57,19 @@ namespace ProjetoGuh.Features.Produto.Presenter
                 if (erros.Count > 0)
                 {
                     string mensagemErro = string.Join("\n", erros);
-                    ControleDeMensagens.Avisar(mensagemErro);
+                    _view.ExibirMensagemErro(mensagemErro);
                     return;
                 }
 
                 if (produto.Id == 0)
                 {
                     _repository.Incluir(produto);
-                    ControleDeMensagens.Informar("Produto cadastrado com sucesso!");
+                    _view.ExibirMensagem("Produto cadastrado com sucesso!");
                 }
                 else
                 {
                     _repository.Alterar(produto);
-                    ControleDeMensagens.Informar("Produto atualizado com sucesso!");
+                    _view.ExibirMensagem("Produto atualizado com sucesso!");
                 }
 
                 _view.LimparFormulario();
@@ -76,7 +77,7 @@ namespace ProjetoGuh.Features.Produto.Presenter
             }
             catch (Exception ex)
             {
-                ControleDeMensagens.Avisar($"Erro ao salvar: {ex.Message}");
+                _view.ExibirMensagemErro($"Erro ao salvar: {ex.Message}");
             }
         }
 
@@ -85,12 +86,12 @@ namespace ProjetoGuh.Features.Produto.Presenter
             try
             {
                 _repository.Excluir(id);
-                ControleDeMensagens.Informar("Produto excluído com sucesso!");
+                _view.ExibirMensagemErro("Produto excluído com sucesso!");
                 Inicializar();
             }
             catch (Exception ex)
             {
-                ControleDeMensagens.Avisar($"Erro ao excluir produto: {ex.Message}");
+                _view.ExibirMensagemErro($"Erro ao excluir produto: {ex.Message}");
             }
         }
     }

@@ -14,5 +14,8 @@ namespace ProjetoGuh.Features.Cliente.View
         void PreencherFormulario(ClienteModel cliente);
         void LimparFormulario();
         void PreencherGrid(List<ClienteModel> clientes);
+        void ExibirMensagem(string mensagem);
+        void ExibirMensagemErro(string mensagemErro);
+        bool ConfirmarExclusao();
     }
 }

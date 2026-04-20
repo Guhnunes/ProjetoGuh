@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
+﻿using ProjetoGuh.Features.Infraestrutura;
 using ProjetoGuh.Features.Produto.Model;
 using ProjetoGuh.Features.Produto.Presenter;
 using ProjetoGuh.Features.Produto.View;
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace ProjetoGuh.Features.Produto
 {
@@ -157,6 +158,18 @@ namespace ProjetoGuh.Features.Produto
                     e.FormattingApplied = true;
                 }
             }
+        }
+        public void ExibirMensagem(string mensagem)
+        {
+            ControleDeMensagens.Informar(mensagem);
+        }
+        public void ExibirMensagemErro(string mensagemErro)
+        {
+            ControleDeMensagens.Avisar(mensagemErro);
+        }
+        public bool ConfirmarExclusao()
+        {
+            return ControleDeMensagens.Perguntar("Deseja realmente excluir este produto?");
         }
     }
 }

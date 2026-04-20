@@ -12,6 +12,8 @@ namespace ProjetoGuh.Features.Venda.Model
                 erros.Add("A venda deve conter pelo menos um item.");
             if (model.ValorTotal <= 0)
                 erros.Add("O preço de venda deve ser maior que zero.");
+            if(model.IdFormaPagamento == 0)
+                erros.Add("A forma de pagamento deve ser selecionada.");
 
             return erros;
         }

@@ -219,5 +219,17 @@ namespace ProjetoGuh.Features.Cliente
                 }
             }
         }
+        public void ExibirMensagem(string mensagem)
+        {
+            ControleDeMensagens.Informar(mensagem);
+        }
+        public void ExibirMensagemErro(string mensagemErro)
+        {
+            ControleDeMensagens.Avisar(mensagemErro);
+        }
+        public bool ConfirmarExclusao()
+        {
+            return ControleDeMensagens.Perguntar("Deseja realmente excluir este cliente?");
+        }
     }
 }

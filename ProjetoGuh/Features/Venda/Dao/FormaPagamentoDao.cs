@@ -45,7 +45,7 @@ namespace ProjetoGuh.Features.Venda.Dao
             }
         }
 
-        public List<FormaPagamentoModel> Listar()
+        public List<FormaPagamentoModel> ListarFormasDePagamento()
         {
             using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
             {

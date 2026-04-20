@@ -15,5 +15,8 @@ namespace ProjetoGuh.Features.Produto.View
         void LimparFormulario();
         void PreencherGrid(List<ProdutoModel> produtos);
         bool Ativo { get; set; }
+        void ExibirMensagem(string mensagem);
+        void ExibirMensagemErro(string mensagemErro);
+        bool ConfirmarExclusao();
     }
 }

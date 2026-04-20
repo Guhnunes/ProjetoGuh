@@ -1,4 +1,5 @@
 ﻿using ProjetoGuh.Features.Cliente.Model;
+using ProjetoGuh.Features.Infraestrutura;
 using ProjetoGuh.Features.Produto.Model;
 using ProjetoGuh.Features.Venda.Model;
 using ProjetoGuh.Features.Venda.Presenter;
@@ -169,6 +170,18 @@ namespace ProjetoGuh.Features.Venda
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+        public void ExibirMensagem(string mensagem)
+        {
+            ControleDeMensagens.Informar(mensagem);
+        }
+        public void ExibirMensagemErro(string mensagemErro)
+        {
+            ControleDeMensagens.Avisar(mensagemErro);
+        }
+        public bool ExibirMensagemPerguntar(string mensagemPerguntar)
+        {
+            return ControleDeMensagens.Perguntar(mensagemPerguntar);
         }
         #endregion
     }

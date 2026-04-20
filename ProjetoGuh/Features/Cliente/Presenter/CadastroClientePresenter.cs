@@ -32,7 +32,7 @@ namespace ProjetoGuh.Features.Cliente.Presenter
                 }
                 else
                 {
-                    ControleDeMensagens.Avisar("Por favor, selecione um cliente na lista para excluir.");
+                    _view.ExibirMensagem("Por favor, selecione um cliente na lista para excluir.");
                 }
             };
         }
@@ -46,7 +46,7 @@ namespace ProjetoGuh.Features.Cliente.Presenter
             }
             catch (Exception ex)
             {
-                ControleDeMensagens.Avisar($"Erro ao carregar clientes: {ex.Message}");
+                _view.ExibirMensagemErro($"Erro ao carregar clientes: {ex.Message}");
             }
         }
 
@@ -60,19 +60,19 @@ namespace ProjetoGuh.Features.Cliente.Presenter
                 if (erros.Count > 0)
                 {
                     string mensagemErro = string.Join("\n", erros);
-                    ControleDeMensagens.Avisar(mensagemErro);
+                    _view.ExibirMensagemErro(mensagemErro);
                     return;
                 }
 
                 if (cliente.Id == 0)
                 {
                     _repository.Incluir(cliente);
-                    ControleDeMensagens.Informar("Cliente cadastrado com sucesso!");
+                    _view.ExibirMensagem("Cliente cadastrado com sucesso!");
                 }
                 else
                 {
                     _repository.Alterar(cliente);
-                    ControleDeMensagens.Informar("Cliente atualizado com sucesso!");
+                    _view.ExibirMensagem("Cliente atualizado com sucesso!");
                 }
 
                 _view.LimparFormulario();
@@ -80,7 +80,7 @@ namespace ProjetoGuh.Features.Cliente.Presenter
             }
             catch (Exception ex)
             {
-                ControleDeMensagens.Avisar($"Erro ao salvar: {ex.Message}");
+                _view.ExibirMensagemErro($"Erro ao salvar: {ex.Message}");
             }
         }
 
@@ -88,16 +88,16 @@ namespace ProjetoGuh.Features.Cliente.Presenter
         {
             try
             {
-                if (!ControleDeMensagens.Perguntar("Deseja realmente excluir este cliente?"))
+                if (!_view.ConfirmarExclusao())
                     return;
 
                 _repository.Excluir(id);
-                ControleDeMensagens.Informar("Cliente excluído com sucesso!");
+                _view.ExibirMensagem("Cliente excluído com sucesso!");
                 Inicializar();
             }
             catch (Exception ex)
             {
-                ControleDeMensagens.Avisar($"Erro ao excluir cliente: {ex.Message}");
+               _view.ExibirMensagemErro($"Erro ao excluir cliente: {ex.Message}");
             }
         }
     }
