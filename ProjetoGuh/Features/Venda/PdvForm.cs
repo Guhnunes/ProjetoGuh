@@ -25,6 +25,7 @@ namespace ProjetoGuh.Features.Venda
             InitializeComponent();
             _presenter = presenter;
             _presenter.SetView(this);
+            this.KeyPreview = true;
 
             // Vinculação de Eventos dos Controles
             btnAdicionar.Click += (s, e) => BotaoAdicionarItemClicado?.Invoke(this, EventArgs.Empty);
@@ -154,12 +155,20 @@ namespace ProjetoGuh.Features.Venda
             // Coloca o foco de volta no primeiro campo (geralmente o cliente ou produto)
             cmbCliente.Focus();
         }
-
-        public void ExibirMensagem(string mensagem) => MessageBox.Show(mensagem);
-
-        public bool ConfirmarAcao(string mensagem)
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            return MessageBox.Show(mensagem, "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+            if (keyData == Keys.F5)
+            {
+                BotaoFinalizarVendaClicado?.Invoke(this, EventArgs.Empty);
+                return true;
+            }
+            if (keyData == Keys.F4)
+            {
+                BotaoCancelarVendaClicado?.Invoke(this, EventArgs.Empty);
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
         #endregion
     }

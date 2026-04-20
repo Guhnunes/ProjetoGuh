@@ -148,3 +148,5 @@ C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh\obj\Debug\ProjetoGuh.exe
 C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh\obj\Debug\ProjetoGuh.pdb
 C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh\obj\Debug\ProjetoGuh.Features.Produto.CadastroProdutoForm.resources
 C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh\obj\Debug\ProjetoGuh.Features.Venda.PdvForm.resources
+C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh\obj\Debug\ProjetoGuh.Features.Menu.MenuPrincipalForm.resources
+C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh\obj\Debug\ProjetoGuh.Features.Venda.VendaConsultaForm.resources

@@ -16,5 +16,5 @@ public class VendaModel
     public int IdFormaPagamento { get; set; }
     public decimal ValorTotal { get; set; }
     public string Observacao { get; set; }
-    public List<ItemVendaModel> Itens { get; set; } // Agora inicializada
+    public List<ItemVendaModel> Itens { get; set; } 
 }

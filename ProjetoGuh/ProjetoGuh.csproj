@@ -249,9 +249,18 @@
     </Compile>
     <Compile Include="Features\Venda\Presenter\CadastroVendaPresenter.cs" />
     <Compile Include="Features\Venda\Presenter\ICadastroVendaPresenter.cs" />
+    <Compile Include="Features\Venda\Presenter\IVendaConsultaPresenter.cs" />
+    <Compile Include="Features\Venda\Presenter\VendaConsultaPresenter.cs" />
     <Compile Include="Features\Venda\Repository\IVendaRepository.cs" />
     <Compile Include="Features\Venda\Repository\VendaRepository.cs" />
+    <Compile Include="Features\Venda\VendaConsultaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Features\Venda\VendaConsultaForm.Designer.cs">
+      <DependentUpon>VendaConsultaForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Features\Venda\View\IPdvView.cs" />
+    <Compile Include="Features\Venda\View\IVendaConsultaView.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -263,11 +272,17 @@
     <EmbeddedResource Include="Features\Cliente\CadastroClienteForm.resx">
       <DependentUpon>CadastroClienteForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Features\Menu\MenuPrincipalForm.resx">
+      <DependentUpon>MenuPrincipalForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Features\Produto\CadastroProdutoForm.resx">
       <DependentUpon>CadastroProdutoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Features\Venda\PdvForm.resx">
       <DependentUpon>PdvForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Features\Venda\VendaConsultaForm.resx">
+      <DependentUpon>VendaConsultaForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -21,6 +21,13 @@ namespace ProjetoGuh.Features.Menu
             _view.AbrirClienteClick += AbrirCliente;
             _view.AbrirProdutoClick += AbrirProduto;
             _view.AbrirVendaClick += AbrirVenda;
+            _view.AbrirConsultaVendaClick += (s, e) => AbrirConsultaVendas();
+        }
+        private void AbrirConsultaVendas()
+        {
+            // Resolve o formulário pelo Autofac (garante que o VendaConsultaPresenter seja injetado)
+            var form = _scope.Resolve<VendaConsultaForm>();
+            _view.AdicionarAba("Consulta de Vendas", form);
         }
         private void AbrirVenda(object sender, EventArgs e)
         {

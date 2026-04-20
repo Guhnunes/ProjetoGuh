@@ -1,4 +1,6 @@
 ﻿using ProjetoGuh.Features.Menu;
+using ProjetoGuh.Features.Venda;
+using ProjetoGuh.Features.Venda.Presenter;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -10,15 +12,19 @@ namespace ProjetoGuh.Features.Menu
         public event EventHandler AbrirClienteClick;
         public event EventHandler AbrirProdutoClick;
         public event EventHandler AbrirVendaClick;
+        public event EventHandler AbrirConsultaVendaClick;
 
         public MenuPrincipalForm()
         {
             InitializeComponent();
 
+            tabControlPrincipal.DrawMode = TabDrawMode.OwnerDrawFixed;
+
             // Eventos de clique do Menu Superior
             menuItemCliente.Click += (s, e) => AbrirClienteClick?.Invoke(this, EventArgs.Empty);
             menuItemProduto.Click += (s, e) => AbrirProdutoClick?.Invoke(this, EventArgs.Empty);
-            menuItemVenda.Click += (s, e) => AbrirVendaClick?.Invoke(this, EventArgs.Empty);
+            menuItemPdv.Click += (s, e) => AbrirVendaClick?.Invoke(this, EventArgs.Empty);
+            menuItemConsultaVendas.Click += (s, e) => AbrirConsultaVendaClick?.Invoke(this, EventArgs.Empty);
 
             // Configuração para o "X" nas abas
             tabControlPrincipal.DrawItem += TabControlPrincipal_DrawItem;

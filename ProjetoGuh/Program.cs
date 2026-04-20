@@ -103,6 +103,11 @@ namespace ProjetoGuh
             builder.RegisterType<CadastroVendaPresenter>().AsSelf();
             builder.RegisterType<PdvForm>().AsSelf();
 
+            // --- CONSULTA DE VENDA ---
+            builder.RegisterType<VendaConsultaPresenter>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<VendaConsultaForm>().AsSelf().InstancePerDependency();
+            builder.RegisterType<VendaDao>().AsSelf().InstancePerLifetimeScope();
+
             return builder.Build();
         }
     }

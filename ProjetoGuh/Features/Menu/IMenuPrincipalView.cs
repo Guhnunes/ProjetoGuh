@@ -9,6 +9,7 @@ namespace ProjetoGuh.Features.Menu
         event EventHandler AbrirClienteClick;
         event EventHandler AbrirProdutoClick;
         event EventHandler AbrirVendaClick;
+        event EventHandler AbrirConsultaVendaClick;
 
         // O Presenter precisa desse método para "mandar" na View
         void AdicionarAba(string titulo, Form formFilho);

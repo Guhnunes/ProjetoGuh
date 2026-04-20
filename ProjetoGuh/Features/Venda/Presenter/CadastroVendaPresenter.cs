@@ -1,12 +1,13 @@
-﻿using ProjetoGuh.Features.Infraestrutura;
+﻿using ProjetoGuh.Features.Cliente.Dao; // Adicione os DAOs necessários para carregar os combos
+using ProjetoGuh.Features.Infraestrutura;
+using ProjetoGuh.Features.Produto.Dao;
+using ProjetoGuh.Features.Produto.Model;
+using ProjetoGuh.Features.Venda.Dao;
+using ProjetoGuh.Features.Venda.Model;
+using ProjetoGuh.Features.Venda.Repository;
+using ProjetoGuh.Features.Venda.View;
 using System;
 using System.Linq;
-using ProjetoGuh.Features.Venda.Model;
-using ProjetoGuh.Features.Venda.View;
-using ProjetoGuh.Features.Venda.Repository;
-using ProjetoGuh.Features.Cliente.Dao; // Adicione os DAOs necessários para carregar os combos
-using ProjetoGuh.Features.Produto.Dao;
-using ProjetoGuh.Features.Venda.Dao;
 
 namespace ProjetoGuh.Features.Venda.Presenter
 {
@@ -17,6 +18,7 @@ namespace ProjetoGuh.Features.Venda.Presenter
         private readonly IClienteDao _clienteDao;
         private readonly IProdutoDao _produtoDao;
         private readonly IFormaPagamentoDao _formaPagamentoDao;
+        private readonly VendaModelValidator _validator;
 
         // Esta é a venda que está sendo montada na memória
         private VendaModel _vendaAtiva;
@@ -32,6 +34,7 @@ namespace ProjetoGuh.Features.Venda.Presenter
             _produtoDao = produtoDao;
             _formaPagamentoDao = formaPagamentoDao;
             _vendaAtiva = new VendaModel();
+            _validator = new VendaModelValidator();
         }
 
         public void SetView(IPdvView view)
@@ -129,6 +132,13 @@ namespace ProjetoGuh.Features.Venda.Presenter
         {
             try
             {
+                var erros = _validator.Validar(_vendaAtiva);
+                if (erros.Count > 0)
+                {
+                    ControleDeMensagens.Avisar(string.Join("\n", erros));
+                    return;
+                }
+
                 // Preenche os dados
                 _vendaAtiva.IdCliente = _view.ObterClienteSelecionadoId();
                 _vendaAtiva.IdFormaPagamento = _view.ObterFormaPagamentoId();

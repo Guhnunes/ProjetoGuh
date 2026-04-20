@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using ProjetoGuh.Features.Infraestrutura;
 using ProjetoGuh.Features.Venda.Model;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -117,6 +118,20 @@ namespace ProjetoGuh.Features.Venda.Dao
                         throw;
                     }
                 }
+            }
+        }
+        public List<VendaModel> ListarVendasPorPeriodo(DateTime inicio, DateTime fim)
+        {
+            using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
+            {
+                string sql = @"SELECT V.ID, C.NOME as NomeCliente, V.DATA_VENDA as DataVenda, V.VALOR_TOTAL as ValorTotal, V.OBSERVACAO
+                       FROM VENDA V
+                       INNER JOIN CLIENTE C ON V.ID_CLIENTE = C.ID
+                       WHERE V.DATA_VENDA BETWEEN @inicio AND @fim
+                       ORDER BY V.DATA_VENDA DESC";
+
+                conexao.Open();
+                return conexao.Query<VendaModel>(sql, new { inicio, fim }).ToList();
             }
         }
     }
