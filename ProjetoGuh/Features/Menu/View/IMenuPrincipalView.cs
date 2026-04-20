@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace ProjetoGuh.Features.Menu
+namespace ProjetoGuh.Features.Menu.View
 {
     public interface IMenuPrincipalView
     {

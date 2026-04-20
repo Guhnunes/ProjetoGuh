@@ -2,10 +2,11 @@
 using ProjetoGuh.Features.Cliente;
 using ProjetoGuh.Features.Produto;
 using ProjetoGuh.Features.Venda;
+using ProjetoGuh.Features.Menu.View;
 using System;
 
 
-namespace ProjetoGuh.Features.Menu
+namespace ProjetoGuh.Features.Menu.Presenter
 {
     public class MenuPrincipalPresenter
     {

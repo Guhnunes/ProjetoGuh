@@ -7,6 +7,8 @@ using ProjetoGuh.Features.Cliente.Presenter;
 using ProjetoGuh.Features.Cliente.Repository;
 using ProjetoGuh.Features.Infraestrutura;
 using ProjetoGuh.Features.Menu;
+using ProjetoGuh.Features.Menu.View;
+using ProjetoGuh.Features.Menu.Presenter;
 using ProjetoGuh.Features.Migrations;
 using ProjetoGuh.Features.Produto;
 using ProjetoGuh.Features.Produto.Dao;

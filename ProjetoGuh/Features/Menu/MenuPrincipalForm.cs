@@ -1,6 +1,4 @@
-﻿using ProjetoGuh.Features.Menu;
-using ProjetoGuh.Features.Venda;
-using ProjetoGuh.Features.Venda.Presenter;
+﻿using ProjetoGuh.Features.Menu.View;
 using System;
 using System.Drawing;
 using System.Windows.Forms;

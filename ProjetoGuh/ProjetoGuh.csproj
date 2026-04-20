@@ -206,14 +206,14 @@
     <Compile Include="Features\Infraestrutura\ControleDeMensagens.cs" />
     <Compile Include="Features\Infraestrutura\FabricaDeConexao.cs" />
     <Compile Include="Features\Infraestrutura\IFabricaDeConexao.cs" />
-    <Compile Include="Features\Menu\IMenuPrincipalView.cs" />
+    <Compile Include="Features\Menu\View\IMenuPrincipalView.cs" />
     <Compile Include="Features\Menu\MenuPrincipalForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Features\Menu\MenuPrincipalForm.Designer.cs">
       <DependentUpon>MenuPrincipalForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Features\Menu\MenuPrincipalPresenter.cs" />
+    <Compile Include="Features\Menu\Presenter\MenuPrincipalPresenter.cs" />
     <Compile Include="Features\Migrations\M002_CriarTabelaProduto .cs" />
     <Compile Include="Features\Migrations\M001_CriarTabelaCliente.cs" />
     <Compile Include="Features\Migrations\M003_CriarTabelasDeVenda.cs" />
