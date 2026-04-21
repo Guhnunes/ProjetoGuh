@@ -1,9 +1,8 @@
 ﻿using ProjetoGuh.Features.Infraestrutura;
 using ProjetoGuh.Features.Produto.Model;
 using ProjetoGuh.Features.Produto.Repository;
-using ProjetoGuh.Features.Produto.View;
 using System;
-using System.Windows.Forms;
+using System.Linq;
 
 namespace ProjetoGuh.Features.Produto.Presenter
 {
@@ -23,16 +22,17 @@ namespace ProjetoGuh.Features.Produto.Presenter
         {
             _view = view;
             _view.BotaoSalvarFoiClicado += (s, e) => Salvar();
+            _view.BotaoCancelarFoiClicado += (s, e) => _view.LimparFormulario();
             _view.BotaoExcluirFoiClicado += (s, e) =>
             {
-                var produtoSelecionado = _view.ObterProdutoSelecionado();
-                if (produtoSelecionado != null)
+                // Buscamos apenas o ID da View, não o objeto Model
+                var id = _view.ObterIdSelecionadoNaGrid();
+
+                if (id.HasValue)
                 {
-                    if (ControleDeMensagens.Perguntar("Gostaria de desativar o produto selecionado?"))
+                    if (_view.ConfirmarExclusao()) // A View decide como perguntar (MessageBox)
                     {
-                        Excluir(produtoSelecionado.Id);
-                        _view.LimparFormulario();
-                        Inicializar();
+                        Excluir(id.Value);
                     }
                 }
                 else
@@ -44,20 +44,37 @@ namespace ProjetoGuh.Features.Produto.Presenter
 
         public void Inicializar()
         {
-            _view.PreencherGrid(_repository.Listar());
+            try
+            {
+                // Passamos a lista como 'object' para a View não precisar referenciar o Model
+                var produtos = _repository.Listar();
+                _view.PreencherGrid(produtos);
+            }
+            catch (Exception ex)
+            {
+                _view.ExibirMensagemErro($"Erro ao carregar produtos: {ex.Message}");
+            }
         }
 
         public void Salvar()
         {
+            // O Presenter é o único responsável por instanciar o Model
+            var produto = new ProdutoModel
+            {
+                Id = _view.ObterId(),
+                Descricao = _view.ObterDescricao(),
+                Preco = _view.ObterPreco(),
+                Estoque = _view.ObterEstoque(),
+                Ativo = _view.ObterStatusAtivo()
+            };
+
             try
             {
-                var produto = _view.ObterDadosDoFormulario();
                 var erros = _validator.Validar(produto);
 
                 if (erros.Count > 0)
                 {
-                    string mensagemErro = string.Join("\n", erros);
-                    _view.ExibirMensagemErro(mensagemErro);
+                    _view.ExibirMensagemErro(string.Join("\n", erros));
                     return;
                 }
 
@@ -86,7 +103,8 @@ namespace ProjetoGuh.Features.Produto.Presenter
             try
             {
                 _repository.Excluir(id);
-                _view.ExibirMensagemErro("Produto excluído com sucesso!");
+                _view.ExibirMensagem("Produto desativado com sucesso!");
+                _view.LimparFormulario();
                 Inicializar();
             }
             catch (Exception ex)

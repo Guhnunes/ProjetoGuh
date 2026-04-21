@@ -1,19 +1,15 @@
-﻿using ProjetoGuh.Features.Venda.Dao;
+﻿using ProjetoGuh.Features.Venda.Repository;
 using ProjetoGuh.Features.Venda.View;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjetoGuh.Features.Venda.Presenter
 {
     public class VendaConsultaPresenter : IVendaConsultaPresenter
     {
         private IVendaConsultaView _view;
-        private readonly VendaDao _repository;
+        private readonly IVendaRepository _repository;
 
-        public VendaConsultaPresenter(VendaDao repository)
+        public VendaConsultaPresenter(IVendaRepository repository)
         {
             _repository = repository;
         }
@@ -21,22 +17,50 @@ namespace ProjetoGuh.Features.Venda.Presenter
         public void SetView(IVendaConsultaView view)
         {
             _view = view;
-            _view.BotaoFiltrarClicado += (s, e) => CarregarVendas();
-            _view.BotaoLimparClicado += (s, e) => {
-                // Lógica de limpeza
-                _view.PreencherGridVendas(new List<VendaModel>());
-                // Se você criou o método LimparFiltros na interface, chame-o aqui
-            };
+
+            // Assinamos os eventos que a View vai disparar
+            _view.BotaoFiltrarClicado += (s, e) => Filtrar();
+            _view.BotaoLimparClicado += (s, e) => LimparFiltros();
         }
 
-        public void CarregarVendas()
+        // --- ESTE É O MÉTODO QUE ESTAVA FALTANDO ---
+        public void Inicializar()
         {
-            var dataInicio = _view.ObterDataInicio();
-            var dataFim = _view.ObterDataFim();
+            try
+            {
+                // No carregamento inicial, buscamos as vendas do período padrão da View
+                Filtrar();
+            }
+            catch (Exception ex)
+            {
+                _view.ExibirMensagem($"Erro ao inicializar consulta: {ex.Message}");
+            }
+        }
 
-            // Aqui você usará o Dapper no seu DAO para filtrar por data
-            var vendas = _repository.ListarVendasPorPeriodo(dataInicio, dataFim);
-            _view.PreencherGridVendas(vendas);
+        public void Filtrar()
+        {
+            try
+            {
+                DateTime dataInicio = _view.ObterDataInicio();
+                DateTime dataFim = _view.ObterDataFim();
+
+                // Buscamos no repositório (O Presenter conhece o Model)
+                var vendas = _repository.BuscarPorPeriodo(dataInicio, dataFim);
+
+                // Entregamos para a View (Como object, para manter o desacoplamento)
+                _view.PreencherGridVendas(vendas);
+            }
+            catch (Exception ex)
+            {
+                _view.ExibirMensagem($"Erro ao filtrar vendas: {ex.Message}");
+            }
+        }
+
+        public void LimparFiltros()
+        {
+            _view.LimparFiltros();
+            // Após limpar os campos na tela, recarregamos a grid
+            Filtrar();
         }
     }
 }

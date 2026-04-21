@@ -64,12 +64,12 @@ namespace ProjetoGuh.Features.Cliente
             // 
             // txtCpfCnpj
             // 
-            this.txtCpfCnpj.Location = new System.Drawing.Point(100, 48);
             this.txtCpfCnpj.HidePromptOnLeave = true;
-            this.txtCpfCnpj.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
+            this.txtCpfCnpj.Location = new System.Drawing.Point(100, 51);
             this.txtCpfCnpj.Name = "txtCpfCnpj";
             this.txtCpfCnpj.Size = new System.Drawing.Size(200, 22);
             this.txtCpfCnpj.TabIndex = 3;
+            this.txtCpfCnpj.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
             // lblTelefone
             // 

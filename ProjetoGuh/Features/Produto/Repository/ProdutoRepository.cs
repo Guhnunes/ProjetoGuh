@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using ProjetoGuh.Features.Produto.Model;
 using ProjetoGuh.Features.Produto.Dao;
+using System.Linq;
 
 namespace ProjetoGuh.Features.Produto.Repository
 {
     public class ProdutoRepository : BaseRepository, IProdutoRepository
     {
         private readonly IProdutoDao _produtoDao;
+        private List<ProdutoModel> _produtos = new List<ProdutoModel>();
 
         public ProdutoRepository(IProdutoDao produtoDao)
         {

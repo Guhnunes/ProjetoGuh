@@ -9,6 +9,6 @@ namespace ProjetoGuh.Features.Cliente.Model
         public string CpfCnpj { get; set; }
         public string Telefone { get; set; }
         public string Email { get; set; }
-        public DateTime DataCadastro { get; set; }
+        public DateTime DataCadastro { get; set; } = DateTime.Now;
     }
 }

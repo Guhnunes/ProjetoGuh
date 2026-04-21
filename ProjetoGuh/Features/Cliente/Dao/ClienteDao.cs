@@ -47,9 +47,18 @@ namespace ProjetoGuh.Features.Cliente.Dao
         {
             using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
             {
+                var sql = @"SELECT 
+                        ID, 
+                        NOME, 
+                        CPF_CNPJ AS CpfCnpj, 
+                        TELEFONE, 
+                        EMAIL, 
+                        DATA_CADASTRO AS DataCadastro 
+                    FROM CLIENTE 
+                    WHERE ID = @Id";
                 conexao.Open();
                 return conexao.QueryFirstOrDefault<ClienteModel>(
-                    "SELECT * FROM CLIENTE WHERE ID = @Id", new { Id = id });
+                    sql, new { Id = id });
             }
         }
         public List<ClienteModel> Listar()

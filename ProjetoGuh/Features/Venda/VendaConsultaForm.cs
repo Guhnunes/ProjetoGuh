@@ -1,34 +1,48 @@
-﻿using ProjetoGuh.Features.Venda.Model;
-using ProjetoGuh.Features.Venda.Presenter;
+﻿using ProjetoGuh.Features.Venda.Presenter;
 using ProjetoGuh.Features.Venda.View;
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace ProjetoGuh.Features.Venda
 {
-    // A palavra 'partial' é obrigatória aqui
     public partial class VendaConsultaForm : Form, IVendaConsultaView
     {
-        private readonly VendaConsultaPresenter _presenter;
-
+        // Eventos da Interface
         public event EventHandler BotaoFiltrarClicado;
         public event EventHandler BotaoLimparClicado;
 
         public VendaConsultaForm(VendaConsultaPresenter presenter)
         {
             InitializeComponent();
-            _presenter = presenter;
-            _presenter.SetView(this);
 
-            // Configurações iniciais de data
+            // Vinculação com o Presenter
+            presenter.SetView(this);
+
+            // Configurações iniciais de data (UI)
             dtpInicio.Value = DateTime.Now.AddDays(-7);
             dtpFim.Value = DateTime.Now;
 
             // Vinculação de eventos dos botões
             btnFiltrar.Click += (s, e) => BotaoFiltrarClicado?.Invoke(this, EventArgs.Empty);
             btnLimpar.Click += (s, e) => BotaoLimparClicado?.Invoke(this, EventArgs.Empty);
+
+            // Carga inicial
+            this.Load += (s, e) => presenter.Inicializar();
         }
+
+        #region Implementação da IVendaConsultaView
+
+        public DateTime ObterDataInicio() => dtpInicio.Value.Date;
+
+        public DateTime ObterDataFim() => dtpFim.Value.Date.AddDays(1).AddSeconds(-1);
+
+        public void PreencherGridVendas(object vendas)
+        {
+            dgvVendas.DataSource = null;
+            dgvVendas.DataSource = vendas;
+            ConfigurarColunasGrid();
+        }
+
         public void LimparFiltros()
         {
             dtpInicio.Value = DateTime.Now.AddDays(-7);
@@ -36,35 +50,39 @@ namespace ProjetoGuh.Features.Venda
             dgvVendas.DataSource = null;
         }
 
-        public void PreencherGridVendas(List<VendaModel> vendas)
+        public void ExibirMensagem(string mensagem)
         {
-            dgvVendas.DataSource = null;
-            dgvVendas.DataSource = vendas;
-            ConfigurarColunasGrid();
+            // Usando o MessageBox padrão ou sua classe de ControleDeMensagens
+            MessageBox.Show(mensagem, "Consulta de Vendas", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        #endregion
 
         private void ConfigurarColunasGrid()
         {
-            if (dgvVendas.Columns.Count > 0)
+            // Verificação de segurança para o WinForms
+            if (dgvVendas.Columns.Count == 0) return;
+
+            // Formatação amigável das colunas
+            if (dgvVendas.Columns.Contains("Id")) dgvVendas.Columns["Id"].HeaderText = "Cód. Venda";
+            if (dgvVendas.Columns.Contains("DataVenda")) dgvVendas.Columns["DataVenda"].HeaderText = "Data";
+
+            if (dgvVendas.Columns.Contains("ValorTotal"))
             {
-                dgvVendas.Columns["Id"].HeaderText = "Cód. Venda";
-                dgvVendas.Columns["DataVenda"].HeaderText = "Data";
                 dgvVendas.Columns["ValorTotal"].HeaderText = "Total";
                 dgvVendas.Columns["ValorTotal"].DefaultCellStyle.Format = "C2";
-                dgvVendas.Columns["Observacao"].HeaderText = "Obs.";
-
-                // Esconde IDs que não precisam aparecer para o usuário
-                if (dgvVendas.Columns.Contains("IdCliente")) dgvVendas.Columns["IdCliente"].Visible = false;
-                if (dgvVendas.Columns.Contains("IdFormaPagamento")) dgvVendas.Columns["IdFormaPagamento"].Visible = false;
+                dgvVendas.Columns["ValorTotal"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             }
-        }
 
-        public DateTime ObterDataInicio() => dtpInicio.Value.Date;
-        public DateTime ObterDataFim() => dtpFim.Value.Date.AddDays(1).AddSeconds(-1);
+            if (dgvVendas.Columns.Contains("Observacao")) dgvVendas.Columns["Observacao"].HeaderText = "Obs.";
 
-        public void ExibirMensagem(string mensagem)
-        {
-            MessageBox.Show(mensagem, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Esconde dados técnicos que o usuário não precisa ver
+            string[] colunasParaEsconder = { "IdCliente", "IdFormaPagamento", "Itens" };
+            foreach (var nomeColuna in colunasParaEsconder)
+            {
+                if (dgvVendas.Columns.Contains(nomeColuna))
+                    dgvVendas.Columns[nomeColuna].Visible = false;
+            }
         }
     }
 }

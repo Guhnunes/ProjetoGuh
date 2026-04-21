@@ -1,6 +1,8 @@
 ﻿using ProjetoGuh.Features.Infraestrutura;
 using ProjetoGuh.Features.Venda.Dao;
 using ProjetoGuh.Features.Venda.Model;
+using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Data;
 
@@ -30,6 +32,18 @@ namespace ProjetoGuh.Features.Venda.Repository
         public void GravarVendaCompleta(VendaModel venda)
         {
             _vendaDao.GravarVendaCompleta(venda);
+        }
+        public List<VendaModel> BuscarPorPeriodo(DateTime dataInicio, DateTime dataFim)
+        {
+            var todasAsVendas = _vendaDao.Listar();
+
+            if (todasAsVendas == null)
+                return new List<VendaModel>();
+
+            return todasAsVendas
+                .Where(v => v.DataVenda.Date >= dataInicio.Date &&
+                            v.DataVenda.Date <= dataFim.Date)
+                .ToList();
         }
     }
 }

@@ -14,6 +14,8 @@ namespace ProjetoGuh.Features.Venda.Model
                 erros.Add("O preço de venda deve ser maior que zero.");
             if(model.IdFormaPagamento == 0)
                 erros.Add("A forma de pagamento deve ser selecionada.");
+            if (model.IdCliente == 0)
+                erros.Add("O cliente deve ser selecionado.");
 
             return erros;
         }

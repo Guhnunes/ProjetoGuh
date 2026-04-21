@@ -1,8 +1,9 @@
 ﻿using Moq;
 using NUnit.Framework;
+using ProjetoGuh.Features.Cliente.Model;
 using ProjetoGuh.Features.Cliente.Repository;
-using ProjetoGuh.Features.Produto.Repository;
 using ProjetoGuh.Features.Produto.Model;
+using ProjetoGuh.Features.Produto.Repository;
 using ProjetoGuh.Features.Venda.Model;
 using ProjetoGuh.Features.Venda.Presenter;
 using ProjetoGuh.Features.Venda.Repository;
@@ -34,26 +35,25 @@ public class VendaPresenterTests
     public void AdicionarItem_ProdutoValido_DeveAdicionarNaLista()
     {
         // Arrange (Preparação)
-        var produto = new ProdutoModel { Id = 1, Descricao = "Coca-Cola", Preco = 5.00M };
-        _viewMock.Setup(v => v.ObterProdutoSelecionado()).Returns(produto);
+        var produtoId = 1;
+        var produtoEsperado = new ProdutoModel { Id = produtoId, Descricao = "Coca-Cola", Preco = 5.00M };
+
+        _viewMock.Setup(v => v.ObterProdutoSelecionadoId()).Returns(produtoId);
         _viewMock.Setup(v => v.ObterQuantidade()).Returns(2);
-
-        // Act (Ação)
+        _produtoMock.Setup(r => r.RetornarPorId(produtoId)).Returns(produtoEsperado);
         _presenter.AdicionarItem();
-
-        // Assert (Verificação)
-        // Verificamos se a Grid foi atualizada com a lista contendo o item
         _viewMock.Verify(v => v.AtualizarGridItens(It.Is<List<ItemVendaModel>>(l => l.Count == 1)), Times.Once);
-
-        // Verificamos se o valor total foi atualizado corretamente (5 * 2 = 10)
         _viewMock.Verify(v => v.AtualizarValorTotalVenda(10.00M), Times.Once);
+        _viewMock.Verify(v => v.LimparCamposItem(), Times.Once);
     }
     [Test]
     public void AdicionarItem_QuantidadeZero_NaoDeveAdicionarNaLista()
     {
-        var produto = new ProdutoModel { Id = 10, Descricao = "Teclado", Preco = 50.00M };
-        _viewMock.Setup(v => v.ObterProdutoSelecionado()).Returns(produto);
+        var produtoId = 1;
+        var produtoEsperado = new ProdutoModel { Id = produtoId, Descricao = "Coca-Cola", Preco = 5.00M };
+        _viewMock.Setup(v => v.ObterProdutoSelecionadoId()).Returns(produtoId);
         _viewMock.Setup(v => v.ObterQuantidade()).Returns(0);
+        _produtoMock.Setup(r => r.RetornarPorId(produtoId)).Returns(produtoEsperado);
         _presenter.AdicionarItem();
         _viewMock.Verify(v => v.ExibirMensagem("A quantidade deve ser maior que zero."), Times.Once);
     }
@@ -65,7 +65,7 @@ public class VendaPresenterTests
         _viewMock.Setup(v => v.ObterObservacao()).Returns("Teste sem itens");
         _presenter.FinalizarVenda();
         _repositoryMock.Verify(d => d.GravarVendaCompleta(It.IsAny<VendaModel>()), Times.Never);
-        _viewMock.Verify(v => v.ExibirMensagem(It.Is<string>(s =>
+        _viewMock.Verify(v => v.ExibirMensagemErro(It.Is<string>(s =>
         s.Contains("A venda deve conter pelo menos um item.") &&
         s.Contains("O preço de venda deve ser maior que zero.")
         )), Times.Once);
@@ -73,16 +73,18 @@ public class VendaPresenterTests
     [Test]
     public void FinalizarVenda_SemFormaPagamento_NaoDeveSalvar()
     {
-        var produto = new ProdutoModel { Id = 10, Descricao = "Teclado", Preco = 50.00M };
-        _viewMock.Setup(v => v.ObterProdutoSelecionado()).Returns(produto);
+        var produtoId = 1;
+        var produtoEsperado = new ProdutoModel { Id = produtoId, Descricao = "Coca-Cola", Preco = 5.00M };
+        _viewMock.Setup(v => v.ObterProdutoSelecionadoId()).Returns(produtoId);
         _viewMock.Setup(v => v.ObterQuantidade()).Returns(1);
+        _produtoMock.Setup(r => r.RetornarPorId(produtoId)).Returns(produtoEsperado);
         _presenter.AdicionarItem();
         _viewMock.Setup(v => v.ObterClienteSelecionadoId()).Returns(1);
         _viewMock.Setup(v => v.ObterFormaPagamentoId()).Returns(0);
         _viewMock.Setup(v => v.ObterObservacao()).Returns("Teste sem forma de pagamento");
         _presenter.FinalizarVenda();
         _repositoryMock.Verify(d => d.GravarVendaCompleta(It.IsAny<VendaModel>()), Times.Never);
-        _viewMock.Verify(v => v.ExibirMensagem(It.Is<string>(s =>
+        _viewMock.Verify(v => v.ExibirMensagemErro(It.Is<string>(s =>
         s.Contains("A forma de pagamento deve ser selecionada.")
         )), Times.Once);
     }
@@ -91,63 +93,55 @@ public class VendaPresenterTests
     {
         // Arrange
         _presenter.SetView(_viewMock.Object); // Garante a vinculação
-        var produto = new ProdutoModel { Id = 10, Descricao = "Teclado", Preco = 50.00M };
+        var produtoId = 1;
+        var produtoEsperado = new ProdutoModel { Id = produtoId, Descricao = "Coca-Cola", Preco = 5.00M };
 
-        _viewMock.Setup(v => v.ObterProdutoSelecionado()).Returns(produto);
+        _viewMock.Setup(v => v.ObterProdutoSelecionadoId()).Returns(produtoId);
         _viewMock.Setup(v => v.ObterQuantidade()).Returns(1);
+        _produtoMock.Setup(r => r.RetornarPorId(produtoId)).Returns(produtoEsperado);
         _viewMock.Setup(v => v.ObterClienteSelecionadoId()).Returns(1);
         _viewMock.Setup(v => v.ObterFormaPagamentoId()).Returns(1);
         _viewMock.Setup(v => v.ObterObservacao()).Returns("Teste com itens");
-
-        // Act
         _presenter.AdicionarItem();
         _presenter.FinalizarVenda();
-
-        // Assert
-        // 1. Verifica se chamou a gravação (independente do estado atual do objeto)
         _repositoryMock.Verify(d => d.GravarVendaCompleta(It.IsAny<VendaModel>()), Times.Once);
-
-        // 2. Verifica se a mensagem de sucesso foi exibida
         _viewMock.Verify(v => v.ExibirMensagem("Venda realizada com sucesso!"), Times.Once);
     }
     [Test]
     public void FinalizarVenda_VendaValida_DeveLimparATela()
     {
-        // Arrange
-        _presenter.SetView(_viewMock.Object); // Garante a vinculação
-        var produto = new ProdutoModel { Id = 10, Descricao = "Teclado", Preco = 50.00M };
-        _viewMock.Setup(v => v.ObterProdutoSelecionado()).Returns(produto);
+        _presenter.SetView(_viewMock.Object);
+        var produtoId = 1;
+        var produtoEsperado = new ProdutoModel { Id = produtoId, Descricao = "Coca-Cola", Preco = 5.00M };
+        _viewMock.Setup(v => v.ObterProdutoSelecionadoId()).Returns(produtoId);
+        _produtoMock.Setup(r => r.RetornarPorId(produtoId)).Returns(produtoEsperado);
         _viewMock.Setup(v => v.ObterQuantidade()).Returns(1);
         _viewMock.Setup(v => v.ObterClienteSelecionadoId()).Returns(1);
         _viewMock.Setup(v => v.ObterFormaPagamentoId()).Returns(1);
         _viewMock.Setup(v => v.ObterObservacao()).Returns("Teste com itens");
-        // Act
         _presenter.AdicionarItem();
         _presenter.FinalizarVenda();
-        // Assert
         _viewMock.Verify(v => v.ReiniciarFormulario(), Times.Once);
     }
     [Test]
     public void CancelarVenda_QuandoConfirmado_DeveLimparATela()
     {
-        // Arrange
         string msg = "Deseja realmente cancelar esta venda? Todos os itens lançados serão perdidos.";
         _viewMock.Setup(v => v.ExibirMensagemPerguntar(msg)).Returns(true);
-
-        // Act
+        _clienteMock.Setup(r => r.Listar()).Returns(new List<ClienteModel>());
+        _produtoMock.Setup(r => r.Listar()).Returns(new List<ProdutoModel>());
+        _formaPagamentoRepositoryMock.Setup(r => r.Listar()).Returns(new List<FormaPagamentoModel>());
         _presenter.CancelarVenda();
-
-        // Assert
         _viewMock.Verify(v => v.ReiniciarFormulario(), Times.Once);
+        _viewMock.Verify(v => v.PreencherComboClientes(It.IsAny<object>()), Times.Once);
     }
     [Test]
     public void CancelarVenda_QuandoNaoConfirmado_NaoDeveLimparATela()
     {
-        // Arrange
         string msg = "Deseja realmente cancelar esta venda? Todos os itens lançados serão perdidos.";
         _viewMock.Setup(v => v.ExibirMensagemPerguntar(msg)).Returns(false);
-
-        // Act
-        return;
+        _presenter.CancelarVenda();
+        _viewMock.Verify(v => v.ReiniciarFormulario(), Times.Never);
+        _viewMock.Verify(v => v.PreencherComboClientes(It.IsAny<object>()), Times.Never);
     }
 }

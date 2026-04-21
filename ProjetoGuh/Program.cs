@@ -14,7 +14,6 @@ using ProjetoGuh.Features.Produto;
 using ProjetoGuh.Features.Produto.Dao;
 using ProjetoGuh.Features.Produto.Presenter;
 using ProjetoGuh.Features.Produto.Repository;
-using ProjetoGuh.Features.Produto.View;
 using ProjetoGuh.Features.Venda;
 using ProjetoGuh.Features.Venda.Dao;
 using ProjetoGuh.Features.Venda.Presenter;

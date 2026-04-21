@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using ProjetoGuh.Features.Cliente.View;
-using ProjetoGuh.Features.Cliente.Model;
 using ProjetoGuh.Features.Cliente.Presenter;
 
 namespace ProjetoGuh.Features.Cliente
@@ -14,61 +13,83 @@ namespace ProjetoGuh.Features.Cliente
         public event EventHandler BotaoSalvarFoiClicado;
         public event EventHandler BotaoCancelarFoiClicado;
         public event EventHandler BotaoExcluirFoiClicado;
+        public event EventHandler ClienteSelecionadoNaGrid;
 
-        private readonly ICadastroClientePresenter _presenter;
-        private int _clienteIdAtual = 0; //Tive que fazer isso pra pegar o Id no evento de click pro Alterar()
+        private int _clienteIdAtual = 0;
 
         public CadastroClienteForm(ICadastroClientePresenter presenter)
         {
             InitializeComponent();
+
+            dtpDataCadastro.Enabled = false;
+
+            dataGridView1.CellFormatting += DataGridView1_CellFormatting;
+            dataGridView1.CellClick += (s, e) => {
+                if (e.RowIndex >= 0) // Garante que não clicou no cabeçalho
+                    ClienteSelecionadoNaGrid?.Invoke(this, EventArgs.Empty);
+            };
+
+            // Configurações de Máscara
             txtCpfCnpj.MaxLength = 18;
-            txtCpfCnpj.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
             txtCpfCnpj.TextChanged += txtCpfCnpj_TextChanged;
             txtTelefone.MaxLength = 15;
             txtTelefone.TextChanged += txtTelefone_TextChanged;
 
-            _presenter = presenter;
-            _presenter.SetView(this);
+            // Injeção e Inicialização
+            presenter.SetView(this);
+            this.Load += (s, e) => presenter.Inicializar();
 
-            dataGridView1.CellFormatting += DataGridView1_CellFormatting;
-            this.Load += (s, e) => _presenter.Inicializar(); //Chama o método da CadastroClientePresenter Inicializar() e dentro tem o Listar() do repository.
-            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
         }
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Verifica se o clique foi em uma linha (e não no cabeçalho/header)
-            if (e.RowIndex >= 0)
-            {
-                // Usa o método que você já tem para pegar o cliente da linha selecionada
-                var clienteSelecionado = ObterClienteSelecionado();
 
-                if (clienteSelecionado != null)
-                {
-                    // Usa o método que você já tem para jogar os dados nos campos
-                    PreencherFormulario(clienteSelecionado);
-                }
+        // --- MÉTODOS DE EXTRAÇÃO (DADOS BRUTOS) ---
+        public int ObterId() => _clienteIdAtual;
+        public string ObterNome() => txtNome.Text;
+        public string ObterCpfCnpj() => new string(txtCpfCnpj.Text.Where(char.IsDigit).ToArray()).Trim();
+        public string ObterTelefone() => new string(txtTelefone.Text.Where(char.IsDigit).ToArray());
+        public string ObterEmail() => txtEmail.Text;
+        public DateTime ObterDataCadastro() => DateTime.Now;
+
+        public int? ObterIdSelecionadoNaGrid()
+        {
+            if (dataGridView1.CurrentRow != null)
+            {
+                // Certifique-se que o nome da coluna de ID na Grid é "Id" ou use o índice [0]
+                return Convert.ToInt32(dataGridView1.CurrentRow.Cells["Id"].Value);
+            }
+            return null;
+        }
+
+        // --- MÉTODOS DE INJEÇÃO (VINDO DO PRESENTER) ---
+        public void PreencherCampos(int id, string nome, string cpf, string tel, string email, DateTime data)
+        {
+            _clienteIdAtual = id;
+            txtNome.Text = nome;
+            txtCpfCnpj.Text = cpf;
+            txtTelefone.Text = tel;
+            txtEmail.Text = email;
+            dtpDataCadastro.Value = data;
+
+            if (data < dtpDataCadastro.MinDate || data == DateTime.MinValue)
+            {
+                dtpDataCadastro.Value = DateTime.Now;
+            }
+            else
+            {
+                dtpDataCadastro.Value = data;
             }
         }
-        public ClienteModel ObterDadosDoFormulario()
+
+        public void PreencherGrid(object dataSource)
         {
-            return new ClienteModel
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = dataSource;
+            dataGridView1.ClearSelection();
+
+            if (dataGridView1.Columns.Count > 0)
             {
-                Id = _clienteIdAtual,
-                Nome = txtNome.Text,
-                CpfCnpj = new string(txtCpfCnpj.Text.Where(char.IsDigit).ToArray()).Trim(),
-                Telefone = new string(txtTelefone.Text.Where(char.IsDigit).ToArray()),
-                Email = txtEmail.Text,
-                DataCadastro = dtpDataCadastro.Value
-            };
-        }
-        public void PreencherFormulario(ClienteModel cliente)
-        {
-            _clienteIdAtual = cliente.Id;
-            txtNome.Text = cliente.Nome;
-            txtCpfCnpj.Text = cliente.CpfCnpj;
-            txtTelefone.Text = cliente.Telefone;
-            txtEmail.Text = cliente.Email;
-            dtpDataCadastro.Value = cliente.DataCadastro;
+                dataGridView1.Columns["Id"].HeaderText = "CÓDIGO";
+                dataGridView1.Columns["Nome"].HeaderText = "NOME";
+            }
         }
 
         public void LimparFormulario()
@@ -81,47 +102,21 @@ namespace ProjetoGuh.Features.Cliente
             dtpDataCadastro.Value = DateTime.Today;
         }
 
-        public void PreencherGrid(List<ClienteModel> clientes)
-        {
-            dataGridView1.DataSource = null;
-            dataGridView1.DataSource = clientes;
-            dataGridView1.Columns["Id"].HeaderText = "CÓDIGO";
-            dataGridView1.Columns["Nome"].HeaderText = "NOME";
-            dataGridView1.Columns["CpfCnpj"].HeaderText = "CPF/CNPJ";
-            dataGridView1.Columns["Telefone"].HeaderText = "CONTATO";
-            dataGridView1.Columns["Email"].HeaderText = "E-MAIL";
-            dataGridView1.Columns["DataCadastro"].HeaderText = "DATA DE CADASTRO";
-        }
+        // --- EVENTOS DE INTERAÇÃO ---
+        private void btnSalvar_Click(object sender, EventArgs e) => BotaoSalvarFoiClicado?.Invoke(sender, e);
+        private void btnCancelar_Click(object sender, EventArgs e) => BotaoCancelarFoiClicado?.Invoke(sender, e);
+        private void btnExcluir_Click(object sender, EventArgs e) => BotaoExcluirFoiClicado?.Invoke(sender, e);
 
-        private void btnSalvar_Click(object sender, EventArgs e)
-        {
-            BotaoSalvarFoiClicado?.Invoke(sender, e);
-        }
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            BotaoCancelarFoiClicado?.Invoke(sender, e);
-        }
-
-        // 2. Método disparado pelo clique do botão físico btnExcluir
-        private void btnExcluir_Click(object sender, EventArgs e)
-        {
-            var resultado = ControleDeMensagens.Perguntar("Tem certeza que deseja excluir este cliente?");
-            BotaoExcluirFoiClicado?.Invoke(sender, e);
-        }
+        // --- MENSAGENS E DIÁLOGOS ---
+        public void ExibirMensagem(string mensagem) => ControleDeMensagens.Informar(mensagem);
+        public void ExibirMensagemErro(string mensagemErro) => ControleDeMensagens.Avisar(mensagemErro);
+        public bool ConfirmarExclusao() => ControleDeMensagens.Perguntar("Deseja realmente excluir este cliente?");
 
         private void txtCpfCnpj_TextChanged(object sender, EventArgs e)
         {
-            // 1. Remove o evento para evitar recursão
             txtCpfCnpj.TextChanged -= txtCpfCnpj_TextChanged;
-
-            // 2. Pega apenas os números
             string numeros = new string(txtCpfCnpj.Text.Where(char.IsDigit).ToArray());
-
-            // Limita a 14 dígitos (tamanho máximo de um CNPJ)
             if (numeros.Length > 14) numeros = numeros.Substring(0, 14);
-
-            // 3. Aplica a formatação visual manualmente
             string textoFormatado = numeros;
 
             if (numeros.Length <= 11) // Formato CPF
@@ -186,16 +181,6 @@ namespace ProjetoGuh.Features.Cliente
             // 5. Reatribui o evento
             txtTelefone.TextChanged += txtTelefone_TextChanged;
         }
-        public ClienteModel ObterClienteSelecionado()
-        {
-            if (dataGridView1.SelectedRows.Count > 0)
-            {
-                // Retorna o objeto vinculado à linha selecionada no Grid
-                return dataGridView1.SelectedRows[0].DataBoundItem as ClienteModel;
-            }
-
-            return null;
-        }
         private void DataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             // 1. Verifica se estamos na coluna de CPF/CNPJ pelo DataPropertyName
@@ -218,18 +203,6 @@ namespace ProjetoGuh.Features.Cliente
                     e.FormattingApplied = true;
                 }
             }
-        }
-        public void ExibirMensagem(string mensagem)
-        {
-            ControleDeMensagens.Informar(mensagem);
-        }
-        public void ExibirMensagemErro(string mensagemErro)
-        {
-            ControleDeMensagens.Avisar(mensagemErro);
-        }
-        public bool ConfirmarExclusao()
-        {
-            return ControleDeMensagens.Perguntar("Deseja realmente excluir este cliente?");
         }
     }
 }

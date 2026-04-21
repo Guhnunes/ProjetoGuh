@@ -1,19 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjetoGuh.Features.Venda.View
 {
     public interface IVendaConsultaView
     {
-        void PreencherGridVendas(List<VendaModel> vendas);
-        DateTime ObterDataInicio();
-        DateTime ObterDataFim();
-        void ExibirMensagem(string mensagem);
-
+        // Eventos
         event EventHandler BotaoFiltrarClicado;
         event EventHandler BotaoLimparClicado;
+
+        // Filtros (Dados Brutos)
+        DateTime ObterDataInicio();
+        DateTime ObterDataFim();
+
+        // Métodos de UI
+        // Usamos 'object' para que a View não precise referenciar 'VendaModel'
+        void PreencherGridVendas(object vendas);
+
+        void ExibirMensagem(string mensagem);
+        void LimparFiltros();
     }
 }

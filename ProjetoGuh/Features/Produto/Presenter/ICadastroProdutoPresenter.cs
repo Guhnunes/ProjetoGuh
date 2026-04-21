@@ -1,6 +1,4 @@
-﻿using ProjetoGuh.Features.Produto.View;
-
-namespace ProjetoGuh.Features.Produto.Presenter
+﻿namespace ProjetoGuh.Features.Produto.Presenter
 {
     public interface ICadastroProdutoPresenter
     {

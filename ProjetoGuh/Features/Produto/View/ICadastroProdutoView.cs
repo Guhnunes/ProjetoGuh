@@ -1,22 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using ProjetoGuh.Features.Produto.Model;
 
-namespace ProjetoGuh.Features.Produto.View
+public interface ICadastroProdutoView
 {
-    public interface ICadastroProdutoView
-    {
-        event EventHandler BotaoSalvarFoiClicado;
-        event EventHandler BotaoCancelarFoiClicado;
-        event EventHandler BotaoExcluirFoiClicado;
-        ProdutoModel ObterDadosDoFormulario();
-        ProdutoModel ObterProdutoSelecionado();
-        void PreencherFormulario(ProdutoModel produto);
-        void LimparFormulario();
-        void PreencherGrid(List<ProdutoModel> produtos);
-        bool Ativo { get; set; }
-        void ExibirMensagem(string mensagem);
-        void ExibirMensagemErro(string mensagemErro);
-        bool ConfirmarExclusao();
-    }
+    event EventHandler BotaoSalvarFoiClicado;
+    event EventHandler BotaoCancelarFoiClicado;
+    event EventHandler BotaoExcluirFoiClicado;
+
+    // Dados Brutos
+    int ObterId();
+    string ObterDescricao();
+    decimal ObterPreco();
+    int ObterEstoque();
+    char ObterStatusAtivo();
+
+    // Injeção de dados na tela
+    void PreencherCampos(int id, string descricao, decimal preco, int estoque, char ativo);
+    void LimparFormulario();
+
+    // Grid e Interação
+    void PreencherGrid(object dataSource);
+    int? ObterIdSelecionadoNaGrid();
+    void ExibirMensagem(string mensagem);
+    void ExibirMensagemErro(string mensagemErro);
+    bool ConfirmarExclusao();
 }
