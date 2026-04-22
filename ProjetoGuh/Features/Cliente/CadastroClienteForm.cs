@@ -1,10 +1,11 @@
 ﻿using ProjetoGuh.Features.Infraestrutura;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using ProjetoGuh.Features.Cliente.View;
 using ProjetoGuh.Features.Cliente.Presenter;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace ProjetoGuh.Features.Cliente
 {
@@ -29,6 +30,10 @@ namespace ProjetoGuh.Features.Cliente
                     ClienteSelecionadoNaGrid?.Invoke(this, EventArgs.Empty);
             };
 
+            CarregarEstados();
+            txtCep.TextChanged += txtCep_TextChanged;
+            txtCep.Leave += txtCep_Leave;
+
             // Configurações de Máscara
             txtCpfCnpj.MaxLength = 18;
             txtCpfCnpj.TextChanged += txtCpfCnpj_TextChanged;
@@ -48,6 +53,12 @@ namespace ProjetoGuh.Features.Cliente
         public string ObterTelefone() => new string(txtTelefone.Text.Where(char.IsDigit).ToArray());
         public string ObterEmail() => txtEmail.Text;
         public DateTime ObterDataCadastro() => DateTime.Now;
+        public string ObterCep() => new string(txtCep.Text.Where(char.IsDigit).ToArray());
+        public string ObterLogradouro() => txtLogradouro.Text;
+        public string ObterNumero() => txtNumero.Text;
+        public string ObterBairro() => txtBairro.Text;
+        public string ObterCidade() => txtCidade.Text;
+        public string ObterUf() => cmbUf.Text;
 
         public int? ObterIdSelecionadoNaGrid()
         {
@@ -60,7 +71,7 @@ namespace ProjetoGuh.Features.Cliente
         }
 
         // --- MÉTODOS DE INJEÇÃO (VINDO DO PRESENTER) ---
-        public void PreencherCampos(int id, string nome, string cpf, string tel, string email, DateTime data)
+        public void PreencherCampos(int id, string nome, string cpf, string tel, string email, DateTime data, string cep, string logradouro, string numero, string bairro, string cidade, string uf)
         {
             _clienteIdAtual = id;
             txtNome.Text = nome;
@@ -68,6 +79,12 @@ namespace ProjetoGuh.Features.Cliente
             txtTelefone.Text = tel;
             txtEmail.Text = email;
             dtpDataCadastro.Value = data;
+            txtCep.Text = cep;
+            txtLogradouro.Text = logradouro;
+            txtNumero.Text = numero;
+            txtBairro.Text = bairro;
+            txtCidade.Text = cidade;
+            cmbUf.Text = uf;
 
             if (data < dtpDataCadastro.MinDate || data == DateTime.MinValue)
             {
@@ -100,6 +117,12 @@ namespace ProjetoGuh.Features.Cliente
             txtTelefone.Clear();
             txtEmail.Clear();
             dtpDataCadastro.Value = DateTime.Today;
+            txtCep.Clear();
+            txtLogradouro.Clear();
+            txtNumero.Clear();
+            txtBairro.Clear();
+            txtCidade.Clear();
+            cmbUf.SelectedIndex = -1;
         }
 
         // --- EVENTOS DE INTERAÇÃO ---
@@ -181,6 +204,33 @@ namespace ProjetoGuh.Features.Cliente
             // 5. Reatribui o evento
             txtTelefone.TextChanged += txtTelefone_TextChanged;
         }
+        private void txtCep_TextChanged(object sender, EventArgs e)
+        {
+            // 1. Remove o evento para evitar recursão
+            txtCep.TextChanged -= txtCep_TextChanged;
+
+            // 2. Mantém apenas números
+            string numeros = new string(txtCep.Text.Where(char.IsDigit).ToArray());
+
+            // 3. Limita a 8 dígitos
+            if (numeros.Length > 8)
+                numeros = numeros.Substring(0, 8);
+
+            string textoFormatado = numeros;
+
+            // 4. Aplica a máscara 00000-000
+            if (numeros.Length > 5)
+            {
+                textoFormatado = textoFormatado.Insert(5, "-");
+            }
+
+            // 5. Atualiza o texto e posiciona o cursor no final
+            txtCep.Text = textoFormatado;
+            txtCep.SelectionStart = txtCep.Text.Length;
+
+            // 6. Reassina o evento
+            txtCep.TextChanged += txtCep_TextChanged;
+        }
         private void DataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             // 1. Verifica se estamos na coluna de CPF/CNPJ pelo DataPropertyName
@@ -202,6 +252,48 @@ namespace ProjetoGuh.Features.Cliente
                     e.Value = double.Parse(valor).ToString(@"00\.000\.000\/0000-00");
                     e.FormattingApplied = true;
                 }
+            }
+        }
+        private void CarregarEstados()
+        {
+            string[] ufs = { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA",
+                     "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN",
+                     "RS", "RO", "RR", "SC", "SP", "SE", "TO" };
+
+            cmbUf.Items.Clear();
+            cmbUf.Items.AddRange(ufs);
+            cmbUf.SelectedIndex = -1; // Deixa vazio por padrão
+        }
+        private async void txtCep_Leave(object sender, EventArgs e)
+        {
+            string cep = ObterCep();
+            if (cep.Length != 8) return;
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    var response = await client.GetAsync($"https://viacep.com.br/ws/{cep}/json/");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        dynamic dados = JsonConvert.DeserializeObject(content);
+                        if (dados.erro == "true")
+                        {
+                            ExibirMensagemErro("CEP não encontrado.");
+                            return;
+                        }
+                        txtLogradouro.Text = (string)dados.logradouro;
+                        txtBairro.Text = (string)dados.bairro;
+                        txtCidade.Text = (string)dados.localidade;
+                        cmbUf.Text = (string)dados.uf;
+
+                        txtNumero.Focus();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                ExibirMensagemErro("Não foi possível buscar o CEP. Verifique sua conexão.");
             }
         }
     }

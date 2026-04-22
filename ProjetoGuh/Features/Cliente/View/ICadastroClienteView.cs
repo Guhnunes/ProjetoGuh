@@ -18,9 +18,15 @@ namespace ProjetoGuh.Features.Cliente.View
         string ObterTelefone();
         string ObterEmail();
         DateTime ObterDataCadastro();
+        string ObterCep();
+        string ObterLogradouro();
+        string ObterNumero();
+        string ObterBairro();
+        string ObterCidade();
+        string ObterUf();
 
         // Métodos para o Presenter injetar dados na tela
-        void PreencherCampos(int id, string nome, string cpf, string tel, string email, DateTime data);
+        void PreencherCampos(int id, string nome, string cpf, string tel, string email, DateTime data, string cep, string logradouro, string numero, string bairro, string cidade, string uf);
         void LimparFormulario();
 
         // Grid e Mensagens

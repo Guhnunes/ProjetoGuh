@@ -46,16 +46,16 @@
             this.grpCabecalho.Controls.Add(this.cmbFormaPagamento);
             this.grpCabecalho.Location = new System.Drawing.Point(12, 12);
             this.grpCabecalho.Name = "grpCabecalho";
-            this.grpCabecalho.Size = new System.Drawing.Size(776, 80);
+            this.grpCabecalho.Size = new System.Drawing.Size(1309, 80);
             this.grpCabecalho.TabIndex = 0;
             this.grpCabecalho.TabStop = false;
             this.grpCabecalho.Text = "Dados da Venda";
             // 
             // lblCliente
             // 
-            this.lblCliente.Location = new System.Drawing.Point(10, 25);
+            this.lblCliente.Location = new System.Drawing.Point(10, 18);
             this.lblCliente.Name = "lblCliente";
-            this.lblCliente.Size = new System.Drawing.Size(100, 23);
+            this.lblCliente.Size = new System.Drawing.Size(100, 21);
             this.lblCliente.TabIndex = 0;
             this.lblCliente.Text = "Cliente:";
             // 
@@ -64,21 +64,21 @@
             this.cmbCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCliente.Location = new System.Drawing.Point(10, 42);
             this.cmbCliente.Name = "cmbCliente";
-            this.cmbCliente.Size = new System.Drawing.Size(541, 24);
+            this.cmbCliente.Size = new System.Drawing.Size(594, 24);
             this.cmbCliente.TabIndex = 1;
             // 
             // lblFormaPagto
             // 
-            this.lblFormaPagto.Location = new System.Drawing.Point(557, 25);
+            this.lblFormaPagto.Location = new System.Drawing.Point(626, 18);
             this.lblFormaPagto.Name = "lblFormaPagto";
-            this.lblFormaPagto.Size = new System.Drawing.Size(150, 23);
+            this.lblFormaPagto.Size = new System.Drawing.Size(150, 21);
             this.lblFormaPagto.TabIndex = 2;
             this.lblFormaPagto.Text = "Forma de Pagamento:";
             // 
             // cmbFormaPagamento
             // 
             this.cmbFormaPagamento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbFormaPagamento.Location = new System.Drawing.Point(560, 42);
+            this.cmbFormaPagamento.Location = new System.Drawing.Point(625, 42);
             this.cmbFormaPagamento.Name = "cmbFormaPagamento";
             this.cmbFormaPagamento.Size = new System.Drawing.Size(200, 24);
             this.cmbFormaPagamento.TabIndex = 3;
@@ -93,7 +93,7 @@
             this.grpItens.Controls.Add(this.dgvItens);
             this.grpItens.Location = new System.Drawing.Point(12, 100);
             this.grpItens.Name = "grpItens";
-            this.grpItens.Size = new System.Drawing.Size(776, 300);
+            this.grpItens.Size = new System.Drawing.Size(1309, 414);
             this.grpItens.TabIndex = 1;
             this.grpItens.TabStop = false;
             this.grpItens.Text = "Lançamento de Itens";
@@ -102,14 +102,14 @@
             // 
             this.cmbProduto.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cmbProduto.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cmbProduto.Location = new System.Drawing.Point(10, 30);
+            this.cmbProduto.Location = new System.Drawing.Point(10, 31);
             this.cmbProduto.Name = "cmbProduto";
-            this.cmbProduto.Size = new System.Drawing.Size(400, 24);
+            this.cmbProduto.Size = new System.Drawing.Size(594, 24);
             this.cmbProduto.TabIndex = 0;
             // 
             // txtQuantidade
             // 
-            this.txtQuantidade.Location = new System.Drawing.Point(420, 30);
+            this.txtQuantidade.Location = new System.Drawing.Point(610, 32);
             this.txtQuantidade.Minimum = new decimal(new int[] {
             1,
             0,
@@ -126,7 +126,7 @@
             // 
             // txtPrecoUnitario
             // 
-            this.txtPrecoUnitario.Location = new System.Drawing.Point(490, 30);
+            this.txtPrecoUnitario.Location = new System.Drawing.Point(676, 31);
             this.txtPrecoUnitario.Name = "txtPrecoUnitario";
             this.txtPrecoUnitario.ReadOnly = true;
             this.txtPrecoUnitario.Size = new System.Drawing.Size(100, 22);
@@ -135,7 +135,7 @@
             // 
             // btnAdicionar
             // 
-            this.btnAdicionar.Location = new System.Drawing.Point(600, 28);
+            this.btnAdicionar.Location = new System.Drawing.Point(1141, 30);
             this.btnAdicionar.Name = "btnAdicionar";
             this.btnAdicionar.Size = new System.Drawing.Size(78, 25);
             this.btnAdicionar.TabIndex = 3;
@@ -143,7 +143,7 @@
             // 
             // btnRemover
             // 
-            this.btnRemover.Location = new System.Drawing.Point(682, 28);
+            this.btnRemover.Location = new System.Drawing.Point(1225, 30);
             this.btnRemover.Name = "btnRemover";
             this.btnRemover.Size = new System.Drawing.Size(78, 25);
             this.btnRemover.TabIndex = 4;
@@ -160,16 +160,16 @@
             this.dgvItens.ReadOnly = true;
             this.dgvItens.RowHeadersWidth = 51;
             this.dgvItens.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvItens.Size = new System.Drawing.Size(750, 219);
+            this.dgvItens.Size = new System.Drawing.Size(1293, 347);
             this.dgvItens.TabIndex = 5;
             // 
             // lblTotalVenda
             // 
-            this.lblTotalVenda.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold);
+            this.lblTotalVenda.Font = new System.Drawing.Font("Segoe UI", 35F, System.Drawing.FontStyle.Bold);
             this.lblTotalVenda.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lblTotalVenda.Location = new System.Drawing.Point(580, 410);
+            this.lblTotalVenda.Location = new System.Drawing.Point(1082, 517);
             this.lblTotalVenda.Name = "lblTotalVenda";
-            this.lblTotalVenda.Size = new System.Drawing.Size(200, 40);
+            this.lblTotalVenda.Size = new System.Drawing.Size(200, 69);
             this.lblTotalVenda.TabIndex = 2;
             this.lblTotalVenda.Text = "R$ 0,00";
             this.lblTotalVenda.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -177,7 +177,7 @@
             // btnFinalizar
             // 
             this.btnFinalizar.BackColor = System.Drawing.Color.LightGreen;
-            this.btnFinalizar.Location = new System.Drawing.Point(638, 460);
+            this.btnFinalizar.Location = new System.Drawing.Point(1117, 593);
             this.btnFinalizar.Name = "btnFinalizar";
             this.btnFinalizar.Size = new System.Drawing.Size(150, 40);
             this.btnFinalizar.TabIndex = 3;
@@ -186,7 +186,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(482, 460);
+            this.btnCancelar.Location = new System.Drawing.Point(961, 593);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(150, 40);
             this.btnCancelar.TabIndex = 4;
@@ -195,15 +195,15 @@
             // txtObservacao
             // 
             this.txtObservacao.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtObservacao.Location = new System.Drawing.Point(12, 460);
+            this.txtObservacao.Location = new System.Drawing.Point(22, 560);
             this.txtObservacao.Multiline = true;
             this.txtObservacao.Name = "txtObservacao";
-            this.txtObservacao.Size = new System.Drawing.Size(464, 40);
+            this.txtObservacao.Size = new System.Drawing.Size(766, 73);
             this.txtObservacao.TabIndex = 6;
             // 
             // lblObs
             // 
-            this.lblObs.Location = new System.Drawing.Point(12, 444);
+            this.lblObs.Location = new System.Drawing.Point(19, 542);
             this.lblObs.Name = "lblObs";
             this.lblObs.Size = new System.Drawing.Size(100, 15);
             this.lblObs.TabIndex = 5;
@@ -211,7 +211,7 @@
             // 
             // PdvForm
             // 
-            this.ClientSize = new System.Drawing.Size(800, 520);
+            this.ClientSize = new System.Drawing.Size(1350, 729);
             this.Controls.Add(this.lblObs);
             this.Controls.Add(this.txtObservacao);
             this.Controls.Add(this.grpCabecalho);

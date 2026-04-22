@@ -60,7 +60,13 @@ namespace ProjetoGuh.Features.Cliente.Presenter
                 CpfCnpj = _view.ObterCpfCnpj(),
                 Telefone = _view.ObterTelefone(),
                 Email = _view.ObterEmail(),
-                DataCadastro = _view.ObterDataCadastro()
+                DataCadastro = _view.ObterDataCadastro(),
+                Cep = _view.ObterCep(),
+                Logradouro = _view.ObterLogradouro(),
+                Numero = _view.ObterNumero(),
+                Bairro = _view.ObterBairro(),
+                Cidade = _view.ObterCidade(),
+                Uf = _view.ObterUf()
             };
 
             try
@@ -123,7 +129,13 @@ namespace ProjetoGuh.Features.Cliente.Presenter
                         cliente.CpfCnpj,
                         cliente.Telefone,
                         cliente.Email,
-                        cliente.DataCadastro
+                        cliente.DataCadastro,
+                        cliente.Cep,
+                        cliente.Logradouro,
+                        cliente.Numero,
+                        cliente.Bairro,
+                        cliente.Cidade,
+                        cliente.Uf
                     );
                 }
             }

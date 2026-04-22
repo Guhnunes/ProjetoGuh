@@ -125,13 +125,13 @@
             this.dataGridProdutoView1.ReadOnly = true;
             this.dataGridProdutoView1.RowHeadersWidth = 51;
             this.dataGridProdutoView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridProdutoView1.Size = new System.Drawing.Size(760, 430);
+            this.dataGridProdutoView1.Size = new System.Drawing.Size(1326, 598);
             this.dataGridProdutoView1.TabIndex = 9;
             this.dataGridProdutoView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridProdutoView1_CellFormatting);
             // 
             // CadastroProdutoForm
             // 
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(1350, 729);
             this.Controls.Add(this.chkAtivo);
             this.Controls.Add(this.lblDescricao);
             this.Controls.Add(this.txtDescricao);

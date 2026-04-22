@@ -38,7 +38,7 @@
             this.pnlFiltros.Location = new System.Drawing.Point(0, 0);
             this.pnlFiltros.Margin = new System.Windows.Forms.Padding(4);
             this.pnlFiltros.Name = "pnlFiltros";
-            this.pnlFiltros.Size = new System.Drawing.Size(1067, 74);
+            this.pnlFiltros.Size = new System.Drawing.Size(1350, 74);
             this.pnlFiltros.TabIndex = 0;
             // 
             // lblA
@@ -103,14 +103,14 @@
             this.dgvVendas.ReadOnly = true;
             this.dgvVendas.RowHeadersWidth = 51;
             this.dgvVendas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvVendas.Size = new System.Drawing.Size(1067, 480);
+            this.dgvVendas.Size = new System.Drawing.Size(1350, 655);
             this.dgvVendas.TabIndex = 1;
             // 
             // VendaConsultaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(1350, 729);
             this.Controls.Add(this.dgvVendas);
             this.Controls.Add(this.pnlFiltros);
             this.Margin = new System.Windows.Forms.Padding(4);

@@ -150,3 +150,5 @@ C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh\obj\Debug\ProjetoGuh.Features.Produ
 C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh\obj\Debug\ProjetoGuh.Features.Venda.PdvForm.resources
 C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh\obj\Debug\ProjetoGuh.Features.Menu.MenuPrincipalForm.resources
 C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh\obj\Debug\ProjetoGuh.Features.Venda.VendaConsultaForm.resources
+C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh\bin\Debug\Newtonsoft.Json.dll
+C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh\bin\Debug\Newtonsoft.Json.xml

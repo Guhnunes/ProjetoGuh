@@ -23,7 +23,7 @@ namespace ProjetoGuh.Features.Cliente
             this.lblNome = new System.Windows.Forms.Label();
             this.txtNome = new System.Windows.Forms.TextBox();
             this.lblCpfCnpj = new System.Windows.Forms.Label();
-            this.txtCpfCnpj = new System.Windows.Forms.MaskedTextBox();
+            this.txtCpfCnpj = new System.Windows.Forms.TextBox();
             this.lblTelefone = new System.Windows.Forms.Label();
             this.txtTelefone = new System.Windows.Forms.TextBox();
             this.lblEmail = new System.Windows.Forms.Label();
@@ -34,6 +34,18 @@ namespace ProjetoGuh.Features.Cliente
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.lblCep = new System.Windows.Forms.Label();
+            this.txtCep = new System.Windows.Forms.TextBox();
+            this.lblLogradouro = new System.Windows.Forms.Label();
+            this.txtLogradouro = new System.Windows.Forms.TextBox();
+            this.lblNumero = new System.Windows.Forms.Label();
+            this.txtNumero = new System.Windows.Forms.TextBox();
+            this.lblBairro = new System.Windows.Forms.Label();
+            this.txtBairro = new System.Windows.Forms.TextBox();
+            this.lblCidade = new System.Windows.Forms.Label();
+            this.txtCidade = new System.Windows.Forms.TextBox();
+            this.lblUf = new System.Windows.Forms.Label();
+            this.cmbUf = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,12 +76,10 @@ namespace ProjetoGuh.Features.Cliente
             // 
             // txtCpfCnpj
             // 
-            this.txtCpfCnpj.HidePromptOnLeave = true;
             this.txtCpfCnpj.Location = new System.Drawing.Point(100, 51);
             this.txtCpfCnpj.Name = "txtCpfCnpj";
             this.txtCpfCnpj.Size = new System.Drawing.Size(200, 22);
             this.txtCpfCnpj.TabIndex = 3;
-            this.txtCpfCnpj.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
             // lblTelefone
             // 
@@ -85,7 +95,7 @@ namespace ProjetoGuh.Features.Cliente
             this.txtTelefone.MaxLength = 20;
             this.txtTelefone.Name = "txtTelefone";
             this.txtTelefone.Size = new System.Drawing.Size(200, 22);
-            this.txtTelefone.TabIndex = 3;
+            this.txtTelefone.TabIndex = 5;
             // 
             // lblEmail
             // 
@@ -101,7 +111,7 @@ namespace ProjetoGuh.Features.Cliente
             this.txtEmail.MaxLength = 150;
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(300, 22);
-            this.txtEmail.TabIndex = 4;
+            this.txtEmail.TabIndex = 7;
             // 
             // lblDataCadastro
             // 
@@ -117,14 +127,14 @@ namespace ProjetoGuh.Features.Cliente
             this.dtpDataCadastro.Location = new System.Drawing.Point(100, 152);
             this.dtpDataCadastro.Name = "dtpDataCadastro";
             this.dtpDataCadastro.Size = new System.Drawing.Size(200, 22);
-            this.dtpDataCadastro.TabIndex = 5;
+            this.dtpDataCadastro.TabIndex = 9;
             // 
             // btnSalvar
             // 
             this.btnSalvar.Location = new System.Drawing.Point(100, 195);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(90, 30);
-            this.btnSalvar.TabIndex = 6;
+            this.btnSalvar.TabIndex = 10;
             this.btnSalvar.Text = "Salvar";
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
@@ -133,7 +143,7 @@ namespace ProjetoGuh.Features.Cliente
             this.btnCancelar.Location = new System.Drawing.Point(200, 195);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(90, 30);
-            this.btnCancelar.TabIndex = 7;
+            this.btnCancelar.TabIndex = 11;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
@@ -142,7 +152,7 @@ namespace ProjetoGuh.Features.Cliente
             this.btnExcluir.Location = new System.Drawing.Point(300, 195);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(90, 30);
-            this.btnExcluir.TabIndex = 8;
+            this.btnExcluir.TabIndex = 12;
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
@@ -159,12 +169,84 @@ namespace ProjetoGuh.Features.Cliente
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(760, 300);
-            this.dataGridView1.TabIndex = 9;
+            this.dataGridView1.Size = new System.Drawing.Size(1326, 468);
+            this.dataGridView1.TabIndex = 13;
+
+            // CEP
+            this.lblCep.Location = new System.Drawing.Point(450, 15);
+            this.lblCep.Name = "lblCep";
+            this.lblCep.Size = new System.Drawing.Size(80, 20);
+            this.lblCep.Text = "CEP:";
+
+            this.txtCep.Location = new System.Drawing.Point(540, 12);
+            this.txtCep.MaxLength = 9;
+            this.txtCep.Name = "txtCep";
+            this.txtCep.Size = new System.Drawing.Size(120, 22);
+            this.txtCep.TabIndex = 14;
+
+            // Logradouro
+            this.lblLogradouro.Location = new System.Drawing.Point(450, 50);
+            this.lblLogradouro.Name = "lblLogradouro";
+            this.lblLogradouro.Size = new System.Drawing.Size(80, 20);
+            this.lblLogradouro.Text = "Logradouro:";
+
+            this.txtLogradouro.Location = new System.Drawing.Point(540, 47);
+            this.txtLogradouro.MaxLength = 150;
+            this.txtLogradouro.Name = "txtLogradouro";
+            this.txtLogradouro.Size = new System.Drawing.Size(300, 22);
+            this.txtLogradouro.TabIndex = 15;
+
+            // Numero
+            this.lblNumero.Location = new System.Drawing.Point(860, 50); // Ao lado do Logradouro
+            this.lblNumero.Name = "lblNumero";
+            this.lblNumero.Size = new System.Drawing.Size(50, 20);
+            this.lblNumero.Text = "Nº:";
+
+            this.txtNumero.Location = new System.Drawing.Point(910, 47);
+            this.txtNumero.MaxLength = 20;
+            this.txtNumero.Name = "txtNumero";
+            this.txtNumero.Size = new System.Drawing.Size(80, 22);
+            this.txtNumero.TabIndex = 16;
+
+            // Bairro
+            this.lblBairro.Location = new System.Drawing.Point(450, 85);
+            this.lblBairro.Name = "lblBairro";
+            this.lblBairro.Size = new System.Drawing.Size(80, 20);
+            this.lblBairro.Text = "Bairro:";
+
+            this.txtBairro.Location = new System.Drawing.Point(540, 82);
+            this.txtBairro.MaxLength = 100;
+            this.txtBairro.Name = "txtBairro";
+            this.txtBairro.Size = new System.Drawing.Size(200, 22);
+            this.txtBairro.TabIndex = 17;
+
+            // Cidade
+            this.lblCidade.Location = new System.Drawing.Point(450, 120);
+            this.lblCidade.Name = "lblCidade";
+            this.lblCidade.Size = new System.Drawing.Size(80, 20);
+            this.lblCidade.Text = "Cidade:";
+
+            this.txtCidade.Location = new System.Drawing.Point(540, 117);
+            this.txtCidade.MaxLength = 100;
+            this.txtCidade.Name = "txtCidade";
+            this.txtCidade.Size = new System.Drawing.Size(200, 22);
+            this.txtCidade.TabIndex = 18;
+
+            // UF
+            this.lblUf.Location = new System.Drawing.Point(760, 120); // Ao lado da Cidade
+            this.lblUf.Name = "lblUf";
+            this.lblUf.Size = new System.Drawing.Size(30, 20);
+            this.lblUf.Text = "UF:";
+
+            this.cmbUf.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbUf.Location = new System.Drawing.Point(800, 117);
+            this.cmbUf.Name = "cmbUf";
+            this.cmbUf.Size = new System.Drawing.Size(60, 22);
+            this.cmbUf.TabIndex = 19;
             // 
             // CadastroClienteForm
             // 
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(1350, 729);
             this.Controls.Add(this.lblNome);
             this.Controls.Add(this.txtNome);
             this.Controls.Add(this.lblCpfCnpj);
@@ -179,7 +261,18 @@ namespace ProjetoGuh.Features.Cliente
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnExcluir);
             this.Controls.Add(this.dataGridView1);
-            this.MinimumSize = new System.Drawing.Size(800, 600);
+            this.Controls.Add(this.lblCep);
+            this.Controls.Add(this.txtCep);
+            this.Controls.Add(this.lblLogradouro);
+            this.Controls.Add(this.txtLogradouro);
+            this.Controls.Add(this.lblNumero);
+            this.Controls.Add(this.txtNumero);
+            this.Controls.Add(this.lblBairro);
+            this.Controls.Add(this.txtBairro);
+            this.Controls.Add(this.lblCidade);
+            this.Controls.Add(this.txtCidade);
+            this.Controls.Add(this.lblUf);
+            this.Controls.Add(this.cmbUf);
             this.Name = "CadastroClienteForm";
             this.Text = "Cadastro de Clientes";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -201,6 +294,18 @@ namespace ProjetoGuh.Features.Cliente
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.MaskedTextBox txtCpfCnpj;
+        private System.Windows.Forms.TextBox txtCpfCnpj;
+        private System.Windows.Forms.Label lblCep;
+        private System.Windows.Forms.TextBox txtCep;
+        private System.Windows.Forms.Label lblLogradouro;
+        private System.Windows.Forms.TextBox txtLogradouro;
+        private System.Windows.Forms.Label lblNumero;
+        private System.Windows.Forms.TextBox txtNumero;
+        private System.Windows.Forms.Label lblBairro;
+        private System.Windows.Forms.TextBox txtBairro;
+        private System.Windows.Forms.Label lblCidade;
+        private System.Windows.Forms.TextBox txtCidade;
+        private System.Windows.Forms.Label lblUf;
+        private System.Windows.Forms.ComboBox cmbUf;
     }
 }

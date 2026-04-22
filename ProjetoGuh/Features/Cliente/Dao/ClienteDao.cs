@@ -19,8 +19,8 @@ namespace ProjetoGuh.Features.Cliente.Dao
             using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
             {
                 conexao.Open();
-                conexao.Execute(@"INSERT INTO CLIENTE (NOME, CPF_CNPJ, TELEFONE, EMAIL, DATA_CADASTRO)
-                              VALUES (@Nome, @CpfCnpj, @Telefone, @Email, @DataCadastro)", cliente);
+                conexao.Execute(@"INSERT INTO CLIENTE (NOME, CPF_CNPJ, TELEFONE, EMAIL, DATA_CADASTRO, CEP, LOGRADOURO, NUMERO, BAIRRO, CIDADE, UF)
+                              VALUES (@Nome, @CpfCnpj, @Telefone, @Email, @DataCadastro, @Cep, @Logradouro, @Numero, @Bairro, @Cidade, @Uf)", cliente);
             }
         }
 
@@ -30,7 +30,7 @@ namespace ProjetoGuh.Features.Cliente.Dao
             using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
             {
                 conexao.Open();
-                conexao.Execute(@"UPDATE CLIENTE SET NOME = @Nome,CPF_CNPJ = @CpfCnpj,TELEFONE = @Telefone, EMAIL = @Email WHERE ID = @Id", cliente);
+                conexao.Execute(@"UPDATE CLIENTE SET NOME = @Nome,CPF_CNPJ = @CpfCnpj,TELEFONE = @Telefone, EMAIL = @Email, CEP = @Cep, LOGRADOURO = @Logradouro, NUMERO = @Numero, BAIRRO = @Bairro, CIDADE = @Cidade, UF = @Uf WHERE ID = @Id", cliente);
             }
         }
 
@@ -47,15 +47,7 @@ namespace ProjetoGuh.Features.Cliente.Dao
         {
             using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
             {
-                var sql = @"SELECT 
-                        ID, 
-                        NOME, 
-                        CPF_CNPJ AS CpfCnpj, 
-                        TELEFONE, 
-                        EMAIL, 
-                        DATA_CADASTRO AS DataCadastro 
-                    FROM CLIENTE 
-                    WHERE ID = @Id";
+                var sql = @"SELECT ID, NOME, CPF_CNPJ AS CpfCnpj, TELEFONE, EMAIL, DATA_CADASTRO AS DataCadastro, CEP, LOGRADOURO, NUMERO, BAIRRO, CIDADE, UF FROM CLIENTE WHERE ID = @Id";
                 conexao.Open();
                 return conexao.QueryFirstOrDefault<ClienteModel>(
                     sql, new { Id = id });
@@ -65,14 +57,8 @@ namespace ProjetoGuh.Features.Cliente.Dao
         {
             using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
             {
-                var sql = @"SELECT 
-                        id, 
-                        nome, 
-                        cpf_cnpj AS CpfCnpj, 
-                        telefone, 
-                        email, 
-                        data_cadastro AS DataCadastro 
-                    FROM Cliente"; //Tive que colocar um Alias por conta do underline. O dapper não consegue mapear
+                var sql = @"SELECT id, nome, cpf_cnpj AS CpfCnpj, telefone, email, data_cadastro AS DataCadastro, cep, logradouro, numero, bairro, cidade, uf FROM Cliente"; 
+                //Tive que colocar um Alias por conta do underline. O dapper não consegue mapear
                 conexao.Open();
                 return conexao.Query<ClienteModel>(sql).AsList();
             }
