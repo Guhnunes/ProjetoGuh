@@ -1,11 +1,12 @@
-﻿using ProjetoGuh.Features.Infraestrutura;
+﻿using Newtonsoft.Json;
+using ProjetoGuh.Features.Cliente.Presenter;
+using ProjetoGuh.Features.Cliente.View;
+using ProjetoGuh.Features.Infraestrutura;
 using System;
 using System.Linq;
-using System.Windows.Forms;
-using ProjetoGuh.Features.Cliente.View;
-using ProjetoGuh.Features.Cliente.Presenter;
 using System.Net.Http;
-using Newtonsoft.Json;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ProjetoGuh.Features.Cliente
 {
@@ -31,6 +32,7 @@ namespace ProjetoGuh.Features.Cliente
             };
 
             CarregarEstados();
+            txtCpfCnpj.Leave += txtCpfCnpj_Leave;
             txtCep.TextChanged += txtCep_TextChanged;
             txtCep.Leave += txtCep_Leave;
 
@@ -294,6 +296,53 @@ namespace ProjetoGuh.Features.Cliente
             catch (Exception)
             {
                 ExibirMensagemErro("Não foi possível buscar o CEP. Verifique sua conexão.");
+            }
+        }
+        private async Task<bool> ValidarCpfApi(string cpfcnpj)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    var token = "25850|kC7oPY3eQGpru2haN0tLi7KH3xNeID4h";
+                    var response = await client.GetAsync($"https://api.invertexto.com/v1/validator?token={token}&value={cpfcnpj}");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonResposta = await response.Content.ReadAsStringAsync();
+                        dynamic resultado = JsonConvert.DeserializeObject(jsonResposta);
+                        if (resultado.valid == true)
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            }
+            catch
+            {
+                return false; //Se a api não estiver funcionando não vai fazer nada
+            }
+        }
+        private async void txtCpfCnpj_Leave(object sender, EventArgs e)
+        {
+            string documento = ObterCpfCnpj(); // Pega apenas os números
+
+            // Só dispara se for um CPF completo (11 dígitos)
+            if (documento.Length == 11 || documento.Length == 14)
+            {
+                // Opcional: Mostrar um aviso de "Validando..."
+                bool eValido = await ValidarCpfApi(documento);
+
+                if (!eValido)
+                {
+                    ExibirMensagemErro("O CPF/CNPJ informado não é valido.");
+                    txtCpfCnpj.ForeColor = System.Drawing.Color.Red;
+                }
+                else
+                {
+                    txtCpfCnpj.ForeColor = System.Drawing.Color.Black;
+                }
             }
         }
     }
