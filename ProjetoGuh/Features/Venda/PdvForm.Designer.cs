@@ -165,11 +165,11 @@
             // 
             // lblTotalVenda
             // 
-            this.lblTotalVenda.Font = new System.Drawing.Font("Segoe UI", 35F, System.Drawing.FontStyle.Bold);
+            this.lblTotalVenda.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
             this.lblTotalVenda.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lblTotalVenda.Location = new System.Drawing.Point(1082, 517);
+            this.lblTotalVenda.Location = new System.Drawing.Point(1050, 517);
             this.lblTotalVenda.Name = "lblTotalVenda";
-            this.lblTotalVenda.Size = new System.Drawing.Size(200, 69);
+            this.lblTotalVenda.Size = new System.Drawing.Size(251, 69);
             this.lblTotalVenda.TabIndex = 2;
             this.lblTotalVenda.Text = "R$ 0,00";
             this.lblTotalVenda.TextAlign = System.Drawing.ContentAlignment.MiddleRight;

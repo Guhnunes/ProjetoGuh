@@ -33,8 +33,8 @@ namespace ProjetoGuh.Features.Venda.Dao
                         {
                             item.IdVenda = venda.Id;
                             IncluirItem(transacao, item);
+                            AtualizarEstoque(transacao, item);
                         }
-
                         transacao.Commit();
                     }
                     catch
@@ -45,8 +45,11 @@ namespace ProjetoGuh.Features.Venda.Dao
                 }
             }
         }
-
-        // Estes métodos ficam "limpos" e focados apenas no SQL:
+        public void AtualizarEstoque(IDbTransaction transacao, ItemVendaModel item)
+        {
+            const string sql = "UPDATE PRODUTO SET ESTOQUE = ESTOQUE - @Quantidade WHERE ID = @IdProduto";
+            transacao.Connection.Execute(sql, new { Quantidade = item.Quantidade, IdProduto = item.IdProduto }, transacao);
+        }
 
         public void Incluir(IDbTransaction transacao, VendaModel venda)
         {

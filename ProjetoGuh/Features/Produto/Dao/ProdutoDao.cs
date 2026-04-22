@@ -66,5 +66,16 @@ namespace ProjetoGuh.Features.Produto.Dao
                 return conexao.Query<ProdutoModel>(sql).ToList();
             }
         }
+        public void AtualizarEstoque(int produtoId, decimal quantidadeVendida)
+        {
+            using (var conexao = _fabricaDeConexao.RetornarNovaConexao())
+            {
+                // SQL para Firebird: Subtrai a quantidade do saldo atual
+                var sql = "UPDATE PRODUTO SET ESTOQUE = ESTOQUE - @Quantidade WHERE ID = @Id";
+
+                conexao.Open();
+                conexao.Execute(sql, new { Quantidade = quantidadeVendida, Id = produtoId });
+            }
+        }
     }
 }
