@@ -6,40 +6,41 @@ using System.Linq;
 
 namespace ProjetoGuh.Features.Produto.Presenter
 {
-    public class CadastroProdutoPresenter : ICadastroProdutoPresenter
+    public class CadastroProdutoPresenter : BasePresenter<ICadastroProdutoView>, ICadastroProdutoPresenter
     {
-        private ICadastroProdutoView _view;
         private readonly IProdutoRepository _repository;
         private readonly ProdutoModelValidator _validator;
 
         public CadastroProdutoPresenter(IProdutoRepository repository)
+            : base(null)
         {
             _repository = repository;
             _validator = new ProdutoModelValidator();
         }
 
-        public void SetView(ICadastroProdutoView view)
+        public override void SetView(ICadastroProdutoView view)
         {
-            _view = view;
-            _view.BotaoSalvarFoiClicado += (s, e) => Salvar();
-            _view.BotaoCancelarFoiClicado += (s, e) => _view.LimparFormulario();
-            _view.BotaoExcluirFoiClicado += (s, e) =>
+            base.SetView(view);
+            view.BotaoSalvarFoiClicado += (s, e) => Salvar();
+            view.BotaoCancelarFoiClicado += (s, e) => view.LimparFormulario();
+            view.BotaoExcluirFoiClicado += (s, e) =>
             {
                 // Buscamos apenas o ID da View, não o objeto Model
-                var id = _view.ObterIdSelecionadoNaGrid();
+                var id = view.ObterIdSelecionadoNaGrid();
 
                 if (id.HasValue)
                 {
-                    if (_view.ConfirmarExclusao()) // A View decide como perguntar (MessageBox)
+                    if (view.ConfirmarExclusao()) // A View decide como perguntar (MessageBox)
                     {
                         Excluir(id.Value);
                     }
                 }
                 else
                 {
-                    _view.ExibirMensagem("Por favor, selecione um produto na lista para desativar.");
+                    view.ExibirMensagem("Por favor, selecione um produto na lista para desativar.");
                 }
             };
+            Inicializar();
         }
 
         public void Inicializar()
@@ -48,11 +49,11 @@ namespace ProjetoGuh.Features.Produto.Presenter
             {
                 // Passamos a lista como 'object' para a View não precisar referenciar o Model
                 var produtos = _repository.Listar();
-                _view.PreencherGrid(produtos);
+                View.PreencherGrid(produtos);
             }
             catch (Exception ex)
             {
-                _view.ExibirMensagemErro($"Erro ao carregar produtos: {ex.Message}");
+                View.ExibirMensagemErro($"Erro ao carregar produtos: {ex.Message}");
             }
         }
 
@@ -61,11 +62,11 @@ namespace ProjetoGuh.Features.Produto.Presenter
             // O Presenter é o único responsável por instanciar o Model
             var produto = new ProdutoModel
             {
-                Id = _view.ObterId(),
-                Descricao = _view.ObterDescricao(),
-                Preco = _view.ObterPreco(),
-                Estoque = _view.ObterEstoque(),
-                Ativo = _view.ObterStatusAtivo()
+                Id = View.ObterId(),
+                Descricao = View.ObterDescricao(),
+                Preco = View.ObterPreco(),
+                Estoque = View.ObterEstoque(),
+                Ativo = View.ObterStatusAtivo()
             };
 
             try
@@ -74,27 +75,27 @@ namespace ProjetoGuh.Features.Produto.Presenter
 
                 if (erros.Count > 0)
                 {
-                    _view.ExibirMensagemErro(string.Join("\n", erros));
+                    View.ExibirMensagemErro(string.Join("\n", erros));
                     return;
                 }
 
                 if (produto.Id == 0)
                 {
                     _repository.Incluir(produto);
-                    _view.ExibirMensagem("Produto cadastrado com sucesso!");
+                    View.ExibirMensagem("Produto cadastrado com sucesso!");
                 }
                 else
                 {
                     _repository.Alterar(produto);
-                    _view.ExibirMensagem("Produto atualizado com sucesso!");
+                    View.ExibirMensagem("Produto atualizado com sucesso!");
                 }
 
-                _view.LimparFormulario();
+                View.LimparFormulario();
                 Inicializar();
             }
             catch (Exception ex)
             {
-                _view.ExibirMensagemErro($"Erro ao salvar: {ex.Message}");
+                View.ExibirMensagemErro($"Erro ao salvar: {ex.Message}");
             }
         }
 
@@ -103,13 +104,13 @@ namespace ProjetoGuh.Features.Produto.Presenter
             try
             {
                 _repository.Excluir(id);
-                _view.ExibirMensagem("Produto desativado com sucesso!");
-                _view.LimparFormulario();
+                View.ExibirMensagem("Produto desativado com sucesso!");
+                View.LimparFormulario();
                 Inicializar();
             }
             catch (Exception ex)
             {
-                _view.ExibirMensagemErro($"Erro ao excluir produto: {ex.Message}");
+                View.ExibirMensagemErro($"Erro ao excluir produto: {ex.Message}");
             }
         }
     }

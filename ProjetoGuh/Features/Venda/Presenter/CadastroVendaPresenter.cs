@@ -1,18 +1,18 @@
 ﻿using ProjetoGuh.Features.Cliente.Repository;
 using ProjetoGuh.Features.Infraestrutura;
+using ProjetoGuh.Features.Produto.Repository;
 using ProjetoGuh.Features.Venda.Model;
 using ProjetoGuh.Features.Venda.Repository;
 using ProjetoGuh.Features.Venda.View;
-using ProjetoGuh.Features.Produto.Repository;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace ProjetoGuh.Features.Venda.Presenter
 {
-    public class CadastroVendaPresenter : ICadastroVendaPresenter
+    public class CadastroVendaPresenter : BasePresenter<IPdvView>, ICadastroVendaPresenter
     {
-        private IPdvView _view;
         private readonly IVendaRepository _repository;
         private readonly IClienteRepository _clienteRepository;
         private readonly IProdutoRepository _produtoRepository;
@@ -26,6 +26,7 @@ namespace ProjetoGuh.Features.Venda.Presenter
             IClienteRepository clienteRepository,
             IProdutoRepository produtoRepository,
             IFormaPagamentoRepository formaPagamentoRepository)
+            : base(null)
         {
             _repository = vendaRepository;
             _clienteRepository = clienteRepository;
@@ -35,14 +36,15 @@ namespace ProjetoGuh.Features.Venda.Presenter
             _validator = new VendaModelValidator();
         }
 
-        public void SetView(IPdvView view)
+        public override void SetView(IPdvView view)
         {
-            _view = view;
-            _view.BotaoAdicionarItemClicado += (s, e) => AdicionarItem();
-            _view.BotaoRemoverItemClicado += (s, e) => RemoverItem();
-            _view.BotaoFinalizarVendaClicado += (s, e) => FinalizarVenda();
-            _view.BotaoCancelarVendaClicado += (s, e) => CancelarVenda();
-            _view.ProdutoSelecionadoMudou += (s, e) => AtualizarDadosProdutoSelecionado();
+            base.SetView(view);
+            View.BotaoAdicionarItemClicado += (s, e) => AdicionarItem();
+            View.BotaoRemoverItemClicado += (s, e) => RemoverItem();
+            View.BotaoFinalizarVendaClicado += (s, e) => FinalizarVenda();
+            View.BotaoCancelarVendaClicado += (s, e) => CancelarVenda();
+            View.ProdutoSelecionadoMudou += (s, e) => AtualizarDadosProdutoSelecionado();
+            Inicializar();
         }
 
         public void Inicializar()
@@ -50,18 +52,17 @@ namespace ProjetoGuh.Features.Venda.Presenter
             _vendaAtiva = new VendaModel { Itens = new List<ItemVendaModel>() };
 
             // Passamos como object para manter a View cega para o Model
-            _view.PreencherComboClientes(_clienteRepository.Listar());
+            View.PreencherComboClientes(_clienteRepository.Listar());
             var listaProdutos = _produtoRepository.Listar();
             var produtosAtivos = listaProdutos.Where(p => p.Ativo == 'S').ToList();
-            _view.PreencherComboProdutos(produtosAtivos);
-            _view.PreencherComboFormasPagamento(_formaPagamentoRepository.Listar());
-
-            _view.AtualizarValorTotalVenda(0);
+            View.PreencherComboProdutos(produtosAtivos);
+            View.PreencherComboFormasPagamento(_formaPagamentoRepository.Listar() ?? new List<FormaPagamentoModel>());
+            View.AtualizarValorTotalVenda(0);
         }
 
         public void AtualizarDadosProdutoSelecionado()
         {
-            int? produtoId = _view.ObterProdutoSelecionadoId();
+            int? produtoId = View.ObterProdutoSelecionadoId();
 
             if (produtoId.HasValue)
             {
@@ -69,28 +70,28 @@ namespace ProjetoGuh.Features.Venda.Presenter
 
                 if (produto != null)
                 {
-                    _view.AtualizarPrecoUnitario(produto.Preco);
+                    View.AtualizarPrecoUnitario(produto.Preco);
                 }
                 else
                 {
                     // Se cair aqui, o ID existe no Combo, mas não existe no seu Banco/Lista
-                    _view.AtualizarPrecoUnitario(0);
+                    View.AtualizarPrecoUnitario(0);
                 }
             }
             else
             {
-                _view.AtualizarPrecoUnitario(0);
+                View.AtualizarPrecoUnitario(0);
             }
         }
 
         public void AdicionarItem()
         {
-            int? produtoId = _view.ObterProdutoSelecionadoId();
-            decimal quantidade = _view.ObterQuantidade();
+            int? produtoId = View.ObterProdutoSelecionadoId();
+            decimal quantidade = View.ObterQuantidade();
 
             if (!produtoId.HasValue)
             {
-                _view.ExibirMensagem("Selecione um produto.");
+                View.ExibirMensagem("Selecione um produto.");
                 return;
             }
 
@@ -100,13 +101,13 @@ namespace ProjetoGuh.Features.Venda.Presenter
             // --- CORREÇÃO AQUI: Verifica se o produto existe ---
             if (produto == null)
             {
-                _view.ExibirMensagemErro("Produto não encontrado no cadastro.");
+                View.ExibirMensagemErro("Produto não encontrado no cadastro.");
                 return;
             }
 
             if (quantidade <= 0)
             {
-                _view.ExibirMensagem("A quantidade deve ser maior que zero.");
+                View.ExibirMensagem("A quantidade deve ser maior que zero.");
                 return;
             }
 
@@ -122,13 +123,13 @@ namespace ProjetoGuh.Features.Venda.Presenter
 
             _vendaAtiva.Itens.Add(novoItem);
             RecalcularTotais();
-            _view.LimparCamposItem();
+            View.LimparCamposItem();
         }
 
         public void RemoverItem()
         {
             // No PDV, geralmente removemos pelo índice da Grid ou ID do item
-            int? index = _view.ObterIndexItemSelecionado();
+            int? index = View.ObterIndexItemSelecionado();
 
             if (index.HasValue && index >= 0 && index < _vendaAtiva.Itens.Count)
             {
@@ -137,7 +138,7 @@ namespace ProjetoGuh.Features.Venda.Presenter
             }
             else
             {
-                _view.ExibirMensagem("Selecione um item na lista para remover.");
+                View.ExibirMensagem("Selecione um item na lista para remover.");
             }
         }
 
@@ -146,43 +147,43 @@ namespace ProjetoGuh.Features.Venda.Presenter
             _vendaAtiva.ValorTotal = _vendaAtiva.Itens.Sum(i => i.ValorTotal);
 
             // Injetamos os dados brutos na View
-            _view.AtualizarGridItens(_vendaAtiva.Itens.ToList());
-            _view.AtualizarValorTotalVenda(_vendaAtiva.ValorTotal);
+            View.AtualizarGridItens(_vendaAtiva.Itens.ToList());
+            View.AtualizarValorTotalVenda(_vendaAtiva.ValorTotal);
         }
 
         public void FinalizarVenda()
         {
             try
             {
-                _vendaAtiva.IdCliente = _view.ObterClienteSelecionadoId() ?? 0;
-                _vendaAtiva.IdFormaPagamento = _view.ObterFormaPagamentoId() ?? 0;
-                _vendaAtiva.Observacao = _view.ObterObservacao();
+                _vendaAtiva.IdCliente = View.ObterClienteSelecionadoId() ?? 0;
+                _vendaAtiva.IdFormaPagamento = View.ObterFormaPagamentoId() ?? 0;
+                _vendaAtiva.Observacao = View.ObterObservacao();
                 _vendaAtiva.DataVenda = DateTime.Now;
 
                 var erros = _validator.Validar(_vendaAtiva);
                 if (erros.Count > 0)
                 {
-                    _view.ExibirMensagemErro(string.Join("\n", erros));
+                    View.ExibirMensagemErro(string.Join("\n", erros));
                     return;
                 }
 
                 _repository.GravarVendaCompleta(_vendaAtiva);
 
-                _view.ExibirMensagem("Venda realizada com sucesso!");
-                _view.ReiniciarFormulario();
+                View.ExibirMensagem("Venda realizada com sucesso!");
+                View.ReiniciarFormulario();
                 Inicializar();
             }
             catch (Exception ex)
             {
-                _view.ExibirMensagemErro($"Erro ao gravar venda: {ex.Message}");
+                View.ExibirMensagemErro($"Erro ao gravar venda: {ex.Message}");
             }
         }
 
         public void CancelarVenda()
         {
-            if (_view.ExibirMensagemPerguntar("Deseja realmente cancelar esta venda? Todos os itens lançados serão perdidos."))
+            if (View.ExibirMensagemPerguntar("Deseja realmente cancelar esta venda? Todos os itens lançados serão perdidos."))
             {
-                _view.ReiniciarFormulario();
+                View.ReiniciarFormulario();
                 Inicializar();
             }
         }
@@ -191,16 +192,16 @@ namespace ProjetoGuh.Features.Venda.Presenter
         {
             try
             {
-                if (_view.ExibirMensagemPerguntar($"Tem certeza que deseja excluir a venda nº {id}?"))
+                if (View.ExibirMensagemPerguntar($"Tem certeza que deseja excluir a venda nº {id}?"))
                 {
                     _repository.Excluir(id);
-                    _view.ExibirMensagem("Venda excluída com sucesso!");
+                    View.ExibirMensagem("Venda excluída com sucesso!");
                     Inicializar();
                 }
             }
             catch (Exception ex)
             {
-                _view.ExibirMensagemErro($"Erro ao excluir venda: {ex.Message}");
+                View.ExibirMensagemErro($"Erro ao excluir venda: {ex.Message}");
             }
         }
     }

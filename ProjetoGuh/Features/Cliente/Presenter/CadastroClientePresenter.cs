@@ -1,37 +1,39 @@
-﻿using ProjetoGuh.Features.Infraestrutura;
+﻿using ProjetoGuh.Features.Cliente.Model;
+using ProjetoGuh.Features.Cliente.Repository;
+using ProjetoGuh.Features.Cliente.View;
+using ProjetoGuh.Features.Infraestrutura;
 using System;
 using System.Linq;
-using ProjetoGuh.Features.Cliente.View;
-using ProjetoGuh.Features.Cliente.Model;
-using ProjetoGuh.Features.Cliente.Repository;
+using System.Windows.Forms;
 
 namespace ProjetoGuh.Features.Cliente.Presenter
 {
-    public class CadastroClientePresenter : ICadastroClientePresenter
+    public class CadastroClientePresenter : BasePresenter<ICadastroClienteView>, ICadastroClientePresenter
     {
-        private ICadastroClienteView _view;
         private readonly IClienteRepository _repository;
         private readonly ClienteModelValidator _validator;
-        private bool _carregandoInicial = true;
+        private bool _carregandoInicial = false;
 
         public CadastroClientePresenter(IClienteRepository repository)
+            : base(null)
         {
             _repository = repository;
             _validator = new ClienteModelValidator();
         }
 
-        public void SetView(ICadastroClienteView view)
+        public override void SetView(ICadastroClienteView view)
         {
-            _view = view;
-            _view.BotaoSalvarFoiClicado += (s, e) => Salvar();
-            _view.BotaoCancelarFoiClicado += (s, e) => _view.LimparFormulario();
-            _view.ClienteSelecionadoNaGrid += (s, e) => CarregarClienteSelecionado();
-            _view.BotaoExcluirFoiClicado += (s, e) =>
+            base.SetView(view);
+            view.BotaoSalvarFoiClicado += (s, e) => Salvar();
+            view.BotaoCancelarFoiClicado += (s, e) => view.LimparFormulario();
+            view.ClienteSelecionadoNaGrid += (s, e) => CarregarClienteSelecionado();
+            view.BotaoExcluirFoiClicado += (s, e) =>
             {
-                var id = _view.ObterIdSelecionadoNaGrid();
+                var id = view.ObterIdSelecionadoNaGrid();
                 if (id.HasValue) Excluir(id.Value);
-                else _view.ExibirMensagem("Selecione um cliente na lista para excluir.");
+                else view.ExibirMensagem("Selecione um cliente na lista para excluir.");
             };
+            Inicializar();
         }
 
         public void Inicializar()
@@ -40,13 +42,13 @@ namespace ProjetoGuh.Features.Cliente.Presenter
             try
             {
                 var clientes = _repository.Listar();
-                _view.PreencherGrid(clientes);
-                _view.LimparFormulario();
+                View.PreencherGrid(clientes);
+                View.LimparFormulario();
                 _carregandoInicial = false;
             }
             catch (Exception ex)
             {
-                _view.ExibirMensagemErro($"Erro ao carregar clientes: {ex.Message}");
+                View.ExibirMensagemErro($"Erro ao carregar clientes: {ex.Message}");
             }
         }
 
@@ -55,18 +57,18 @@ namespace ProjetoGuh.Features.Cliente.Presenter
             // O Presenter é o único que conhece o ClienteModel
             var cliente = new ClienteModel
             {
-                Id = _view.ObterId(),
-                Nome = _view.ObterNome(),
-                CpfCnpj = _view.ObterCpfCnpj(),
-                Telefone = _view.ObterTelefone(),
-                Email = _view.ObterEmail(),
-                DataCadastro = _view.ObterDataCadastro(),
-                Cep = _view.ObterCep(),
-                Logradouro = _view.ObterLogradouro(),
-                Numero = _view.ObterNumero(),
-                Bairro = _view.ObterBairro(),
-                Cidade = _view.ObterCidade(),
-                Uf = _view.ObterUf()
+                Id = View.ObterId(),
+                Nome = View.ObterNome(),
+                CpfCnpj = View.ObterCpfCnpj(),
+                Telefone = View.ObterTelefone(),
+                Email = View.ObterEmail(),
+                DataCadastro = View.ObterDataCadastro(),
+                Cep = View.ObterCep(),
+                Logradouro = View.ObterLogradouro(),
+                Numero = View.ObterNumero(),
+                Bairro = View.ObterBairro(),
+                Cidade = View.ObterCidade(),
+                Uf = View.ObterUf()
             };
 
             try
@@ -74,25 +76,25 @@ namespace ProjetoGuh.Features.Cliente.Presenter
                 var erros = _validator.Validar(cliente);
                 if (erros.Count > 0)
                 {
-                    _view.ExibirMensagemErro(string.Join("\n", erros));
+                    View.ExibirMensagemErro(string.Join("\n", erros));
                     return;
                 }
 
                 if (cliente.Id == 0)
                 {
                     _repository.Incluir(cliente);
-                    _view.ExibirMensagem("Cliente cadastrado com sucesso!");
+                    View.ExibirMensagem("Cliente cadastrado com sucesso!");
                 } else {
                     _repository.Alterar(cliente);
-                    _view.ExibirMensagem("Cliente atualizado com sucesso!");
+                    View.ExibirMensagem("Cliente atualizado com sucesso!");
                 }
 
-                _view.LimparFormulario();
+                View.LimparFormulario();
                 Inicializar();
             }
             catch (Exception ex)
             {
-                _view.ExibirMensagemErro($"Erro ao salvar: {ex.Message}");
+                View.ExibirMensagemErro($"Erro ao salvar: {ex.Message}");
             }
         }
 
@@ -100,21 +102,21 @@ namespace ProjetoGuh.Features.Cliente.Presenter
         {
             try
             {
-                if (!_view.ConfirmarExclusao()) return;
+                if (!View.ConfirmarExclusao()) return;
 
                 _repository.Excluir(id);
-                _view.ExibirMensagem("Cliente excluído com sucesso!");
+                View.ExibirMensagem("Cliente excluído com sucesso!");
                 Inicializar();
             }
             catch (Exception ex)
             {
-                _view.ExibirMensagemErro($"Erro ao excluir: {ex.Message}");
+                View.ExibirMensagemErro($"Erro ao excluir: {ex.Message}");
             }
         }
         private void CarregarClienteSelecionado()
         {
             if (_carregandoInicial) return;
-            int? id = _view.ObterIdSelecionadoNaGrid();
+            int? id = View.ObterIdSelecionadoNaGrid();
 
             if (id.HasValue && id > 0)
             {
@@ -123,7 +125,7 @@ namespace ProjetoGuh.Features.Cliente.Presenter
 
                 if (cliente != null)
                 {
-                    _view.PreencherCampos(
+                    View.PreencherCampos(
                         cliente.Id,
                         cliente.Nome,
                         cliente.CpfCnpj,

@@ -35,7 +35,7 @@ namespace ProjetoGuh.Features.Venda.Repository
         }
         public List<VendaModel> BuscarPorPeriodo(DateTime dataInicio, DateTime dataFim)
         {
-            var todasAsVendas = _vendaDao.Listar();
+            var todasAsVendas = _vendaDao.ListarVendasPorPeriodo(dataInicio, dataFim);
 
             if (todasAsVendas == null)
                 return new List<VendaModel>();

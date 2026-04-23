@@ -5,6 +5,7 @@ using ProjetoGuh.Features.Cliente;
 using ProjetoGuh.Features.Cliente.Dao;
 using ProjetoGuh.Features.Cliente.Presenter;
 using ProjetoGuh.Features.Cliente.Repository;
+using ProjetoGuh.Features.Cliente.View;
 using ProjetoGuh.Features.Infraestrutura;
 using ProjetoGuh.Features.Menu;
 using ProjetoGuh.Features.Menu.Presenter;
@@ -89,23 +90,25 @@ namespace ProjetoGuh
             // --- CLIENTE ---
             builder.RegisterType<ClienteDao>().As<IClienteDao>();
             builder.RegisterType<ClienteRepository>().As<IClienteRepository>();
-            builder.RegisterType<CadastroClientePresenter>().As<ICadastroClientePresenter>();
-            builder.RegisterType<CadastroClienteForm>().AsSelf();
+            builder.RegisterType<CadastroClientePresenter>().As<ICadastroClientePresenter>().InstancePerDependency();
+            builder.RegisterType<CadastroClienteForm>().As<ICadastroClienteView>().InstancePerDependency();
+            builder.RegisterType<CadastroClienteForm>().InstancePerDependency();
 
             // --- PRODUTO  ---
             builder.RegisterType<ProdutoDao>().As<IProdutoDao>();
             builder.RegisterType<ProdutoRepository>().As<IProdutoRepository>();
-            builder.RegisterType<CadastroProdutoPresenter>().AsSelf();
-            builder.RegisterType<CadastroProdutoForm>().As<ICadastroProdutoView>().AsSelf();
+            builder.RegisterType<CadastroProdutoPresenter>().As<ICadastroProdutoPresenter>().InstancePerDependency();
+            builder.RegisterType<CadastroProdutoForm>().As<ICadastroProdutoView>().InstancePerDependency();
+            builder.RegisterType<CadastroProdutoForm>().InstancePerDependency();
 
             // --- VENDA ---
             builder.RegisterType<VendaDao>().As<IVendaDao>();
             builder.RegisterType<VendaRepository>().As<IVendaRepository>();
             builder.RegisterType<FormaPagamentoDao>().As<IFormaPagamentoDao>();
             builder.RegisterType<FormaPagamentoRepository>().As<IFormaPagamentoRepository>();
-            builder.RegisterType<CadastroVendaPresenter>().AsSelf();
-            builder.RegisterType<PdvForm>().As<IPdvView>().AsSelf();
-            builder.RegisterType<PdvForm>().AsSelf();
+            builder.RegisterType<CadastroVendaPresenter>().As<ICadastroVendaPresenter>().InstancePerDependency();
+            builder.RegisterType<PdvForm>().As<IPdvView>().InstancePerDependency();
+            builder.RegisterType<PdvForm>().InstancePerDependency();
 
             // --- CONSULTA DE VENDA ---
             builder.RegisterType<VendaConsultaPresenter>().AsSelf().InstancePerLifetimeScope();

@@ -10,6 +10,7 @@ namespace ProjetoGuh.Features.Cliente.View
         event EventHandler BotaoCancelarFoiClicado;
         event EventHandler BotaoExcluirFoiClicado;
         event EventHandler ClienteSelecionadoNaGrid;
+        //event EventHandler Load;
 
         // Métodos para o Presenter extrair dados brutos
         int ObterId();

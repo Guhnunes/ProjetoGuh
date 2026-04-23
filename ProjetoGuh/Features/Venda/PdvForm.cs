@@ -15,12 +15,10 @@ namespace ProjetoGuh.Features.Venda
         public event EventHandler BotaoCancelarVendaClicado;
         public event EventHandler ProdutoSelecionadoMudou;
 
-        public PdvForm(CadastroVendaPresenter presenter)
+        public PdvForm()
         {
             InitializeComponent();
 
-            // Injeção do Presenter
-            presenter.SetView(this);
             this.KeyPreview = true;
 
             // Vinculação de Eventos dos Controles UI
@@ -30,8 +28,6 @@ namespace ProjetoGuh.Features.Venda
             btnCancelar.Click += (s, e) => BotaoCancelarVendaClicado?.Invoke(this, EventArgs.Empty);
 
             cmbProduto.SelectedIndexChanged += (s, e) => ProdutoSelecionadoMudou?.Invoke(this, EventArgs.Empty);
-
-            this.Load += (s, e) => presenter.Inicializar();
         }
 
         #region Implementação da IPdvView
@@ -58,16 +54,16 @@ namespace ProjetoGuh.Features.Venda
         public void PreencherComboFormasPagamento(object formas)
         {
             cmbFormaPagamento.DataSource = null;
-            cmbFormaPagamento.DisplayMember = "Descricao"; // 1º Texto
-            cmbFormaPagamento.ValueMember = "Id";          // 2º Valor (ID)
-            cmbFormaPagamento.DataSource = formas;       // 3º Dados
+            cmbFormaPagamento.DisplayMember = "Descricao";
+            cmbFormaPagamento.ValueMember = "Id";         
+            cmbFormaPagamento.DataSource = formas;       
             cmbFormaPagamento.SelectedIndex = -1;
         }
 
         public void AtualizarGridItens(object itens)
         {
             dgvItens.DataSource = null;
-            dgvItens.AutoGenerateColumns = true; // Garante que o grid gere as colunas
+            dgvItens.AutoGenerateColumns = true;
             dgvItens.DataSource = itens;
 
             // Força o WinForms a processar as colunas geradas

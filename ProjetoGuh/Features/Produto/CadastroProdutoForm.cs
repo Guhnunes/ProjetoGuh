@@ -14,22 +14,16 @@ namespace ProjetoGuh.Features.Produto
 
         private int _produtoIdAtual = 0;
 
-        public CadastroProdutoForm(CadastroProdutoPresenter presenter)
+        public CadastroProdutoForm()
         {
             InitializeComponent();
 
-            // Injeção e configuração da View no Presenter
-            presenter.SetView(this);
-
-            // Assinatura de eventos
             btnSalvar.Click += (s, e) => BotaoSalvarFoiClicado?.Invoke(this, EventArgs.Empty);
             btnCancelar.Click += (s, e) => BotaoCancelarFoiClicado?.Invoke(this, EventArgs.Empty);
             btnExcluir.Click += (s, e) => BotaoExcluirFoiClicado?.Invoke(this, EventArgs.Empty);
 
-            this.Load += (s, e) => presenter.Inicializar();
             dataGridProdutoView1.CellClick += DataGridProdutoView1_CellClick;
 
-            // Máscara de preço
             txtPreco.TextChanged += txtPreco_TextChanged;
         }
 

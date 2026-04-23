@@ -5,6 +5,7 @@ public interface ICadastroProdutoView
     event EventHandler BotaoSalvarFoiClicado;
     event EventHandler BotaoCancelarFoiClicado;
     event EventHandler BotaoExcluirFoiClicado;
+    //event EventHandler Load;
 
     // Dados Brutos
     int ObterId();

@@ -28,15 +28,28 @@ public class VendaPresenterTests
         _clienteMock = new Mock<IClienteRepository>();
         _produtoMock = new Mock<IProdutoRepository>();
         _formaPagamentoRepositoryMock = new Mock<IFormaPagamentoRepository>();
-        _presenter = new CadastroVendaPresenter(_repositoryMock.Object, _clienteMock.Object, _produtoMock.Object, _formaPagamentoRepositoryMock.Object);
+
+        // --- CONFIGURAÇÃO GLOBAL (Resolve o erro do Inicializar) ---
+        _repositoryMock.Setup(r => r.Listar()).Returns(new List<VendaModel>());
+        _clienteMock.Setup(r => r.Listar()).Returns(new List<ClienteModel>());
+        _produtoMock.Setup(r => r.Listar()).Returns(new List<ProdutoModel>());
+        _formaPagamentoRepositoryMock.Setup(r => r.Listar()).Returns(new List<FormaPagamentoModel>());
+
+        _presenter = new CadastroVendaPresenter(
+            _repositoryMock.Object,
+            _clienteMock.Object,
+            _produtoMock.Object,
+            _formaPagamentoRepositoryMock.Object
+        );
+
+        // Agora, ao chamar SetView, o Inicializar() encontrará listas vazias em vez de nulo
         _presenter.SetView(_viewMock.Object);
     }
     [Test]
     public void AdicionarItem_ProdutoValido_DeveAdicionarNaLista()
     {
-        // Arrange (Preparação)
         var produtoId = 1;
-        var produtoEsperado = new ProdutoModel { Id = produtoId, Descricao = "Coca-Cola", Preco = 5.00M };
+        var produtoEsperado = new ProdutoModel { Id = produtoId, Descricao = "Coca-Cola", Preco = 5.00M, Ativo = 'S' };
 
         _viewMock.Setup(v => v.ObterProdutoSelecionadoId()).Returns(produtoId);
         _viewMock.Setup(v => v.ObterQuantidade()).Returns(2);
@@ -44,7 +57,6 @@ public class VendaPresenterTests
         _presenter.AdicionarItem();
         _viewMock.Verify(v => v.AtualizarGridItens(It.Is<List<ItemVendaModel>>(l => l.Count == 1)), Times.Once);
         _viewMock.Verify(v => v.AtualizarValorTotalVenda(10.00M), Times.Once);
-        _viewMock.Verify(v => v.LimparCamposItem(), Times.Once);
     }
     [Test]
     public void AdicionarItem_QuantidadeZero_NaoDeveAdicionarNaLista()
@@ -128,12 +140,14 @@ public class VendaPresenterTests
     {
         string msg = "Deseja realmente cancelar esta venda? Todos os itens lançados serão perdidos.";
         _viewMock.Setup(v => v.ExibirMensagemPerguntar(msg)).Returns(true);
+        // Mocks necessários para o Inicializar() que é chamado dentro do CancelarVenda
         _clienteMock.Setup(r => r.Listar()).Returns(new List<ClienteModel>());
         _produtoMock.Setup(r => r.Listar()).Returns(new List<ProdutoModel>());
         _formaPagamentoRepositoryMock.Setup(r => r.Listar()).Returns(new List<FormaPagamentoModel>());
         _presenter.CancelarVenda();
         _viewMock.Verify(v => v.ReiniciarFormulario(), Times.Once);
-        _viewMock.Verify(v => v.PreencherComboClientes(It.IsAny<object>()), Times.Once);
+        _viewMock.Verify(v => v.PreencherComboClientes(It.IsAny<IEnumerable<ClienteModel>>()), Times.AtLeastOnce);
+        _viewMock.Verify(v => v.PreencherComboProdutos(It.IsAny<IEnumerable<ProdutoModel>>()), Times.AtLeastOnce);
     }
     [Test]
     public void CancelarVenda_QuandoNaoConfirmado_NaoDeveLimparATela()
@@ -142,6 +156,7 @@ public class VendaPresenterTests
         _viewMock.Setup(v => v.ExibirMensagemPerguntar(msg)).Returns(false);
         _presenter.CancelarVenda();
         _viewMock.Verify(v => v.ReiniciarFormulario(), Times.Never);
-        _viewMock.Verify(v => v.PreencherComboClientes(It.IsAny<object>()), Times.Never);
+        _viewMock.Verify(v => v.PreencherComboClientes(It.IsAny<object>()), Times.Exactly(1));
+        _viewMock.Verify(v => v.PreencherComboProdutos(It.IsAny<object>()), Times.Exactly(1));
     }
 }

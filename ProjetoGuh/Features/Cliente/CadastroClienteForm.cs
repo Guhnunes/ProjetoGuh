@@ -2,6 +2,7 @@
 using ProjetoGuh.Features.Cliente.Presenter;
 using ProjetoGuh.Features.Cliente.View;
 using ProjetoGuh.Features.Infraestrutura;
+using System.Configuration;
 using System;
 using System.Linq;
 using System.Net.Http;
@@ -19,7 +20,7 @@ namespace ProjetoGuh.Features.Cliente
 
         private int _clienteIdAtual = 0;
 
-        public CadastroClienteForm(ICadastroClientePresenter presenter)
+        public CadastroClienteForm()
         {
             InitializeComponent();
 
@@ -41,11 +42,6 @@ namespace ProjetoGuh.Features.Cliente
             txtCpfCnpj.TextChanged += txtCpfCnpj_TextChanged;
             txtTelefone.MaxLength = 15;
             txtTelefone.TextChanged += txtTelefone_TextChanged;
-
-            // Injeção e Inicialização
-            presenter.SetView(this);
-            this.Load += (s, e) => presenter.Inicializar();
-
         }
 
         // --- MÉTODOS DE EXTRAÇÃO (DADOS BRUTOS) ---
@@ -102,6 +98,7 @@ namespace ProjetoGuh.Features.Cliente
         {
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = dataSource;
+            dataGridView1.AutoGenerateColumns = true;
             dataGridView1.ClearSelection();
 
             if (dataGridView1.Columns.Count > 0)
@@ -304,7 +301,7 @@ namespace ProjetoGuh.Features.Cliente
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    var token = "25850|kC7oPY3eQGpru2haN0tLi7KH3xNeID4h";
+                    var token = ConfigurationManager.AppSettings["Token"];
                     var response = await client.GetAsync($"https://api.invertexto.com/v1/validator?token={token}&value={cpfcnpj}");
 
                     if (response.IsSuccessStatusCode)

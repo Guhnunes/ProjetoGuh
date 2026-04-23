@@ -10,6 +10,7 @@ namespace ProjetoGuh.Features.Venda.View
         event EventHandler BotaoFinalizarVendaClicado;
         event EventHandler BotaoCancelarVendaClicado;
         event EventHandler ProdutoSelecionadoMudou;
+        //event EventHandler Load;
 
         // Métodos para carregar os combos (usando object para esconder os Models)
         void PreencherComboClientes(object clientes);

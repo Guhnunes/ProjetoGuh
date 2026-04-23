@@ -22,7 +22,7 @@ namespace ProjetoGuh.Features.Cliente.Model
             else if (valorLimpo.Length != 11 && valorLimpo.Length != 14)
                 erros.Add("O campo deve ter 11 dígitos (CPF) ou 14 dígitos (CNPJ).");
 
-            if (string.IsNullOrWhiteSpace(model.Email) && !model.Email.Contains("@"))
+            if (!string.IsNullOrWhiteSpace(model.Email) && !model.Email.Contains("@"))
                 erros.Add("Email inválido.");
 
             return erros;

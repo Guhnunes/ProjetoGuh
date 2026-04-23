@@ -3,16 +3,11 @@
   "WorkspaceRootPath": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|c:\\users\\gusta\\desktop\\projetoguh\\projetoguh\\features\\cliente\\cadastroclienteform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|solutionrelative:features\\cliente\\cadastroclienteform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{4036C2F9-9617-4D8F-AD98-78DE3CEE2ECB}|..\\ProjetoGuh.Testes\\ProjetoGuh.Testes.csproj|c:\\users\\gusta\\desktop\\projetoguh\\projetoguh.testes\\features\\venda\\cadastrovendapresentertestes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|c:\\users\\gusta\\desktop\\projetoguh\\projetoguh\\features\\cliente\\cadastroclienteform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|solutionrelative:features\\cliente\\cadastroclienteform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|c:\\users\\gusta\\desktop\\projetoguh\\projetoguh\\features\\cliente\\cadastroclienteform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|solutionrelative:features\\cliente\\cadastroclienteform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|c:\\users\\gusta\\desktop\\projetoguh\\projetoguh\\features\\venda\\presenter\\cadastrovendapresenter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6649A1CD-185F-46F5-8F43-69EE3B0C038C}|ProjetoGuh.csproj|solutionrelative:features\\venda\\presenter\\cadastrovendapresenter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,44 +17,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CadastroClienteForm.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Cliente\\CadastroClienteForm.cs",
-              "RelativeDocumentMoniker": "Features\\Cliente\\CadastroClienteForm.cs",
-              "ToolTip": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Cliente\\CadastroClienteForm.cs [Design]",
-              "RelativeToolTip": "Features\\Cliente\\CadastroClienteForm.cs [Design]",
+              "DocumentIndex": 1,
+              "Title": "CadastroVendaPresenter.cs",
+              "DocumentMoniker": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Venda\\Presenter\\CadastroVendaPresenter.cs",
+              "RelativeDocumentMoniker": "Features\\Venda\\Presenter\\CadastroVendaPresenter.cs",
+              "ToolTip": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Venda\\Presenter\\CadastroVendaPresenter.cs",
+              "RelativeToolTip": "Features\\Venda\\Presenter\\CadastroVendaPresenter.cs",
+              "ViewState": "AgIAAKgAAAAAAAAAAAAYwLcAAAB7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-22T13:19:36.922Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CadastroClienteForm.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Cliente\\CadastroClienteForm.Designer.cs",
-              "RelativeDocumentMoniker": "Features\\Cliente\\CadastroClienteForm.Designer.cs",
-              "ToolTip": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Cliente\\CadastroClienteForm.Designer.cs",
-              "RelativeToolTip": "Features\\Cliente\\CadastroClienteForm.Designer.cs",
-              "ViewState": "AgIAAA0BAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-22T13:12:11.688Z",
+              "WhenOpened": "2026-04-23T13:41:28.828Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CadastroClienteForm.cs",
-              "DocumentMoniker": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Cliente\\CadastroClienteForm.cs",
-              "RelativeDocumentMoniker": "Features\\Cliente\\CadastroClienteForm.cs",
-              "ToolTip": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh\\Features\\Cliente\\CadastroClienteForm.cs",
-              "RelativeToolTip": "Features\\Cliente\\CadastroClienteForm.cs",
-              "ViewState": "AgIAAD8BAAAAAAAAAAAAAEsBAAA6AAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "CadastroVendaPresenterTestes.cs",
+              "DocumentMoniker": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh.Testes\\Features\\Venda\\CadastroVendaPresenterTestes.cs",
+              "RelativeDocumentMoniker": "..\\ProjetoGuh.Testes\\Features\\Venda\\CadastroVendaPresenterTestes.cs",
+              "ToolTip": "C:\\Users\\gusta\\Desktop\\ProjetoGuh\\ProjetoGuh.Testes\\Features\\Venda\\CadastroVendaPresenterTestes.cs",
+              "RelativeToolTip": "..\\ProjetoGuh.Testes\\Features\\Venda\\CadastroVendaPresenterTestes.cs",
+              "ViewState": "AgIAAJEAAAAAAAAAAAAkwJkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-22T12:06:18.117Z",
+              "WhenOpened": "2026-04-23T13:33:59.571Z",
               "EditorCaption": ""
             }
           ]

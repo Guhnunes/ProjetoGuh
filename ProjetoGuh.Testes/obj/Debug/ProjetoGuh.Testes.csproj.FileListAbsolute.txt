@@ -261,3 +261,5 @@ C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh.Testes\bin\Debug\zh-Hans\Microsoft.
 C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh.Testes\bin\Debug\zh-Hant\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
 C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh.Testes\obj\Debug\ProjetoGuh.Testes.gentestingplatformentrypointinputcache.cache
 C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh.Testes\obj\Debug\ProjetoGuh.Testes.genautoregisteredextensionsinputcache.cache
+C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh.Testes\bin\Debug\Newtonsoft.Json.dll
+C:\Users\gusta\Desktop\ProjetoGuh\ProjetoGuh.Testes\bin\Debug\Newtonsoft.Json.xml

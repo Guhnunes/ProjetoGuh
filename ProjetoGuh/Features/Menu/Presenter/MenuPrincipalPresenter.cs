@@ -1,8 +1,11 @@
 ﻿using Autofac;
 using ProjetoGuh.Features.Cliente;
+using ProjetoGuh.Features.Cliente.Presenter;
+using ProjetoGuh.Features.Produto.Presenter;
+using ProjetoGuh.Features.Menu.View;
 using ProjetoGuh.Features.Produto;
 using ProjetoGuh.Features.Venda;
-using ProjetoGuh.Features.Menu.View;
+using ProjetoGuh.Features.Venda.Presenter;
 using System;
 
 
@@ -26,31 +29,29 @@ namespace ProjetoGuh.Features.Menu.Presenter
         }
         private void AbrirConsultaVendas()
         {
-            // Resolve o formulário pelo Autofac (garante que o VendaConsultaPresenter seja injetado)
             var form = _scope.Resolve<VendaConsultaForm>();
             _view.AdicionarAba("Consulta de Vendas", form);
         }
         private void AbrirVenda(object sender, EventArgs e)
         {
             var frm = _scope.Resolve<PdvForm>();
-
+            var presenter = _scope.Resolve<ICadastroVendaPresenter>();
+            presenter.SetView(frm);
             _view.AdicionarAba("Venda (PDV)", frm);
         }
 
         private void AbrirCliente(object sender, EventArgs e)
         {
-            // Resolvemos o formulário diretamente do escopo principal 
-            // ou criamos um escopo que não seja descartado imediatamente.
-            // Para WinForms simples, podemos resolver direto do _scope:
-
             var frm = _scope.Resolve<CadastroClienteForm>();
-
-            // Em vez de ShowDialog, mandamos a View encaixar o form na aba
+            var presenter = _scope.Resolve<ICadastroClientePresenter>();
+            presenter.SetView(frm);
             _view.AdicionarAba("Cadastro de Clientes", frm);
         }
         private void AbrirProduto(object sender, EventArgs e)
         {
             var frm = _scope.Resolve<CadastroProdutoForm>();
+            var presenter = _scope.Resolve<ICadastroProdutoPresenter>();
+            presenter.SetView(frm);
             _view.AdicionarAba("Cadastro de Produtos", frm);
         }
     }
